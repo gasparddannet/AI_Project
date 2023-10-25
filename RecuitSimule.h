@@ -7,7 +7,7 @@
 
 class RecuitSimule {
 public:
-    RecuitSimule(double T, int nbIter, int nbIterT, double solutionCourante);
+    RecuitSimule(int nbIter, int nbIterT, double solutionCourante, double T);
 
     double fonctionObjectif(double solution);
 
