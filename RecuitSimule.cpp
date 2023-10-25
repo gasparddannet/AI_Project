@@ -1,10 +1,15 @@
 #include "RecuitSimule.h"
 
+<<<<<<< Updated upstream
 RecuitSimule::RecuitSimule(double T=2, int nbIter, int nbIterT, double solutionCourante) :
+=======
+RecuitSimule::RecuitSimule(double T=200, int nbIter, int nbIterT, double solutionCourante) :
+>>>>>>> Stashed changes
     T(T),
     nbIter(nbIter),
     nbIterT(nbIterT),
-    solutionCourante(solutionCourante) {}
+    solutionCourante(solutionCourante),
+    solutionGlobal(solutionCourante) {}
 
 double RecuitSimule::fonctionObjectif(double solution) {
     return solution;
@@ -19,7 +24,6 @@ double RecuitSimule::generateSolution(double solution) {
 }
 
 double RecuitSimule::recuitSimule() {
-    double solutionCourante = generateSolution(solutionCourante);
     double valeurCourante = fonctionObjectif(solutionCourante);
     int compt = 0;
 
@@ -29,9 +33,16 @@ double RecuitSimule::recuitSimule() {
             double nouvelleValeur = fonctionObjectif(nouvelleSolution);
 
             double differenceValeur = nouvelleValeur - valeurCourante;
-            if (differenceValeur < 0 || rand() / static_cast<double>(RAND_MAX) < exp(-differenceValeur / T)) {
+            if (differenceValeur < 0) {
                 solutionCourante = nouvelleSolution;
                 valeurCourante = nouvelleValeur;
+                solutionGlobal = nouvelleSolution;
+            } 
+            else {
+                if (rand() / static_cast<double>(RAND_MAX) < exp(-differenceValeur / T)) {
+                    solutionCourante = nouvelleSolution;
+                    valeurCourante = nouvelleValeur;
+                }
             }
         }
         compt += 1;

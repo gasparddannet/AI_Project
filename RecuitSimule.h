@@ -20,6 +20,7 @@ private:
     int nbIter;
     int nbIterT;
     double solutionCourante;
+    double solutionGlobal;
 
     double generateSolution(double solution);
 };
