@@ -1,10 +1,6 @@
 #include "RecuitSimule.h"
 
-<<<<<<< Updated upstream
-RecuitSimule::RecuitSimule(double T=2, int nbIter, int nbIterT, double solutionCourante) :
-=======
 RecuitSimule::RecuitSimule(double T=200, int nbIter, int nbIterT, double solutionCourante) :
->>>>>>> Stashed changes
     T(T),
     nbIter(nbIter),
     nbIterT(nbIterT),
