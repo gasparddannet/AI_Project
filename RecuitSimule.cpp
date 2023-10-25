@@ -1,6 +1,6 @@
 #include "RecuitSimule.h"
 
-RecuitSimule::RecuitSimule(double T, int nbIter, int nbIterT, double solutionCourante) :
+RecuitSimule::RecuitSimule(double T=2, int nbIter, int nbIterT, double solutionCourante) :
     T(T),
     nbIter(nbIter),
     nbIterT(nbIterT),
