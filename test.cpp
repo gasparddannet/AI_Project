@@ -1,19 +1,24 @@
 #include "RecuitSimule.h"
 #include "Parking.h"
+#include "Stay.h"
 #include "fstream"
 #include "sstream"
 
 using namespace std;
 
 
-
 string ParkingFile = "Data/parking_2F_2DLarge.csv";
+string StaysFile = "Data/stays_2F_090822.csv";
 
 string &rtrim(string &s)
 {
     s.erase(s.find_last_not_of(' ') + 1);
     return s;
 }
+
+/**********************************************/
+/*************     READ PARKING   *************/ 
+/**********************************************/
 
 ParkNature stringToParkNature(std::string &pn)
 {
@@ -78,9 +83,9 @@ Parking stringstreamToParking(std::stringstream &ss)
     return park;
 }
 
-const vector<Parking> readParking()
+const vector<Parking> readParkings()
 {
-    vector<Parking> vectParking;
+    vector<Parking> vectParkings;
 
     ifstream file(ParkingFile);
 
@@ -105,22 +110,116 @@ const vector<Parking> readParking()
         // while (ss >> colname) {
         //     cout << colname << endl;
         // }
-        vectParking.push_back(stringstreamToParking(ss));
+        vectParkings.push_back(stringstreamToParking(ss));
     }
     // used for breaking words
     // stringstream s(line);
     file.close();
 
-    return vectParking;
+    return vectParkings;
 }
+
+
+/**********************************************/
+/*************     READ STAYS   *************/ 
+/**********************************************/
+
+BodyType stringToBodyType(std::string &bt)
+{
+    if (bt == "MP")
+    {
+        return BodyType::MP;
+    }
+    throw std::invalid_argument("Wrong Body Type");
+}
+
+CourrierCode stringToCourrierCode(string &cc) {
+    if (cc == "MC")
+    {
+        return CourrierCode::MC;
+    }
+    throw std::invalid_argument("Wrong Courrier Code");
+
+}
+
+Date stringToDate(string &d) {
+    vector<int> vect;
+    string val;
+    stringstream ss(d);
+    while (getline(ss, val, '/')) {
+        vect.push_back(stoi(val));
+    }
+    return Date(vect[0], vect[1], vect[2]);
+}
+
+Time stringToTime(string &t) {
+    vector<int> vect;
+    string val;
+    stringstream ss(t);
+    while (getline(ss, val, ':')) {
+        vect.push_back(stoi(val));
+    }
+    return Time(vect[0], vect[1]);
+}
+
+Stay stringstreamToStay(stringstream &ss) {
+    vector<string> row;
+    string val;
+    while (getline(ss, val, ';'))
+    {
+        val = rtrim(val);
+        row.push_back(val);
+    }
+    Stay stay = Stay(stoi(row[0]), stringToBodyType(row[1]), stoi(row[2]), stoi(row[3]), row[4], row[5], 
+                     stoi(row[6]), stringToDate(row[7]), stringToTime(row[8]), stringToCourrierCode(row[9]), row[10], row[11],
+                     row[12], stoi(row[13]), stringToDate(row[14]), stringToTime(row[15]), stringToCourrierCode(row[16]), row[17]);
+    return stay;
+}
+
+const vector<Stay> readStays() {
+    vector<Stay> vectStays;
+
+    ifstream file(StaysFile);
+
+    if (!file.is_open())
+        throw std::runtime_error("Could not open file");
+
+    string line, colname;
+    int val;
+    getline(file, line);
+    while (getline(file, line))
+    {
+        std::stringstream ss(line);
+        vectStays.push_back(stringstreamToStay(ss));
+    }
+    file.close();
+
+    return vectStays;
+}
+
+
 
 int main()
 {
     RecuitSimule rs(2, 1, 1, 1);
-    vector<Parking> vectParking = readParking();
+
+    /* Read Parkings */
+    cout << "Read Parkings : " << endl;
+    vector<Parking> vectParking = readParkings();
 
     for (Parking &p : vectParking) {
         cout << p;
     }
+    cout << '\n';
+    cout << '\n';
+
+    /* Read Stays */
+    cout << "Read stays" << endl;
+    vector<Stay> vectStays = readStays();
+
+    for (Stay &s : vectStays) {
+        cout << s;
+    }
+
     return 0;
 }

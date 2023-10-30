@@ -1,5 +1,6 @@
 #include "Date.h"
-
+#include <iomanip>
+#include <iostream>
 
 Date::Date(int j,int m,int a):jour(j),mois(m),annee(a){   
 }
@@ -29,7 +30,12 @@ Date::~Date()
 }
 
 ostream & operator<<(ostream& o,const Date& d) {
-    o << d.jour << "/" << d.mois << "/" << d.annee << endl;
+    o << std::setw(2) << std::setfill('0') << d.jour;
+    o << "/";
+    o << std::setw(2) << std::setfill('0') << d.mois;
+    o << "/";
+    o << std::setw(4) << std::setfill('0') << d.annee;
+    o << endl;
     return o;
 }
 
