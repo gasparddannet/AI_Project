@@ -1,0 +1,39 @@
+name ;parkingZone ;terminal ;nature  ;typeAvion
+F02  ;F1          ;2F       ;Contact ;318,319,320,223
+F04  ;F1          ;2F       ;Contact ;318,319,320,321,737,223
+F08  ;F1          ;2F       ;Contact ;318,319,320,321,737,223
+F10  ;F1          ;2F       ;Contact ;320,321,737
+F14  ;F1          ;2F       ;Contact ;320,321,737,223
+F16  ;F1          ;2F       ;Contact ;318,319,320,321,737,223
+F18  ;F1          ;2F       ;Contact ;318
+F20  ;F1          ;2F       ;Contact ;318,319,320
+F22  ;F1          ;2F       ;Contact ;318,319,320
+F26  ;F1          ;2F       ;Contact ;318,319,320,321,737,223
+F28  ;F1          ;2F       ;Contact ;-
+F30  ;F1          ;2F       ;Contact ;318,319,320,321,737,223
+F32  ;F1          ;2F       ;Contact ;318,319,320,321,737,223
+F34  ;F1          ;2F       ;Contact ;318,319,320
+D03  ;Delta Large ;2D       ;Large   ;318,319,320,321,737,223
+D05  ;Delta Large ;2D       ;Large   ;318,319,320,321,737,223
+D07  ;Delta Large ;2D       ;Large   ;318
+D09  ;Delta Large ;2D       ;Large   ;318,319,320,321,737,223
+D11  ;Delta Large ;2D       ;Large   ;318,319,320,321,737,223
+D13  ;Delta Large ;2D       ;Large   ;318
+D15  ;Delta Large ;2D       ;Large   ;318,319,320,321,737,223
+D17  ;Delta Large ;2D       ;Large   ;318
+D19  ;Delta Large ;2D       ;Large   ;318,319,320,321,737,223
+F66  ;F2          ;2F       ;Contact ;318,319,320,737
+F68  ;F2          ;2F       ;Contact ;318,319,320,321,737,223
+F70  ;F2          ;2F       ;Contact ;319,320,321,737,223
+F72  ;F2          ;2F       ;Contact ;-
+F74  ;F2          ;2F       ;Contact ;-
+F76  ;F2          ;2F       ;Contact ;320,321,737,223
+F78  ;F2          ;2F       ;Contact ;-
+F80  ;F2          ;2F       ;Contact ;318,319,320
+F82  ;F2          ;2F       ;Contact ;318,319,320,223
+F84  ;F2          ;2F       ;Contact ;318,319,320,321
+F86  ;F2          ;2F       ;Contact ;318,319,320,321,223
+F90  ;F2          ;2F       ;Contact ;318,319,320,321,737,223
+F92  ;F2          ;2F       ;Contact ;318,319,320,321,737,223
+F94  ;F2          ;2F       ;Contact ;318,319,320,321,737,223
+F96  ;F2          ;2F       ;Contact ;318,319,320,321,737,223
