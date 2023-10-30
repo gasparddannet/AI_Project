@@ -6,7 +6,7 @@ Date::Date(int j,int m,int a):jour(j),mois(m),annee(a){
 }
 
 
-int Date::comparer(Date d)
+int Date::comparer(const Date &d)
 {
 	if (annee!= d.annee)
     {
@@ -55,6 +55,12 @@ bool Date::operator<(const Date&d) {
         return true;
     else
         return false;
+}
+
+bool Date::operator==(const Date& d) {
+    int res = this->comparer(d);
+    if (res == 0) return true;
+    else return false;
 }
 
 Date& Date::operator++ () {

@@ -162,6 +162,25 @@ Time stringToTime(string &t) {
     return Time(vect[0], vect[1]);
 }
 
+int getAuthorizedTowing(int &isTowable, Date& arrDate, Time& arrTime, Date& depDate, Time& depTime) {
+    if (isTowable == 1) {
+        if (arrDate == depDate) {
+            if (depTime - arrTime >= Time(4,0)) {
+                return 2;
+            }
+            else return 1;
+        }
+        else {
+            if (Time(20,0) >= arrTime or depTime >= Time(4,0)) {
+                return 2;
+            }
+            else return 1;
+        }
+    }
+
+    else return 0;
+}
+
 Stay stringstreamToStay(stringstream &ss) {
     vector<string> row;
     string val;
@@ -170,9 +189,29 @@ Stay stringstreamToStay(stringstream &ss) {
         val = rtrim(val);
         row.push_back(val);
     }
-    Stay stay = Stay(stoi(row[0]), stringToBodyType(row[1]), stoi(row[2]), stoi(row[3]), row[4], row[5], 
-                     stoi(row[6]), stringToDate(row[7]), stringToTime(row[8]), stringToCourrierCode(row[9]), row[10], row[11],
-                     row[12], stoi(row[13]), stringToDate(row[14]), stringToTime(row[15]), stringToCourrierCode(row[16]), row[17]);
+    int id = stoi(row[0]);
+    BodyType bodyType = stringToBodyType(row[1]);
+    int aircraftType = stoi(row[2]);
+    string arrOwnerCie = row[4];
+    string arrExploitingCie = row[5];
+    int arrNumber = stoi(row[6]);
+    Date arrDate = stringToDate(row[7]);
+    Time arrHour = stringToTime(row[8]);
+    CourrierCode arrCourrierCode = stringToCourrierCode(row[9]);
+    string arrStop = row[10];
+    string depOwnerCie = row[11];
+    string depExploitingCie = row[12];
+    int depNumber = stoi(row[13]);
+    Date depDate = stringToDate(row[14]);
+    Time depHour = stringToTime(row[15]);
+    CourrierCode depCourrierCode = stringToCourrierCode(row[16]);
+    string depStop = row[17];
+    int isTowable = stoi(row[3]);
+    int authorizedTowing = getAuthorizedTowing(isTowable, arrDate, arrHour, depDate, depHour);
+
+    Stay stay = Stay(id, bodyType, aircraftType, authorizedTowing, arrOwnerCie, arrExploitingCie , 
+                     arrNumber, arrDate, arrHour, arrCourrierCode, arrStop, depOwnerCie,
+                     depExploitingCie, depNumber, depDate, depHour, depCourrierCode, row[17]);
     return stay;
 }
 
@@ -221,5 +260,12 @@ int main()
         cout << s;
     }
 
+
+    Time t1 = Time(1,50);
+    Time t2 = Time(12,30);
+    Time t3 = t2 - t1;
+    cout << t1;
+    cout << t2;
+    cout << t3;
     return 0;
 }

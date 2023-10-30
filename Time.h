@@ -13,6 +13,11 @@ class Time
         Time(int h, int m);
         void Print();
         friend ostream & operator<<(ostream& o,const Time& t) ;
+        int comparer(const Time &t);
+
+        bool operator==(const Time &t);
+        Time operator-(const Time &t);
+        bool operator>=(const Time &t);
     };
 
 #endif
