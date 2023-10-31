@@ -38,6 +38,12 @@ class Stay
 
         friend ostream & operator<<(ostream& o,const Stay& p) ;
 
+        Date getArrDate();
+        Time getArrHour();
+        Date getDepDate();
+        Time getDepHour();
+        int getAuthorizedTowing();
+
 };
 
 #endif

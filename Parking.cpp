@@ -65,3 +65,11 @@ ostream & operator<<(ostream& o,const Parking& p) {
     cout << endl;
 	return o;
 }
+
+string Parking::getZone() {
+    return zone;
+}
+
+ParkNature Parking::getNature() {
+    return nature;
+}

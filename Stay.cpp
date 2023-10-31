@@ -54,3 +54,25 @@ ostream & operator<<(ostream& o,const Stay& s) {
     o << endl;
 	return o;
 }
+
+
+Date Stay::getArrDate() {
+    return arrDate;
+}
+
+Time Stay::getArrHour() {
+    return arrHour;
+}
+
+Date Stay::getDepDate() {
+    return depDate;
+}
+
+Time Stay::getDepHour() {
+    return depHour;
+}
+
+int Stay::getAuthorizedTowing() {
+    return authorizedTowing;
+}
+

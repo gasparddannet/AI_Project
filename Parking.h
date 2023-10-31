@@ -23,7 +23,9 @@ class Parking
     public:
         Parking(string n,string z, string t, ParkNature na, const vector<int> tA);
         friend ostream & operator<<(ostream& o,const Parking& p) ;
-
+        string getZone();
+        ParkNature getNature();
+        
         // static const vector<Parking> readParking();
 
 };
