@@ -36,8 +36,6 @@ ParkNature stringToParkNature(std::string &pn)
     {
         return ParkNature::Large;
     }
-    // else throw string("Wrong Parking Nature");
-    // else throw std::invalid_argument("Wrong Parking Nature");
     throw std::invalid_argument("Wrong Parking Nature");
 }
 
@@ -67,17 +65,10 @@ Parking stringstreamToParking(std::stringstream &ss)
 {
     vector<string> row;
     string val;
-    // int numCol = 0;
     while (getline(ss, val, ';'))
     {
         val = rtrim(val);
-        // cout << val.length() << endl;
-
         row.push_back(val);
-        // cout << numCol;
-        // cout << val << endl;
-        // if(ss.peek() == ';') ss.ignore();
-        // numCol++;
     }
     Parking park = Parking(row[0], row[1], row[2], stringToParkNature(row[3]), stringToVectInt(row[4]));
     return park;
@@ -86,34 +77,17 @@ Parking stringstreamToParking(std::stringstream &ss)
 const vector<Parking> readParkings()
 {
     vector<Parking> vectParkings;
-
     ifstream file(ParkingFile);
-
-    // Make sure the file is open
     if (!file.is_open())
         throw std::runtime_error("Could not open file");
 
-    string line, colname;
-    int val;
+    string line;
     getline(file, line);
     while (getline(file, line))
     {
-        // cout << line << endl;
         std::stringstream ss(line);
-        //  while(std::getline(ss, colname, ';')){
-
-        //     // Initialize and add <colname, int vector> pairs to result
-        //     // result.push_back({colname, std::vector<int> {}});
-        //     // cout << colname << endl;
-
-        // }
-        // while (ss >> colname) {
-        //     cout << colname << endl;
-        // }
         vectParkings.push_back(stringstreamToParking(ss));
     }
-    // used for breaking words
-    // stringstream s(line);
     file.close();
 
     return vectParkings;
@@ -223,8 +197,7 @@ const vector<Stay> readStays() {
     if (!file.is_open())
         throw std::runtime_error("Could not open file");
 
-    string line, colname;
-    int val;
+    string line;
     getline(file, line);
     while (getline(file, line))
     {
@@ -267,5 +240,6 @@ int main()
     cout << t1;
     cout << t2;
     cout << t3;
+    cout << "cc" << endl;
     return 0;
 }
