@@ -59,3 +59,11 @@ bool Time::operator>=(const Time &t) {
     else
         return false;
 }
+
+bool Time::operator<=(const Time &t) {
+    int res = this->comparer(t);
+    if (res <= 0)
+        return true;
+    else
+        return false;
+}

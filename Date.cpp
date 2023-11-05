@@ -51,7 +51,15 @@ istream& operator>>(istream& i, Date& d) {
 
 bool Date::operator<(const Date&d) {
     int res = this->comparer(d);
-    if (res <= 0)
+    if (res < 0)
+        return true;
+    else
+        return false;
+}
+
+bool Date::operator<(const Date&d) {
+    int res = this->comparer(d);
+    if (res > 0)
         return true;
     else
         return false;
@@ -69,3 +77,8 @@ Date& Date::operator++ () {
 }
 
 
+bool Date::operator!=(const Date&d) {
+    int res = this->comparer(d);
+    if (res!=0) return true;
+    else return false;
+}

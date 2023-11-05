@@ -13,6 +13,7 @@ class Solution
 
 public:
     Solution(const int iS, vector<ParkSolution> vPS);
+    vector<ParkSolution> getVectParkSolution();
 };
 
 #endif solution_h

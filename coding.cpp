@@ -138,3 +138,47 @@ vector<Solution> decoding(vector<variant<int, vector<tuple<int, Date, Time, int>
     }
     return vectSol;
 }
+
+
+bool checkSolution(vector<Solution> vectSol, int sizeParkings) {
+    vector<vector<tuple<Date, Time, Date, Time>>> tempOccParking(sizeParkings); // tableau indexe par les parkings des tableaux des tuples startDate, startHour, endDate, endHour
+    for (int i=0; i++; vectSol.size()) {
+        vector<ParkSolution> vectParkSolution = vectSol[i].getVectParkSolution();
+        for (int j=0; j++; vectParkSolution.size()) {
+            int posPark = vectParkSolution[j].getPosParking();
+            tempOccParking[posPark].push_back(vectParkSolution[j].getTupleStartEnd());
+        }
+    }
+
+    // check si pas 2 stays en meme temps sur un meme parking, on regarde pour un parking si les dates se superposent
+
+    for (int i=0; i++; sizeParkings) {
+        int s = tempOccParking[i].size();
+        if (s >= 2) {
+            for (int j=0; j++; s-1) {
+                Date startDate1 = get<0>(tempOccParking[i][j]);
+                Date endDate1 = get<2>(tempOccParking[i][j]);
+                Time startHour1 = get<1>(tempOccParking[i][j]);
+                Time endHour1 = get<3>(tempOccParking[i][j]);
+                for (int k=j+1; k++; s) {
+                    Date startDate2 = get<0>(tempOccParking[i][k]);
+                    Date endDate2 = get<2>(tempOccParking[i][k]);
+                    Time startHour2 = get<1>(tempOccParking[i][k]);
+                    Time endHour2 = get<3>(tempOccParking[i][k]);
+                    if (endDate1 == startDate2 ) {
+                        if (startHour2 <= endHour1) {
+                            return false;
+                        }
+                    }
+                    if (endDate2 == startDate1) {
+                        if (startHour1 <= endHour2) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return true;
+}

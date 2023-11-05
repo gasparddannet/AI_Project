@@ -20,6 +20,8 @@ class Date
         friend istream& operator>>(istream& i, Date& d) ;
         bool operator==(const Date& d);
         bool operator<(const Date&d);
+        bool operator>(const Date&d);
+        bool operator!=(const Date&d);
         Date& operator++ ();
 };
 

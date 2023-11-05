@@ -18,6 +18,7 @@ class Time
         bool operator==(const Time &t);
         Time operator-(const Time &t);
         bool operator>=(const Time &t);
+        bool operator<=(const Time &t);
     };
 
 #endif
