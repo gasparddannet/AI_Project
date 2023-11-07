@@ -1,7 +1,7 @@
 #include "Solution.h"
 
-Solution::Solution(const int iS, vector<ParkSolution> vPS): idStay(iS), vectParkSolutions(vPS) {}
+Solution::Solution(vector<Parking> solution):solution(solution) {}
 
-vector<ParkSolution> Solution::getVectParkSolution() {
-    return vectParkSolutions;
+vector<Parking> Solution::getSolution() {
+    return solution;
 }
