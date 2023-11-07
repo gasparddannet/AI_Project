@@ -45,5 +45,5 @@ double RecuitSimule::recuitSimule() {
         majT();
     }
 
-    return solutionCourante;
+    return solutionGlobal;
 }

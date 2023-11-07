@@ -8,11 +8,11 @@ using namespace std;
 
 class Solution
 {
-    vector<Parking> solution;
+    vector<int> solution;
 
 public:
-    Solution(vector<Parking> solution);
-    vector<Parking> getSolution();
+    Solution(vector<int> solution);
+    vector<int> getSolution();
 };
 
 #endif
