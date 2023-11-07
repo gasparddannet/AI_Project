@@ -182,3 +182,8 @@ bool checkSolution(vector<Solution> vectSol, int sizeParkings) {
 
     return true;
 }
+
+
+int main() {
+    return 0;
+}

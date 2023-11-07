@@ -57,7 +57,7 @@ bool Date::operator<(const Date&d) {
         return false;
 }
 
-bool Date::operator<(const Date&d) {
+bool Date::operator>(const Date&d) {
     int res = this->comparer(d);
     if (res > 0)
         return true;
