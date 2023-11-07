@@ -1,19 +1,18 @@
 #ifndef solution_h
 #define solution_h
 
-#include "ParkSolution.h"
+#include "Parking.h"
 #include <vector>
 
 using namespace std;
 
 class Solution
 {
-    const int idStay;
-    vector<ParkSolution> vectParkSolutions;
+    vector<Parking> solution;
 
 public:
-    Solution(const int iS, vector<ParkSolution> vPS);
-    vector<ParkSolution> getVectParkSolution();
+    Solution(vector<Parking> solution);
+    vector<Parking> getSolution();
 };
 
 #endif solution_h
