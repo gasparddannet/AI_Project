@@ -2,10 +2,10 @@
 CC = g++
 CFLAGS = -Wall -g
 
-main: main.o Date.o Time.o RecuitSimule.o Parking.o Stay.o  
-	$(CC) $(CFLAGS) -o main main.o Date.o Time.o RecuitSimule.o Parking.o Stay.o
+main: main.o Date.o Time.o RecuitSimule.o Parking.o Stay.o Read.o
+	$(CC) $(CFLAGS) -o main main.o Date.o Time.o RecuitSimule.o Parking.o Stay.o Read.o
 	
-main.o: main.cpp Date.cpp Time.cpp RecuitSimule.cpp Parking.cpp Stay.cpp
+main.o: main.cpp Date.cpp Time.cpp RecuitSimule.cpp Parking.cpp Stay.cpp Read.cpp
 	$(CC) $(CFLAGS) -c main.cpp
 	
 Date.o: Date.h
@@ -17,3 +17,5 @@ RecuitSimule.o: RecuitSimule.h
 Parking.o: Parking.h ParkNature.h
 
 Stay.o: Stay.h BodyType.h Date.h Time.h CourrierCode.h
+
+Read.o: Read.h Parking.h Stay.h

@@ -16,4 +16,4 @@ public:
     vector<ParkSolution> getVectParkSolution();
 };
 
-#endif solution_h
+#endif
