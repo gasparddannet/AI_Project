@@ -13,8 +13,8 @@ class Solution
 public:
     Solution(vector<int> solution);
     vector<int> getSolution();
-    void replace();
-    void randomize()
+    void replace(int sizeParkings);
+    void randomize(int sizeParkings);
 };
 
 #endif
