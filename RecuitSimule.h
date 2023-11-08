@@ -4,25 +4,26 @@
 #include <iostream>
 #include <cmath>
 #include <cstdlib>
+#include "Solution.h"
 
 class RecuitSimule {
 public:
-    RecuitSimule(int nbIter, int nbIterT, double solutionCourante, double T);
+    RecuitSimule(int nbIter, int nbIterT, Solution solutionCourante, double T);
 
-    double fonctionObjectif(double solution);
+    double fonctionObjectif(Solution solution);
 
     void majT();
 
-    double recuitSimule();
+    Solution recuitSimule();
 
 private:
     double T;
-    int nbIter;
+    int nbIter; 
     int nbIterT;
-    double solutionCourante;
-    double solutionGlobal;
+    Solution solutionCourante;
+    Solution solutionGlobal;
 
-    double generateSolution(double solution);
+    Solution generateSolution(Solution solution);
 };
 
 #endif // RECUITSIMULE_H

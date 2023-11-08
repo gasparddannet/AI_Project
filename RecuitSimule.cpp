@@ -1,31 +1,34 @@
 #include "RecuitSimule.h"
+#include "Solution.h"
 
-RecuitSimule::RecuitSimule(int nbIter, int nbIterT, double solutionCourante, double T=200) :
+RecuitSimule::RecuitSimule(int nbIter, int nbIterT, Solution solutionCourante, double T=200) :
     T(T),
     nbIter(nbIter),
     nbIterT(nbIterT),
     solutionCourante(solutionCourante),
     solutionGlobal(solutionCourante) {}
 
-double RecuitSimule::fonctionObjectif(double solution) {
-    return solution;
+double RecuitSimule::fonctionObjectif(Solution solution) {
+    // return solution;
+    return 1;
 }
 
 void RecuitSimule::majT() {
     T *= 0.1;
 }
 
-double RecuitSimule::generateSolution(double solution) {
-    return (rand() % 1000) / 100.0;
+Solution RecuitSimule::generateSolution(Solution solution) {
+    // return (rand() % 1000) / 100.0;
+    return solution;
 }
 
-double RecuitSimule::recuitSimule() {
+Solution RecuitSimule::recuitSimule() {
     double valeurCourante = fonctionObjectif(solutionCourante);
     int compt = 0;
 
     while (T > 0.1 && compt < nbIter) {
         for (int i = 0; i < nbIterT; ++i) {
-            double nouvelleSolution = generateSolution(solutionCourante);
+            Solution nouvelleSolution = generateSolution(solutionCourante);
             double nouvelleValeur = fonctionObjectif(nouvelleSolution);
 
             double differenceValeur = nouvelleValeur - valeurCourante;
