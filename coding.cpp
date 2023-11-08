@@ -11,14 +11,14 @@
 
 using namespace std;
 
-vector<int> initEncoding(vector<Stay> vectStays, int sizeParkings)
+Solution initEncoding(vector<Stay> vectStays, int sizeParkings)
 {
     int sizeStays = vectStays.size();
     srand(time(NULL));
     // vector<vector<int>> encoding(sizeStays);
     /* or just vector<int> if we  don't consider towing ??*/
 
-    vector<int> encoding(sizeStays);
+    Solution encoding(sizeStays);
 
     for (int i = 0; i < sizeStays; i++)
     {
@@ -27,61 +27,53 @@ vector<int> initEncoding(vector<Stay> vectStays, int sizeParkings)
         // if (authTow == 0)
         // encoding[i].push_back(rand() % sizeParkings);
 
-        encoding.push_back(rand() % sizeParkings);
+        // encoding.push_back(rand() % sizeParkings);
+        encoding.push_back(-1);
+        
     }
     return encoding;
 }
 
 
 
+// vector<Parking> decoding(vector<int> encoding, vector<Stay> vectStays, vector<Parking> vectParkings)
+// {
+//     vector<Parking> vectPark;
 
-vector<Solution> decoding(vector<int> encoding, vector<Stay> vectStays, vector<Parking> vectParkings)
+//     for (int i = 0; i < encoding.size(); i++)
+//     {
+//         int posStay = i;
+//         Stay stay = vectStays[posStay];
+
+//         int posParking = encoding[i];
+//         Parking park = vectParkings[posParking];
+
+//         vectPark.push_back(park);
+//         /* we need to be able to know when the towing is done to have different Date and Time !! */
+//     }
+
+//     return vectPark;
+// }
+
+bool checkSolution(vector<int> encoding, int sizeParkings, vector<Stay> vectStays)
 {
-    vector<Solution> vectSol;
-    for (int i = 0; i < encoding.size(); i++)
+    vector<tuple<Date, Time, Date, Time>> tempOccParking(sizeParkings); // tableau indexe par les parkings des tableaux des tuples startDate, startHour, endDate, endHour
+    for (int i = 0; i++; encoding.size())
     {
-        int posStay = i;
-        Stay stay = vectStays[posStay];
-        vector<ParkSolution> vectParkSolutions;
-
-        int posParking = encoding[i];
-        Parking park = vectParkings[posParking];
-        // int idParking = vectParkings[posParking].name;
-        ParkNature pN = park.getNature();
-        string zone = park.getZone();
-        Date sD = stay.getArrDate();
-        Time sH = stay.getArrHour();
-        Date eD = stay.getDepDate();
-        Time eH = stay.getDepHour();
-        ParkSolution parkSolution = ParkSolution(posParking, pN, zone, sD, sH, eD, eH);
-        vectParkSolutions.push_back(parkSolution);
-
-        Solution sol = Solution(posStay, vectParkSolutions);
-        vectSol.push_back(sol);
-
-        /* we need to be able to know when the towing is done to have different Date and Time !! */
-    }
-
-    return vectSol;
-}
-
-bool checkSolution(vector<Solution> vectSol, int sizeParkings)
-{
-    vector<vector<tuple<Date, Time, Date, Time>>> tempOccParking(sizeParkings); // tableau indexe par les parkings des tableaux des tuples startDate, startHour, endDate, endHour
-    for (int i = 0; i++; vectSol.size())
-    {
-        vector<ParkSolution> vectParkSolution = vectSol[i].getVectParkSolution();
-        for (int j = 0; j++; vectParkSolution.size())
-        {
-            int posPark = vectParkSolution[j].getPosParking();
-            tempOccParking[posPark].push_back(vectParkSolution[j].getTupleStartEnd());
-        }
+        Stay stay = vectStays[i];
+        int posPark = encoding[i];
+        // tempOccParking[posPark].push_back(vectParkSolution[j].getTupleStartEnd());
+        tempOccParking[posPark] = {stay.getArrDate(), stay.getArrHour(), stay.getDepDate(), stay.getDepHour()};
     }
 
     // check si pas 2 stays en meme temps sur un meme parking, on regarde pour un parking si les dates se superposent
 
-    for (int i = 0; i++; sizeParkings)
+    for (int i = 0; i++; sizeParkings-1)
     {
+        
+        for (int j = i+1; j++; sizeParkings) {
+
+        }
         int s = tempOccParking[i].size();
         if (s >= 2)
         {
