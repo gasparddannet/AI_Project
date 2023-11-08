@@ -17,8 +17,8 @@ int main()
     // RecuitSimule rs(2, 1, 1, 1);
 
     /* Read Parkings */
-    cout << "Read Parkings : " << endl;
-    vector<Parking> vectParking = Read::readParkings(ParkingFile);
+    cout << "Read Parkings" << endl;
+    vector<Parking> vectParkings = Read::readParkings(ParkingFile);
 
     // for (Parking &p : vectParking) {
     //     cout << p;
@@ -43,10 +43,25 @@ int main()
     // cout << t3;
     // cout << "cc" << endl;
 
+
     int nbIter = 100;
     int nbIterT = 100;
-    Solution solutionInit = Solution();
+    int sizeStays = vectStays.size();
+    vector<int> vect(sizeStays);
+    int sizeParkings = vectParkings.size();
+
+    Solution solutionInit = Solution(vect);
+    solutionInit.randomize(sizeParkings);
     double T = 200;
     RecuitSimule rs(nbIter, nbIterT, solutionInit, T);
+    Solution solGlobal = rs.recuitSimule(vectParkings, vectStays);
+
+    cout << "\n" << endl;
+    vector<int> vectSolGlobal = solGlobal.getSolution();
+    for (long unsigned int i = 0 ; i < vectSolGlobal.size() ; i++) {
+        cout << "i : " << i << endl;
+        cout << "Park de i : " << vectSolGlobal[i] << endl;
+    }
+
     return 0;
 }

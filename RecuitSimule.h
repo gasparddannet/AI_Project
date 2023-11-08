@@ -5,6 +5,8 @@
 #include <cmath>
 #include <cstdlib>
 #include "Solution.h"
+#include "Parking.h"
+#include "Stay.h"
 
 class RecuitSimule {
 public:

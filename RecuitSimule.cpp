@@ -116,6 +116,7 @@ Solution RecuitSimule::generateSolution(Solution solution, int sizeParkings)
 Solution RecuitSimule::recuitSimule(vector<Parking> vectParkings, vector<Stay> vectStays)
 {
     double valeurCourante = fonctionObjectif(solutionCourante, vectParkings, vectStays);
+    cout << "Valeur Courante : " << valeurCourante << endl;
     int compt = 0;
 
     while (T > 0.1 && compt < nbIter)
@@ -124,6 +125,7 @@ Solution RecuitSimule::recuitSimule(vector<Parking> vectParkings, vector<Stay> v
         {
             Solution nouvelleSolution = generateSolution(solutionCourante, vectParkings.size());
             double nouvelleValeur = fonctionObjectif(nouvelleSolution, vectParkings, vectStays);
+            cout << "Nouvelle Valeur : " << nouvelleValeur << endl;
 
             double differenceValeur = nouvelleValeur - valeurCourante;
             if (differenceValeur < 0)
