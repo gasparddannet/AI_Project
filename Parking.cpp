@@ -73,3 +73,7 @@ string Parking::getZone() {
 ParkNature Parking::getNature() {
     return nature;
 }
+
+vector<int> Parking::getTypeAvion() {
+    return typeAvion;
+}

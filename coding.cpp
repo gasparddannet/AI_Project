@@ -11,28 +11,28 @@
 
 using namespace std;
 
-Solution initEncoding(vector<Stay> vectStays, int sizeParkings)
-{
-    int sizeStays = vectStays.size();
-    srand(time(NULL));
-    // vector<vector<int>> encoding(sizeStays);
-    /* or just vector<int> if we  don't consider towing ??*/
+// Solution initEncoding(vector<Stay> vectStays, int sizeParkings)
+// {
+//     int sizeStays = vectStays.size();
+//     srand(time(NULL));
+//     // vector<vector<int>> encoding(sizeStays);
+//     /* or just vector<int> if we  don't consider towing ??*/
 
-    Solution encoding(sizeStays);
+//     Solution encoding(sizeStays);
 
-    for (int i = 0; i < sizeStays; i++)
-    {
-        Stay stay = vectStays[i];
-        int authTow = stay.getAuthorizedTowing();
-        // if (authTow == 0)
-        // encoding[i].push_back(rand() % sizeParkings);
+//     for (int i = 0; i < sizeStays; i++)
+//     {
+//         Stay stay = vectStays[i];
+//         int authTow = stay.getAuthorizedTowing();
+//         // if (authTow == 0)
+//         // encoding[i].push_back(rand() % sizeParkings);
 
-        // encoding.push_back(rand() % sizeParkings);
-        encoding.push_back(-1);
+//         // encoding.push_back(rand() % sizeParkings);
+//         encoding.push_back(-1);
         
-    }
-    return encoding;
-}
+//     }
+//     return encoding;
+// }
 
 
 

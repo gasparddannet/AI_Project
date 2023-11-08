@@ -76,3 +76,6 @@ int Stay::getAuthorizedTowing() {
     return authorizedTowing;
 }
 
+int Stay::getAircraftType() {
+    return aircraftType;
+}

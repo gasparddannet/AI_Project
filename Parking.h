@@ -25,6 +25,7 @@ class Parking
         friend ostream & operator<<(ostream& o,const Parking& p) ;
         string getZone();
         ParkNature getNature();
+        vector<int> getTypeAvion();
         
         // static const vector<Parking> readParking();
 

@@ -43,6 +43,7 @@ class Stay
         Date getDepDate();
         Time getDepHour();
         int getAuthorizedTowing();
+        int getAircraftType();
 
 };
 

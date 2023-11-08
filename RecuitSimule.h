@@ -10,11 +10,11 @@ class RecuitSimule {
 public:
     RecuitSimule(int nbIter, int nbIterT, Solution solutionCourante, double T);
 
-    double fonctionObjectif(Solution solution);
+    double fonctionObjectif(Solution solution, vector<Parking> vectParkings, vector<Stay> vectStays);
 
     void majT();
 
-    Solution recuitSimule();
+    Solution recuitSimule(vector<Parking> vectParkings, vector<Stay> vectStays);
 
 private:
     double T;
@@ -23,7 +23,7 @@ private:
     Solution solutionCourante;
     Solution solutionGlobal;
 
-    Solution generateSolution(Solution solution);
+    Solution generateSolution(Solution solution, int sizeParkings);
 };
 
 #endif // RECUITSIMULE_H
