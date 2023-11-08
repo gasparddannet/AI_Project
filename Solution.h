@@ -1,7 +1,6 @@
 #ifndef solution_h
 #define solution_h
 
-#include "Parking.h"
 #include <vector>
 
 using namespace std;
@@ -15,6 +14,7 @@ public:
     vector<int> getSolution();
     void replace(int sizeParkings);
     void randomize(int sizeParkings);
+    void blockReverse(int i,int j);
 };
 
 #endif

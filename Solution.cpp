@@ -1,5 +1,7 @@
 #include "Solution.h"
+#include <stdlib.h> 
 
+using namespace std ;
 Solution::Solution(vector<int> solution):solution(solution) {}
 
 vector<int> Solution::getSolution() {
@@ -21,4 +23,15 @@ void Solution::randomize(int sizeParkings) {
     }
 }
 
+void Solution::blockReverse(int i, int j) {
+    int a = i ;
+    int b = j;
+    while(a<=b) {
+        int vala=solution[a];
+        solution[a] = solution[b];
+        solution[b] = vala;
+        a++;
+        b--;
+    }
+}
 //////////////////////////////////////////////////// OPERATORS //////////////////////////////////////////////
