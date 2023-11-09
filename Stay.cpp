@@ -12,25 +12,25 @@ Stay::Stay(const int id, const BodyType bT, const int aT, const int auT, const s
         depExploitingCie(dEC), depNumber(dN), depDate(dD), depHour(dH), depCourrierCode(dCC), depStop(dS) {};
 
 
-std::ostream& operator<<(std::ostream& o, const BodyType& value){
-    switch (value)
-    {
-    case (BodyType::MP):
-        o << "MP" << endl;
-        break;
-    }
-    return o;
-};
+// std::ostream& operator<<(std::ostream& o, const BodyType& value){
+//     switch (value)
+//     {
+//     case (BodyType::MP):
+//         o << "MP" << endl;
+//         break;
+//     }
+//     return o;
+// };
 
-std::ostream& operator<<(std::ostream& o, const CourrierCode& value){
-    switch (value)
-    {
-    case (CourrierCode::MC):
-        o << "MC" << endl;
-        break;
-    }
-    return o;
-};
+// std::ostream& operator<<(std::ostream& o, const CourrierCode& value){
+//     switch (value)
+//     {
+//     case (CourrierCode::MC):
+//         o << "MC" << endl;
+//         break;
+//     }
+//     return o;
+// };
 
 ostream & operator<<(ostream& o,const Stay& s) {
 	o << "id : " << s.id << endl;
@@ -42,14 +42,14 @@ ostream & operator<<(ostream& o,const Stay& s) {
     o << "arr number : " << s.arrNumber << endl;
     o << "arr date : " << s.arrDate;
     o << "arr hour : " << s.arrHour;
-    o << "arr courrier code : " << s.arrCourrierCode;
+    o << "arr courrier code : " << s.arrCourrierCode << endl;
     o << "arr stop : " << s.arrStop << endl;
     o << "dep owner cie : " << s.depOwnerCie << endl;
     o << "dep exploiting cie : " << s.depExploitingCie << endl;
     o << "dep number : " << s.depNumber << endl;
     o << "dep date : " << s.depDate;
     o << "dep hour : " << s.depHour;
-    o << "dep courrier code : " << s.depCourrierCode;
+    o << "dep courrier code : " << s.depCourrierCode << endl;
     o << "dep stop : " << s.depStop << endl;
     o << endl;
 	return o;
@@ -78,4 +78,20 @@ int Stay::getAuthorizedTowing() {
 
 int Stay::getAircraftType() {
     return aircraftType;
+}
+
+int Stay::getId() {
+    return id;
+}
+
+BodyType Stay::getBodyType() {
+    return bodyType;
+}
+
+int Stay::getArrNumber() {
+    return arrNumber;
+}
+
+int Stay::getDepNumber() {
+    return depNumber;
 }

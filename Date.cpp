@@ -35,12 +35,11 @@ ostream & operator<<(ostream& o,const Date& d) {
     o << std::setw(2) << std::setfill('0') << d.mois;
     o << "/";
     o << std::setw(4) << std::setfill('0') << d.annee;
-    o << endl;
     return o;
 }
 
 ostream & operator<<(ostream& o,const Date* d) {
-    o << d->jour << "/" << d->mois << "/" << d->annee << endl;
+    o << d->jour << "/" << d->mois << "/" << d->annee;
     return o;
 }
 

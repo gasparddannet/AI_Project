@@ -26,6 +26,7 @@ class Parking
         string getZone();
         ParkNature getNature();
         vector<int> getTypeAvion();
+        string getName();
         
         // static const vector<Parking> readParking();
 

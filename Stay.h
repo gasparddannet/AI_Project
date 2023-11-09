@@ -44,7 +44,10 @@ class Stay
         Time getDepHour();
         int getAuthorizedTowing();
         int getAircraftType();
-
+        int getId();
+        BodyType getBodyType();
+        int getArrNumber();
+        int getDepNumber();
 };
 
 #endif

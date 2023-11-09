@@ -17,7 +17,7 @@ double RecuitSimule::fonctionObjectif(Solution solution, vector<Parking> vectPar
     // return solution;
     vector<int> vectPark = solution.getSolution();
     int sizeParkings = vectPark.size();
-    for (int i = 0; i++; sizeParkings)
+    for (int i = 0; i < sizeParkings; i++)
     {
         Stay stay = vectStays[i];
         Parking park = vectParkings[vectPark[i]];
@@ -34,24 +34,27 @@ double RecuitSimule::fonctionObjectif(Solution solution, vector<Parking> vectPar
     }
 
     vector<vector<tuple<Date, Time, Date, Time, int>>> tempOccParking(sizeParkings); // tableau indexe par les parkings des tableaux des tuples startDate, startHour, endDate, endHour
-    for (int i = 0; i++; vectPark.size())
+    for (int i = 0; i < vectPark.size(); i++)
     {
         Stay stay = vectStays[i];
         int posPark = vectPark[i];
         // tempOccParking[posPark].push_back(vectParkSolution[j].getTupleStartEnd());
-        tempOccParking[posPark].push_back({stay.getArrDate(), stay.getArrHour(), stay.getDepDate(), stay.getDepHour(), i});
+        if (posPark >= 0)
+        {
+            tempOccParking[posPark].push_back({stay.getArrDate(), stay.getArrHour(), stay.getDepDate(), stay.getDepHour(), i});
+        }
     }
-    for (int i = 0; i++; sizeParkings - 1)
+    for (int i = 0; i < sizeParkings; i++)
     {
         int s = tempOccParking[i].size();
-        for (int j = 0; j++; s - 1)
+        for (int j = 0; j < s - 1; j++)
         {
             Date startDate1 = get<0>(tempOccParking[i][j]);
             Date endDate1 = get<2>(tempOccParking[i][j]);
             Time startHour1 = get<1>(tempOccParking[i][j]);
             Time endHour1 = get<3>(tempOccParking[i][j]);
             int posStay1 = get<4>(tempOccParking[i][j]);
-            for (int k = j + 1; k++; s)
+            for (int k = j + 1; k < s; k++)
             {
                 Date startDate2 = get<0>(tempOccParking[i][k]);
                 Date endDate2 = get<2>(tempOccParking[i][k]);
@@ -78,7 +81,7 @@ double RecuitSimule::fonctionObjectif(Solution solution, vector<Parking> vectPar
     }
     int poids_allocation = 0;
     int poids_nature = 0;
-    for (int i = 0; i++; vectPark.size())
+    for (int i = 0; i < vectPark.size(); i++)
     {
         Stay stay = vectStays[i];
         int posPark = vectPark[i];
@@ -147,5 +150,6 @@ Solution RecuitSimule::recuitSimule(vector<Parking> vectParkings, vector<Stay> v
         majT();
     }
 
+    cout << "valeurGlobale : " << fonctionObjectif(solutionGlobal, vectParkings, vectStays) << endl;
     return solutionGlobal;
 }

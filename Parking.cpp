@@ -33,19 +33,19 @@ Parking::Parking(string n,string z, string t, ParkNature na, const vector<int> t
 // }
 
 
-std::ostream& operator<<(std::ostream& o, const ParkNature& value){
-    switch (value)
-    {
-    case (ParkNature::Contact):
-        o << "Contact" << endl;
-        break;
+// std::ostream& operator<<(std::ostream& o, const ParkNature& value){
+//     switch (value)
+//     {
+//     case (ParkNature::Contact):
+//         o << "Contact" << endl;
+//         break;
     
-    case (ParkNature::Large):
-        o << "Large" << endl;
-        break;
-    }
-    return o;
-}
+//     case (ParkNature::Large):
+//         o << "Large" << endl;
+//         break;
+//     }
+//     return o;
+// }
 
 
 ostream & operator<<(ostream& o,const Parking& p) {
@@ -76,4 +76,8 @@ ParkNature Parking::getNature() {
 
 vector<int> Parking::getTypeAvion() {
     return typeAvion;
+}
+
+string Parking::getName() {
+    return name;
 }
