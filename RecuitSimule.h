@@ -10,13 +10,15 @@
 
 class RecuitSimule {
 public:
-    RecuitSimule(int nbIter, int nbIterT, Solution solutionCourante, double T);
+    RecuitSimule(int &nbIter, int &nbIterT, Solution &solutionCourante, double T);
 
-    double fonctionObjectif(Solution solution, vector<Parking> vectParkings, vector<Stay> vectStays);
+    // double fonctionObjectifC(const vector<Parking> &vectParkings, const vector<Stay> &vectStays);
+    // double fonctionObjectif(vector<Parking> vectParkings, vector<Stay> vectStays);
+    pair<double, Solution> fonctionObjectifC(const vector<Parking> &vectParkings, const vector<Stay> &vectStays);
 
     void majT();
 
-    Solution recuitSimule(vector<Parking> vectParkings, vector<Stay> vectStays);
+    Solution recuitSimule(const vector<Parking> &vectParkings, const vector<Stay> &vectStays);
 
 private:
     double T;
@@ -25,7 +27,9 @@ private:
     Solution solutionCourante;
     Solution solutionGlobal;
 
-    Solution generateSolution(Solution solution, int sizeParkings);
+    // Solution generateSolution(Solution solution, int sizeParkings);
+    Solution generateSolution(int sizeParkings);
+
 };
 
 #endif // RECUITSIMULE_H

@@ -38,16 +38,16 @@ class Stay
 
         friend ostream & operator<<(ostream& o,const Stay& p) ;
 
-        Date getArrDate();
-        Time getArrHour();
-        Date getDepDate();
-        Time getDepHour();
-        int getAuthorizedTowing();
-        int getAircraftType();
-        int getId();
-        BodyType getBodyType();
-        int getArrNumber();
-        int getDepNumber();
+        Date getArrDate() const;
+        Time getArrHour() const;
+        Date getDepDate() const;
+        Time getDepHour() const;
+        int getAuthorizedTowing() const;
+        int getAircraftType() const;
+        int getId() const;
+        BodyType getBodyType() const;
+        int getArrNumber() const;
+        int getDepNumber() const;
 };
 
 #endif

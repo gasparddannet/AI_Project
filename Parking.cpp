@@ -66,18 +66,18 @@ ostream & operator<<(ostream& o,const Parking& p) {
 	return o;
 }
 
-string Parking::getZone() {
+string Parking::getZone() const{
     return zone;
 }
 
-ParkNature Parking::getNature() {
+ParkNature Parking::getNature() const{
     return nature;
 }
 
-vector<int> Parking::getTypeAvion() {
+vector<int> Parking::getTypeAvion() const {
     return typeAvion;
 }
 
-string Parking::getName() {
+string Parking::getName() const{
     return name;
 }

@@ -6,28 +6,28 @@
 #include "Parking.h"
 #include <algorithm>
 
-RecuitSimule::RecuitSimule(int nbIter, int nbIterT, Solution solutionCourante, double T = 200) : T(T),
-                                                                                                 nbIter(nbIter),
-                                                                                                 nbIterT(nbIterT),
-                                                                                                 solutionCourante(solutionCourante),
-                                                                                                 solutionGlobal(solutionCourante) {}
+using namespace std;
 
-double RecuitSimule::fonctionObjectif(Solution solution, vector<Parking> vectParkings, vector<Stay> vectStays)
+RecuitSimule::RecuitSimule(int &nbIter, int &nbIterT, Solution &solutionCourante, double T = 200) : 
+                            T(T), nbIter(nbIter), nbIterT(nbIterT), solutionCourante(solutionCourante), solutionGlobal(solutionCourante) {}
+
+
+pair<double, Solution> RecuitSimule::fonctionObjectifC(const vector<Parking>& vectParkings, const vector<Stay>& vectStays)
 {
     // return solution;
-    vector<int> vectPark = solution.getSolution();
+    vector<int> vectPark = solutionCourante.getSolution();
     int sizeParkings = vectPark.size();
     for (int i = 0; i < sizeParkings; i++)
     {
-        Stay stay = vectStays[i];
-        Parking park = vectParkings[vectPark[i]];
-        vector<int> parkTypesAvion = park.getTypeAvion();
-        int stayTypeAvion = stay.getAircraftType();
+        // Stay stay = vectStays[i];
+        // Parking park = vectParkings[vectPark[i]];
+        const vector<int> parkTypesAvion = vectParkings[vectPark[i]].getTypeAvion();
+        int stayTypeAvion = vectStays[i].getAircraftType();
         if (!parkTypesAvion.empty())
         {
             if (find(parkTypesAvion.begin(), parkTypesAvion.end(), stayTypeAvion) != parkTypesAvion.end())
             {
-                // aricraft nor compatible with the parking
+                // aircraft nor compatible with the parking
                 vectPark[i] = -1;
             }
         }
@@ -36,12 +36,12 @@ double RecuitSimule::fonctionObjectif(Solution solution, vector<Parking> vectPar
     vector<vector<tuple<Date, Time, Date, Time, int>>> tempOccParking(sizeParkings); // tableau indexe par les parkings des tableaux des tuples startDate, startHour, endDate, endHour
     for (int i = 0; i < vectPark.size(); i++)
     {
-        Stay stay = vectStays[i];
-        int posPark = vectPark[i];
+        // Stay stay = vectStays[i];
+        // int posPark = vectPark[i];
         // tempOccParking[posPark].push_back(vectParkSolution[j].getTupleStartEnd());
-        if (posPark >= 0)
+        if (vectPark[i] >= 0)
         {
-            tempOccParking[posPark].push_back({stay.getArrDate(), stay.getArrHour(), stay.getDepDate(), stay.getDepHour(), i});
+            tempOccParking[vectPark[i]].push_back({vectStays[i].getArrDate(), vectStays[i].getArrHour(), vectStays[i].getDepDate(), vectStays[i].getDepHour(), i});
         }
     }
     for (int i = 0; i < sizeParkings; i++)
@@ -83,7 +83,7 @@ double RecuitSimule::fonctionObjectif(Solution solution, vector<Parking> vectPar
     int poids_nature = 0;
     for (int i = 0; i < vectPark.size(); i++)
     {
-        Stay stay = vectStays[i];
+        // Stay stay = vectStays[i];
         int posPark = vectPark[i];
         if (posPark == -1)
         {
@@ -91,9 +91,9 @@ double RecuitSimule::fonctionObjectif(Solution solution, vector<Parking> vectPar
         }
         else
         {
-            Parking park = vectParkings[posPark];
-            ParkNature parkNature = park.getNature();
-            switch (parkNature)
+            // Parking park = vectParkings[posPark];
+            // ParkNature parkNature = vectParkings[posPark].getNature();
+            switch (vectParkings[posPark].getNature())
             {
             case (ParkNature::Large):
                 poids_nature += 50;
@@ -101,7 +101,11 @@ double RecuitSimule::fonctionObjectif(Solution solution, vector<Parking> vectPar
             }
         }
     }
-    return poids_allocation + poids_nature;
+    // return std::make_pair(poids_allocation + poids_nature, Solution(vectPark));
+    cout << "change1" << endl;
+    Solution solutionCourant2 = Solution(vectPark);
+    cout << "change2" << endl;
+    return make_pair(poids_allocation + poids_nature, solutionCourant2);
 }
 
 void RecuitSimule::majT()
@@ -109,16 +113,19 @@ void RecuitSimule::majT()
     T *= 0.1;
 }
 
-Solution RecuitSimule::generateSolution(Solution solution, int sizeParkings)
+Solution RecuitSimule::generateSolution(int sizeParkings)
 {
     // return (rand() % 1000) / 100.0;
-    solution.randomize(sizeParkings);
-    return solution;
+    solutionCourante.randomize(sizeParkings);
+    return solutionCourante;
 }
 
-Solution RecuitSimule::recuitSimule(vector<Parking> vectParkings, vector<Stay> vectStays)
+Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const vector<Stay> &vectStays)
 {
-    double valeurCourante = fonctionObjectif(solutionCourante, vectParkings, vectStays);
+    pair <double, Solution> pair1 = fonctionObjectifC(vectParkings, vectStays);
+    // double valeurCourante = fonctionObjectifC(vectParkings, vectStays);
+    double valeurCourante = pair1.first;
+    solutionCourante = pair1.second;
     cout << "Valeur Courante : " << valeurCourante << endl;
     int compt = 0;
 
@@ -126,22 +133,25 @@ Solution RecuitSimule::recuitSimule(vector<Parking> vectParkings, vector<Stay> v
     {
         for (int i = 0; i < nbIterT; ++i)
         {
-            Solution nouvelleSolution = generateSolution(solutionCourante, vectParkings.size());
-            double nouvelleValeur = fonctionObjectif(nouvelleSolution, vectParkings, vectStays);
-            cout << "Nouvelle Valeur : " << nouvelleValeur << endl;
+            Solution nouvelleSolution = generateSolution(vectParkings.size());
+            solutionCourante = nouvelleSolution;
+            pair<double, Solution> pair2 = fonctionObjectifC(vectParkings, vectStays);
+            double nouvelleValeur = pair2.first;
+            // cout << "Nouvelle Valeur : " << nouvelleValeur << endl;
+            
 
             double differenceValeur = nouvelleValeur - valeurCourante;
             if (differenceValeur < 0)
             {
-                solutionCourante = nouvelleSolution;
-                valeurCourante = nouvelleValeur;
-                solutionGlobal = nouvelleSolution;
+                solutionCourante = pair2.second;
+                valeurCourante = nouvelleValeur;    
+                solutionGlobal = solutionCourante;
             }
             else
             {
                 if (rand() / static_cast<double>(RAND_MAX) < exp(-differenceValeur / T))
                 {
-                    solutionCourante = nouvelleSolution;
+                    solutionCourante = pair2.second;
                     valeurCourante = nouvelleValeur;
                 }
             }
@@ -150,6 +160,7 @@ Solution RecuitSimule::recuitSimule(vector<Parking> vectParkings, vector<Stay> v
         majT();
     }
 
-    cout << "valeurGlobale : " << fonctionObjectif(solutionGlobal, vectParkings, vectStays) << endl;
+    // cout << "cc0" << endl;
+    // cout << "valeurGlobale : " << fonctionObjectif(solutionGlobal, vectParkings, vectStays) << endl;
     return solutionGlobal;
 }

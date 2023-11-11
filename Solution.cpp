@@ -1,5 +1,6 @@
 #include "Solution.h"
 #include <stdlib.h> 
+#include <time.h>   /* time */
 
 using namespace std ;
 Solution::Solution(vector<int> solution):solution(solution) {}
@@ -10,6 +11,7 @@ vector<int> Solution::getSolution() {
 
 //////////////////////////////////////////////////// OPERATORS //////////////////////////////////////////////
 void Solution::replace(int sizeParkings) {
+    srand(time(NULL));
     for (int i=0;i<solution.size();i++) {
         if (solution[i] == -1) {
             solution[i] = rand() % sizeParkings;

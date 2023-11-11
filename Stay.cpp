@@ -56,42 +56,42 @@ ostream & operator<<(ostream& o,const Stay& s) {
 }
 
 
-Date Stay::getArrDate() {
+Date Stay::getArrDate() const{
     return arrDate;
 }
 
-Time Stay::getArrHour() {
+Time Stay::getArrHour() const{
     return arrHour;
 }
 
-Date Stay::getDepDate() {
+Date Stay::getDepDate() const{
     return depDate;
 }
 
-Time Stay::getDepHour() {
+Time Stay::getDepHour() const{
     return depHour;
 }
 
-int Stay::getAuthorizedTowing() {
+int Stay::getAuthorizedTowing() const{
     return authorizedTowing;
 }
 
-int Stay::getAircraftType() {
+int Stay::getAircraftType() const {
     return aircraftType;
 }
 
-int Stay::getId() {
+int Stay::getId() const{
     return id;
 }
 
-BodyType Stay::getBodyType() {
+BodyType Stay::getBodyType() const{
     return bodyType;
 }
 
-int Stay::getArrNumber() {
+int Stay::getArrNumber() const{
     return arrNumber;
 }
 
-int Stay::getDepNumber() {
+int Stay::getDepNumber() const{
     return depNumber;
 }
