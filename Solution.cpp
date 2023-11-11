@@ -1,6 +1,7 @@
 #include "Solution.h"
 #include <stdlib.h> 
-#include <time.h>   /* time */
+#include <ctime>
+#include <iostream>
 
 using namespace std ;
 Solution::Solution(vector<int> solution):solution(solution) {}
@@ -11,17 +12,20 @@ vector<int> Solution::getSolution() {
 
 //////////////////////////////////////////////////// OPERATORS //////////////////////////////////////////////
 void Solution::replace(int sizeParkings) {
-    srand(time(NULL));
     for (int i=0;i<solution.size();i++) {
         if (solution[i] == -1) {
-            solution[i] = rand() % sizeParkings;
+        solution[i] = rand() % sizeParkings;
         }
     }
 }
 
 void Solution::randomize(int sizeParkings) {
+    srand((int) time(0));
     for (int i=0;i<solution.size();i++) {
-        solution[i] = rand() % sizeParkings;
+        int r = rand() % sizeParkings;
+        solution[i] = r;
+        // cout << "random number : " << r;
+        // cout << " | ";
     }
 }
 

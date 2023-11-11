@@ -102,9 +102,9 @@ pair<double, Solution> RecuitSimule::fonctionObjectifC(const vector<Parking>& ve
         }
     }
     // return std::make_pair(poids_allocation + poids_nature, Solution(vectPark));
-    cout << "change1" << endl;
+    // cout << "change1" << endl;
     Solution solutionCourant2 = Solution(vectPark);
-    cout << "change2" << endl;
+    // cout << "change2" << endl;
     return make_pair(poids_allocation + poids_nature, solutionCourant2);
 }
 
@@ -126,7 +126,7 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
     // double valeurCourante = fonctionObjectifC(vectParkings, vectStays);
     double valeurCourante = pair1.first;
     solutionCourante = pair1.second;
-    cout << "Valeur Courante : " << valeurCourante << endl;
+    cout << "Valeur Initiale: " << valeurCourante << endl;
     int compt = 0;
 
     while (T > 0.1 && compt < nbIter)
@@ -137,7 +137,7 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
             solutionCourante = nouvelleSolution;
             pair<double, Solution> pair2 = fonctionObjectifC(vectParkings, vectStays);
             double nouvelleValeur = pair2.first;
-            // cout << "Nouvelle Valeur : " << nouvelleValeur << endl;
+            cout << "Nouvelle Valeur : " << nouvelleValeur << endl;
             
 
             double differenceValeur = nouvelleValeur - valeurCourante;
