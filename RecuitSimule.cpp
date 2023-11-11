@@ -8,11 +8,9 @@
 
 using namespace std;
 
-RecuitSimule::RecuitSimule(int &nbIter, int &nbIterT, Solution &solutionCourante, double T = 200) : 
-                            T(T), nbIter(nbIter), nbIterT(nbIterT), solutionCourante(solutionCourante), solutionGlobal(solutionCourante) {}
+RecuitSimule::RecuitSimule(int &nbIter, int &nbIterT, Solution &solutionCourante, double T = 200) : T(T), nbIter(nbIter), nbIterT(nbIterT), solutionCourante(solutionCourante), solutionGlobal(solutionCourante) {}
 
-
-pair<double, Solution> RecuitSimule::fonctionObjectifC(const vector<Parking>& vectParkings, const vector<Stay>& vectStays)
+pair<double, Solution> RecuitSimule::fonctionObjectifC(const vector<Parking> &vectParkings, const vector<Stay> &vectStays)
 {
     // return solution;
     vector<int> vectPark = solutionCourante.getSolution();
@@ -21,14 +19,20 @@ pair<double, Solution> RecuitSimule::fonctionObjectifC(const vector<Parking>& ve
     {
         // Stay stay = vectStays[i];
         // Parking park = vectParkings[vectPark[i]];
-        const vector<int> parkTypesAvion = vectParkings[vectPark[i]].getTypeAvion();
-        int stayTypeAvion = vectStays[i].getAircraftType();
-        if (!parkTypesAvion.empty())
+        // cout << "cc1" << endl;
+        int posPark = vectPark[i];
+        if (posPark >= 0)
         {
-            if (find(parkTypesAvion.begin(), parkTypesAvion.end(), stayTypeAvion) != parkTypesAvion.end())
+            const vector<int> parkTypesAvion = vectParkings[vectPark[i]].getTypeAvion();
+            // cout << "cc2" << endl;
+            int stayTypeAvion = vectStays[i].getAircraftType();
+            if (!parkTypesAvion.empty())
             {
-                // aircraft nor compatible with the parking
-                vectPark[i] = -1;
+                if (find(parkTypesAvion.begin(), parkTypesAvion.end(), stayTypeAvion) != parkTypesAvion.end())
+                {
+                    // aircraft nor compatible with the parking
+                    vectPark[i] = -1;
+                }
             }
         }
     }
@@ -116,13 +120,14 @@ void RecuitSimule::majT()
 Solution RecuitSimule::generateSolution(int sizeParkings)
 {
     // return (rand() % 1000) / 100.0;
+    // solutionCourante.randomizeSubset(0,solutionCourante.getSolution().size(),sizeParkings);
     solutionCourante.randomize(sizeParkings);
     return solutionCourante;
 }
 
 Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const vector<Stay> &vectStays)
 {
-    pair <double, Solution> pair1 = fonctionObjectifC(vectParkings, vectStays);
+    pair<double, Solution> pair1 = fonctionObjectifC(vectParkings, vectStays);
     // double valeurCourante = fonctionObjectifC(vectParkings, vectStays);
     double valeurCourante = pair1.first;
     solutionCourante = pair1.second;
@@ -138,13 +143,12 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
             pair<double, Solution> pair2 = fonctionObjectifC(vectParkings, vectStays);
             double nouvelleValeur = pair2.first;
             cout << "Nouvelle Valeur : " << nouvelleValeur << endl;
-            
 
             double differenceValeur = nouvelleValeur - valeurCourante;
             if (differenceValeur < 0)
             {
                 solutionCourante = pair2.second;
-                valeurCourante = nouvelleValeur;    
+                valeurCourante = nouvelleValeur;
                 solutionGlobal = solutionCourante;
             }
             else

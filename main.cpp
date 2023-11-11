@@ -49,7 +49,29 @@ int main()
     int sizeParkings = vectParkings.size();
 
     Solution solutionInit = Solution(vect);
+    
+    // cout << "size : " << solutionInit.getSolution().size() << endl;
+    // cout << endl;
+    // for (int i = 0; i<sizeStays-1; i++) {
+    //     cout << solutionInit.getSolution()[i] << "|";
+    // }
+    // cout << endl;
+    // cout << endl;
+
+    // solutionInit.randomizeSubset(0, sizeStays-1, sizeParkings);
+    // for (int i = 0; i<sizeStays-1; i++) {
+    //     cout << solutionInit.getSolution()[i] << "|";
+    // }
+    // cout << endl;
+    // cout << endl;
+    
     solutionInit.randomize(sizeParkings);
+    // for (int i = 0; i<sizeStays-1; i++) {
+    //     cout << solutionInit.getSolution()[i] << "|";
+    // }
+    // cout << endl;
+    // cout << endl;
+
     double T = 200;
     RecuitSimule rs(nbIter, nbIterT, solutionInit, T);
     Solution solGlobal = rs.recuitSimule(vectParkings, vectStays);
