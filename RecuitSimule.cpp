@@ -116,7 +116,7 @@ void RecuitSimule::majT()
 Solution RecuitSimule::generateSolution(int sizeParkings)
 {
     // return (rand() % 1000) / 100.0;
-    solutionCourante.randomize(sizeParkings);
+    solutionCourante.randomizeSubset(0,solutionCourante.getSolution().size(),sizeParkings);
     return solutionCourante;
 }
 
