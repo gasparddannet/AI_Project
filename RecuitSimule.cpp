@@ -14,6 +14,12 @@ pair<double, Solution> RecuitSimule::fonctionObjectifC(const vector<Parking> &ve
 {
     // return solution;
     vector<int> vectPark = solutionCourante.getSolution();
+
+    // cout << "Avant : " << endl;
+    // for (int i = 0; i<vectStays.size()-1; i++) {
+    //     cout << vectPark[i] << "|";
+    // }
+
     int sizeParkings = vectPark.size();
     for (int i = 0; i < sizeParkings; i++)
     {
@@ -108,6 +114,10 @@ pair<double, Solution> RecuitSimule::fonctionObjectifC(const vector<Parking> &ve
     // return std::make_pair(poids_allocation + poids_nature, Solution(vectPark));
     // cout << "change1" << endl;
     Solution solutionCourant2 = Solution(vectPark);
+    cout << "Apres fonctionObj: " << endl;
+    for (int i = 0; i<vectStays.size()-1; i++) {
+        cout << solutionCourant2.getSolution()[i] << "|";
+    }
     // cout << "change2" << endl;
     return make_pair(poids_allocation + poids_nature, solutionCourant2);
 }
@@ -140,6 +150,10 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
         {
             Solution nouvelleSolution = generateSolution(vectParkings.size());
             solutionCourante = nouvelleSolution;
+            cout << "Avant 1 " << endl;
+            for (int i = 0; i<vectStays.size()-1; i++) {
+                cout << solutionCourante.getSolution()[i] << "|";
+            }
             pair<double, Solution> pair2 = fonctionObjectifC(vectParkings, vectStays);
             double nouvelleValeur = pair2.first;
             cout << "Nouvelle Valeur : " << nouvelleValeur << endl;
@@ -148,7 +162,11 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
             if (differenceValeur < 0)
             {
                 solutionCourante = pair2.second;
-                valeurCourante = nouvelleValeur;
+                valeurCourante = nouvelleValeur; 
+                cout << "Apres 2 : " << endl;
+                for (int i = 0; i<vectStays.size()-1; i++) {
+                    cout << solutionCourante.getSolution()[i] << "|";
+                }
                 solutionGlobal = solutionCourante;
             }
             else
@@ -156,6 +174,10 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
                 if (rand() / static_cast<double>(RAND_MAX) < exp(-differenceValeur / T))
                 {
                     solutionCourante = pair2.second;
+                    cout << "Apres 3 : " << endl;
+                    for (int i = 0; i<vectStays.size()-1; i++) {
+                        cout << solutionCourante.getSolution()[i] << "|";
+                    }
                     valeurCourante = nouvelleValeur;
                 }
             }
