@@ -5,11 +5,11 @@ using namespace std;
 
 
 Stay::Stay(const int id, const BodyType bT, const int aT, const int auT, const string aOC, const string aEC, 
-        const int aN, const Date aD, const  Time aH, const CourrierCode aCC, const string aS, const string dOC,
-        const string dEC, const int dN, const Date dD, const Time dH, const CourrierCode dCC, const string dS):
+        const int aN, const Date aD, const CourrierCode aCC, const string aS, const string dOC,
+        const string dEC, const int dN, const Date dD, const CourrierCode dCC, const string dS):
         id(id), bodyType(bT), aircraftType(aT), authorizedTowing(auT), arrOwnerCie(aOC), arrExploitingCie(aEC),
-        arrNumber(aN), arrDate(aD), arrHour(aH), arrCourrierCode(aCC), arrStop(aS), depOwnerCie(dOC),
-        depExploitingCie(dEC), depNumber(dN), depDate(dD), depHour(dH), depCourrierCode(dCC), depStop(dS) {};
+        arrNumber(aN), arrDate(aD), arrCourrierCode(aCC), arrStop(aS), depOwnerCie(dOC),
+        depExploitingCie(dEC), depNumber(dN), depDate(dD), depCourrierCode(dCC), depStop(dS) {};
 
 
 // std::ostream& operator<<(std::ostream& o, const BodyType& value){
@@ -41,14 +41,14 @@ ostream & operator<<(ostream& o,const Stay& s) {
     o << "arr exploiting cie : " << s.arrExploitingCie << endl;
     o << "arr number : " << s.arrNumber << endl;
     o << "arr date : " << s.arrDate;
-    o << "arr hour : " << s.arrHour;
+    // o << "arr hour : " << s.arrHour;
     o << "arr courrier code : " << s.arrCourrierCode << endl;
     o << "arr stop : " << s.arrStop << endl;
     o << "dep owner cie : " << s.depOwnerCie << endl;
     o << "dep exploiting cie : " << s.depExploitingCie << endl;
     o << "dep number : " << s.depNumber << endl;
     o << "dep date : " << s.depDate;
-    o << "dep hour : " << s.depHour;
+    // o << "dep hour : " << s.depHour;
     o << "dep courrier code : " << s.depCourrierCode << endl;
     o << "dep stop : " << s.depStop << endl;
     o << endl;
@@ -60,17 +60,17 @@ Date Stay::getArrDate() const{
     return arrDate;
 }
 
-Time Stay::getArrHour() const{
-    return arrHour;
-}
+// Time Stay::getArrHour() const{
+//     return arrHour;
+// }
 
 Date Stay::getDepDate() const{
     return depDate;
 }
 
-Time Stay::getDepHour() const{
-    return depHour;
-}
+// Time Stay::getDepHour() const{
+//     return depHour;
+// }
 
 int Stay::getAuthorizedTowing() const{
     return authorizedTowing;

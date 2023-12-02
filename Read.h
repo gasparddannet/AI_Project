@@ -24,11 +24,14 @@ class Read
 
     static BodyType stringToBodyType(std::string &bt);
     static CourrierCode stringToCourrierCode(string &cc);
-    static Date stringToDate(string &d);
-    static Time stringToTime(string &t);
-    static int getAuthorizedTowing(int &isTowable, Date& arrDate, Time& arrTime, Date& depDate, Time& depTime);
+    static Date stringToDate(string &d, string &t);
+    // static Time stringToTime(string &t);
+    static int getAuthorizedTowing(int &isTowable, Date& arrDate, Date& depDate);
     static Stay stringstreamToStay(stringstream &ss);
     static const vector<Stay> readStays(string staysFile); 
+
+
+    static const vector<int> createCompatibleParking(int aircraftType, vector<Parking> vectParkings);
 
 };
 

@@ -3,7 +3,7 @@
 
 #include "ParkNature.h"
 #include "Date.h"
-#include "Time.h"
+// #include "Time.h"
 #include <tuple>
 
 class ParkSolution {
@@ -11,14 +11,14 @@ class ParkSolution {
     ParkNature parkNature;
     string zone;
     Date startDate;
-    Time startHour;
+    // Time startHour;
     Date endDate;
-    Time endHour;
+    // Time endHour;
 
     public:
-        ParkSolution(int iP, ParkNature pN, string z, Date sD, Time sH, Date eD, Time eH);
+        ParkSolution(int iP, ParkNature pN, string z, Date sD, Date eD);
         int getPosParking();
-        tuple<Date, Time, Date, Time> getTupleStartEnd();
+        tuple<Date, Date> getTupleStartEnd();
 };
 
 #endif

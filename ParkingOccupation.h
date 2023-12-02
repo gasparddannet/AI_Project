@@ -4,17 +4,17 @@
 #include <vector>
 #include<tuple>
 #include "Date.h"
-#include "Time.h"
+// #include "Time.h"
 
 using namespace std;
 
 
 class ParkingOccupation {
     const int idParking;
-    vector<tuple<Date, Time, Date, Time>> occupation;
+    vector<tuple<Date, Date>> occupation;
 
     public:
-        ParkingOccupation(const int iP, vector<tuple<Date, Time, Date, Time>> occ);
+        ParkingOccupation(const int iP, vector<tuple<Date, Date>> occ);
 };
 
 #endif

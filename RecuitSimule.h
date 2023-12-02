@@ -6,7 +6,8 @@
 #include <cstdlib>
 #include "Solution.h"
 #include "Parking.h"
-#include "Stay.h"
+// #include "Stay.h"
+#include "Operation.h"
 
 class RecuitSimule {
 public:
@@ -14,11 +15,11 @@ public:
 
     // double fonctionObjectifC(const vector<Parking> &vectParkings, const vector<Stay> &vectStays);
     // double fonctionObjectif(vector<Parking> vectParkings, vector<Stay> vectStays);
-    pair<double, Solution> fonctionObjectifC(const vector<Parking> &vectParkings, const vector<Stay> &vectStays);
+    pair<double, Solution> fonctionObjectifC(const vector<Parking> &vectParkings, const vector<Operation> &vectOperations);
 
     void majT();
 
-    Solution recuitSimule(const vector<Parking> &vectParkings, const vector<Stay> &vectStays);
+    Solution recuitSimule(const vector<Parking> &vectParkings, const vector<Operation> &vectOperation);
 
 private:
     double T;

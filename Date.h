@@ -8,21 +8,26 @@ using namespace std;
 class Date
 {
     int jour,mois,annee;
+    int hour, min;
     
     public:
-        Date(int,int,int);
+        Date(int& j,int& m,int& a,int& h,int& min);
 
         int comparer(const Date& d);
 
         virtual ~Date();
         friend ostream & operator<<(ostream& o,const Date& d) ;
-        friend ostream & operator<<(ostream& o,const Date* d) ;
+        // friend ostream & operator<<(ostream& o,const Date* d) ;
         friend istream& operator>>(istream& i, Date& d) ;
         bool operator==(const Date& d);
-        bool operator<(const Date&d);
-        bool operator>(const Date&d);
+        bool operator<=(const Date&d);
+        bool operator>=(const Date&d);
         bool operator!=(const Date&d);
-        Date& operator++ ();
+        // Date& operator++ ();
+        // Date& operator-(const Date &t);
+        int ecart(const Date &d);
+        Date& operator+(const int &t);
+        Date& operator-(const int &t);
 };
 
 

@@ -2,17 +2,18 @@
 #include "CourrierCode.h"
 #include "BodyType.h"
 #include "ParkNature.h"
+#include <algorithm>
 
 using namespace std;
 
-string & Read::rtrim(string &s)
+string &Read::rtrim(string &s)
 {
     s.erase(s.find_last_not_of(' ') + 1);
     return s;
 }
 
 /**********************************************/
-/*************     READ PARKING   *************/ 
+/*************     READ PARKING   *************/
 /**********************************************/
 
 ParkNature Read::stringToParkNature(std::string &pn)
@@ -34,7 +35,6 @@ ParkNature Read::stringToParkNature(std::string &pn)
     throw std::invalid_argument("Wrong Parking Nature");
 }
 
-
 const vector<int> Read::stringToVectInt(const string &ta)
 {
     // variant<const string, const vector<int>> variantTa;
@@ -43,11 +43,13 @@ const vector<int> Read::stringToVectInt(const string &ta)
     string type;
     while (getline(ss, type, ','))
     {
-        if (type.compare("-") == 0) {
+        if (type.compare("-") == 0)
+        {
             // variantTa = TypeAvion{"all"};
             // variantTa = in_place_index<0>();
         }
-        else {
+        else
+        {
             // cout << type << endl;
             // variantTa.emplace<1>.push_back(stoi(type));
             Ta.push_back(stoi(type));
@@ -88,9 +90,8 @@ const vector<Parking> Read::readParkings(string parkingFile)
     return vectParkings;
 }
 
-
 /**********************************************/
-/*************     READ STAYS   *************/ 
+/*************     READ STAYS   *************/
 /**********************************************/
 
 BodyType Read::stringToBodyType(std::string &bt)
@@ -102,55 +103,73 @@ BodyType Read::stringToBodyType(std::string &bt)
     throw std::invalid_argument("Wrong Body Type");
 }
 
-CourrierCode Read::stringToCourrierCode(string &cc) {
+CourrierCode Read::stringToCourrierCode(string &cc)
+{
     if (cc == "MC")
     {
         return CourrierCode::MC;
     }
     throw std::invalid_argument("Wrong Courrier Code");
-
 }
 
-Date Read::stringToDate(string &d) {
+Date Read::stringToDate(string &d, string &t)
+{
     vector<int> vect;
     string val;
     stringstream ss(d);
-    while (getline(ss, val, '/')) {
+    while (getline(ss, val, '/'))
+    {
         vect.push_back(stoi(val));
     }
-    return Date(vect[0], vect[1], vect[2]);
-}
-
-Time Read::stringToTime(string &t) {
-    vector<int> vect;
-    string val;
-    stringstream ss(t);
-    while (getline(ss, val, ':')) {
+    stringstream st(t);
+    while (getline(st, val, ':'))
+    {
         vect.push_back(stoi(val));
     }
-    return Time(vect[0], vect[1]);
+    return Date(vect[0], vect[1], vect[2], vect[3], vect[4]);
 }
 
-int Read::getAuthorizedTowing(int &isTowable, Date& arrDate, Time& arrTime, Date& depDate, Time& depTime) {
-    if (isTowable == 1) {
-        if (arrDate == depDate) {
-            if (depTime - arrTime >= Time(4,0)) {
-                return 2;
-            }
-            else return 1;
+// Time Read::stringToTime(string &t) {
+//     vector<int> vect;
+//     string val;
+//     stringstream ss(t);
+//     while (getline(ss, val, ':')) {
+//         vect.push_back(stoi(val));
+//     }
+//     return Time(vect[0], vect[1]);
+// }
+
+int Read::getAuthorizedTowing(int &isTowable, Date &arrDate, Date &depDate)
+{
+    if (isTowable == 1)
+    {
+        // if (arrDate == depDate) {
+        //     // if (depTime - arrTime >= Time(4,0)) {
+        //     if (depDate.ecart(arrDate) >= 4*60) {
+        //         return 2;
+        //     }
+        //     else return 1;
+        // }
+        // else {
+        //     if (Time(20,0) >= arrTime or depTime >= Time(4,0)) {
+        //         return 2;
+        //     }
+        //     else return 1;
+        // }
+        if (depDate.ecart(arrDate) >= 4 * 60)
+        {
+            return 2;
         }
-        else {
-            if (Time(20,0) >= arrTime or depTime >= Time(4,0)) {
-                return 2;
-            }
-            else return 1;
-        }
+        else
+            return 1;
     }
 
-    else return 0;
+    else
+        return 0;
 }
 
-Stay Read::stringstreamToStay(stringstream &ss) {
+Stay Read::stringstreamToStay(stringstream &ss)
+{
     vector<string> row;
     string val;
     while (getline(ss, val, ';'))
@@ -164,27 +183,28 @@ Stay Read::stringstreamToStay(stringstream &ss) {
     string arrOwnerCie = row[4];
     string arrExploitingCie = row[5];
     int arrNumber = stoi(row[6]);
-    Date arrDate = stringToDate(row[7]);
-    Time arrHour = stringToTime(row[8]);
+    Date arrDate = stringToDate(row[7], row[8]);
+    // Time arrHour = stringToTime(row[8]);
     CourrierCode arrCourrierCode = stringToCourrierCode(row[9]);
     string arrStop = row[10];
     string depOwnerCie = row[11];
     string depExploitingCie = row[12];
     int depNumber = stoi(row[13]);
-    Date depDate = stringToDate(row[14]);
-    Time depHour = stringToTime(row[15]);
+    Date depDate = stringToDate(row[14], row[15]);
+    // Time depHour = stringToTime(row[15]);
     CourrierCode depCourrierCode = stringToCourrierCode(row[16]);
     string depStop = row[17];
     int isTowable = stoi(row[3]);
-    int authorizedTowing = getAuthorizedTowing(isTowable, arrDate, arrHour, depDate, depHour);
+    int authorizedTowing = getAuthorizedTowing(isTowable, arrDate, depDate);
 
-    Stay stay = Stay(id, bodyType, aircraftType, authorizedTowing, arrOwnerCie, arrExploitingCie , 
-                     arrNumber, arrDate, arrHour, arrCourrierCode, arrStop, depOwnerCie,
-                     depExploitingCie, depNumber, depDate, depHour, depCourrierCode, row[17]);
+    Stay stay = Stay(id, bodyType, aircraftType, authorizedTowing, arrOwnerCie, arrExploitingCie,
+                     arrNumber, arrDate, arrCourrierCode, arrStop, depOwnerCie,
+                     depExploitingCie, depNumber, depDate, depCourrierCode, row[17]);
     return stay;
 }
 
-const vector<Stay> Read::readStays(string staysFile) {
+const vector<Stay> Read::readStays(string staysFile)
+{
     vector<Stay> vectStays;
 
     ifstream file(staysFile);
@@ -202,4 +222,31 @@ const vector<Stay> Read::readStays(string staysFile) {
     file.close();
 
     return vectStays;
+}
+
+const vector<int> Read::createCompatibleParking(int aircraftType, vector<Parking> vectParkings)
+{
+    vector<int> compatibleParkings;
+    for (int i = 0; i < vectParkings.size(); i++)
+    {
+        const vector<int> parkTypesAvion = vectParkings[i].getTypeAvion();
+
+        if (!parkTypesAvion.empty())
+        {
+            if (find(parkTypesAvion.begin(), parkTypesAvion.end(), aircraftType) != parkTypesAvion.end()){
+                compatibleParkings.push_back(i);
+            }
+            // for (int j = 0; j < vectParkings[i].getTypeAvion().size(); j++)
+            // {
+            //     if (vectParkings[i].getTypeAvion()[j] == aircraftType)
+            //     {
+            //         compatibleParkings.push_back(i);
+            //     }
+            // }
+        }
+        else {
+            compatibleParkings.push_back(i);
+        }
+    }
+    return compatibleParkings;
 }
