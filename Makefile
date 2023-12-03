@@ -10,14 +10,13 @@ main.o: main.cpp Date.cpp Operation.cpp RecuitSimule.cpp Parking.cpp Stay.cpp Re
 	
 Date.o: Date.h
 
-# Time.o: Time.h
 Operation.o : Operation.h
 
 RecuitSimule.o: RecuitSimule.h
 
 Parking.o: Parking.h ParkNature.h
 
-Stay.o: Stay.h BodyType.h Date.h Time.h CourrierCode.h
+Stay.o: Stay.h BodyType.h Date.h CourrierCode.h
 
 Read.o: Read.h Parking.h Stay.h
 
