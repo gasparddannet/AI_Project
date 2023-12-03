@@ -13,3 +13,5 @@
 .vscode
 *.exe
 *.o
+
+trash/
