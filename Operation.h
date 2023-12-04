@@ -18,11 +18,13 @@ class Operation
 
     public:
         Operation(const int& idStays, const Date& arrDate, const Date& depDate, const vector<int> compParkings);
+        ~Operation();
         void setIdParkind(int idP);
         int getIdParking();
         int getIdStay();
         const Date& getArrDate() const;
         const Date& getDepDate() const;
+        const vector<int> getCompParkings() const;
 };
 
 #endif

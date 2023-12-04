@@ -4,6 +4,11 @@
 Operation::Operation(const int& idS, const Date& arrDate, const Date& depDate, const vector<int> compParkings):
     idStay(idS), arrDate(arrDate), depDate(depDate), compatibleParkings(compParkings) {}
 
+Operation::~Operation() 
+{
+    // std::cout << "Destructor Operation" << std::endl;
+}
+
 void Operation::setIdParkind(int idP) {
     idParking = idP;
 }
@@ -22,4 +27,8 @@ const Date& Operation::getDepDate() const {
 
 int Operation::getIdStay() {
     return idStay;
+}
+
+const vector<int> Operation::getCompParkings() const {
+    return compatibleParkings;
 }

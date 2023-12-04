@@ -17,9 +17,7 @@ int TTMD = 60;
 
 int main()
 {
-    // RecuitSimule rs(2, 1, 1, 1);
-
-    /* Read Parkings */
+    /**** Read Parkings ****/
     cout << "Read Parkings" << endl;
     vector<Parking> vectParkings = Read::readParkings(ParkingFile);
 
@@ -29,23 +27,13 @@ int main()
     // cout << '\n';
     // cout << '\n';
 
-    /* Read Stays */
+    /**** Read Stays ****/
     cout << "Read stays" << endl;
     vector<Stay> vectStays = Read::readStays(StaysFile);
 
     // for (Stay &s : vectStays) {
     //     cout << s;
     // }
-
-    // Time t1 = Time(1,50);
-    // Time t2 = Time(12,30);
-    // Time t3 = t2 - t1;
-    // cout << t1;
-    // cout << t2;
-    // cout << t3;
-    // cout << "cc1" << endl;
-
-
 
     // From a Stay Vect to an Operation Vect
     vector<Operation> vectOperations;
@@ -72,7 +60,6 @@ int main()
 
     int nbIter = 100;
     int nbIterT = 100;
-    // int sizeStays = vectStays.size();
     int sizeOperations = vectOperations.size();
     vector<int> vect(sizeOperations);
     int sizeParkings = vectParkings.size();
@@ -94,12 +81,12 @@ int main()
     // cout << endl;
     // cout << endl;
     
-    solutionInit.randomize(sizeParkings);
-    // for (int i = 0; i<sizeStays-1; i++) {
-    //     cout << solutionInit.getSolution()[i] << "|";
-    // }
-    // cout << endl;
-    // cout << endl;
+    solutionInit.randomize(sizeParkings, vectOperations);
+    for (int i = 0; i<sizeOperations; i++) {
+        cout << solutionInit.getSolution()[i] << "|";
+    }
+    cout << endl;
+    cout << endl;
 
     double T = 200;
     RecuitSimule rs(nbIter, nbIterT, solutionInit, T);
@@ -142,19 +129,15 @@ int main()
         file << vectStays[posStay].getAuthorizedTowing() << ";";
         file << vectStays[posStay].getArrNumber() << ";";
         file << vectOperations[i].getArrDate() << ";";
-        // file << vectStays[i].getArrHour() << ";";
         file << vectStays[posStay].getDepNumber() << ";";
         file << vectOperations[i].getDepDate() << ";";
-        // file << vectStays[i].getDepHour() << ";";
         if (vectSolGlobal[i] >= 0)
         {
             file << vectParkings[vectSolGlobal[i]].getName() << ";";
             file << vectParkings[vectSolGlobal[i]].getNature() << ";";
             file << vectParkings[vectSolGlobal[i]].getZone() << ";";
             file << vectOperations[i].getArrDate() << ";";
-            // file << vectStays[i].getArrHour() << ";";
             file << vectOperations[i].getDepDate() << ";";
-            // file << vectStays[i].getDepHour();
         }
         file << endl;
     }
@@ -195,72 +178,6 @@ int main()
         fileOccPark << endl;
     }
     fileOccPark.close();
-
-    // cout << "cc3" << endl;
-
-    // //************************************************************************************************//
-    // // std::pair<double, Solution> pairGlo = rs.fonctionObjectif(solGlobal, vectParkings, vectStays);
-
-    // // cout << "valeurGlobale : " << pairGlo.first << endl;
-
-    // ofstream file2("test_file_2.csv");
-    // if (!file2.is_open())
-    //     throw std::runtime_error("Could not open file");
-    // file2 << "Stay;BodyType;AircraftType;Towings;Arr_Number;Arr_Date;Arr_Hour;Dep_Number;Dep_Date;Dep_Hour;Parking 1;Contact 1;Zone 1;Start Date 1;Start Hour 1;End Date 1;End Hour 1" << endl;
-    // vector<int> vectSolGlobal2 = pairGlo.second.getSolution();
-    // for (long unsigned int i = 0 ; i < vectSolGlobal2.size() ; i++) {
-    //     file2 << vectStays[i].getId() << ";";
-    //     file2 << vectStays[i].getBodyType() << ";";
-    //     file2 << vectStays[i].getAircraftType() << ";";
-    //     file2 << vectStays[i].getAuthorizedTowing() << ";";
-    //     file2 << vectStays[i].getArrNumber() << ";";
-    //     file2 << vectStays[i].getArrDate() << ";";
-    //     file2 << vectStays[i].getArrHour() << ";";
-    //     file2 << vectStays[i].getDepNumber() << ";";
-    //     file2 << vectStays[i].getDepDate() << ";";
-    //     file2 << vectStays[i].getDepHour() << ";";
-    //     file2 << vectParkings[vectSolGlobal2[i]].getName() << ";";
-    //     file2 << vectParkings[vectSolGlobal2[i]].getNature() << ";";
-    //     file2 << vectParkings[vectSolGlobal2[i]].getZone() << ";";
-    //     file2 << vectStays[i].getArrDate() << ";";
-    //     file2 << vectStays[i].getArrHour() << ";";
-    //     file2 << vectStays[i].getDepDate() << ";";
-    //     file2 << vectStays[i].getDepHour() << endl;
-    // }
-    // file2.close();
-
-    // cout << "cc" << endl;
-
-    // vector<vector<tuple<Date, Time, Date, Time, int>>> tempOccParking2(sizeParkings); // tableau indexe par les parkings des tableaux des tuples startDate, startHour, endDate, endHour
-    // for (long unsigned int i = 0; i < vectSolGlobal2.size(); i++)
-    // {
-    //     Stay stay = vectStays[i];
-    //     int posPark = vectSolGlobal2[i];
-    //     // tempOccParking[posPark].push_back(vectParkSolution[j].getTupleStartEnd());
-    //     tempOccParking2[posPark].push_back({stay.getArrDate(), stay.getArrHour(), stay.getDepDate(), stay.getDepHour(), i});
-    // }
-    // ofstream fileOccPark2("test_file_parking_occ2.csv");
-    // if (!fileOccPark2.is_open())
-    //     throw std::runtime_error("Could not open file");
-    // fileOccPark2 << "Parking;Stay1;Start Date 1 ;Start Hour 1 ;End Date 1 ;End Hour 1;Stay2;Start Date 2 ;Start Hour 2 ;End Date 2 ;End Hour 2;Stay3;Start Date 3 ;Start Hour 3 ;End Date 3 ;End Hour 3;Stay4;Start Date 4 ;Start Hour 4 ;End Date 4 ;End Hour 4" << endl;
-    // for (long unsigned int i=0; i<tempOccParking2.size(); i++) {
-    //     fileOccPark2 << vectParkings[i].getName() << ";";
-    //     // cout << "tempOccParking size : " << tempOccParking[i].size() << endl;
-    //     for (long unsigned int j=0; j<tempOccParking2[i].size(); j++) {
-    //         Date startDate = get<0>(tempOccParking2[i][j]);
-    //         Date endDate = get<2>(tempOccParking2[i][j]);
-    //         Time startHour = get<1>(tempOccParking2[i][j]);
-    //         Time endHour = get<3>(tempOccParking2[i][j]);
-    //         int posStay = get<4>(tempOccParking2[i][j]);
-    //         fileOccPark2 << vectStays[posStay].getId() << ";";
-    //         fileOccPark2 << startDate << ";";
-    //         fileOccPark2 << startHour << ";";
-    //         fileOccPark2 << endDate << ";";
-    //         fileOccPark2 << endHour << ";";
-    //     }
-    //     fileOccPark2 << endl;
-    // }
-    // fileOccPark2.close();
 
     return 0;
 }

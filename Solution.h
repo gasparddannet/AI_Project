@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <list>
+#include "Operation.h"
 
 using namespace std;
 
@@ -13,8 +14,12 @@ class Solution
 
 public:
     Solution(vector<int> solution);
+    
+    Solution(const Solution & s);
+    Solution & operator=(const Solution& s);
+    
     vector<int> getSolution();
-    void randomize(int sizeParkings);
+    void randomize(int sizeParking, vector<Operation> vectOperations);
     void initializeNOP(int sizeParkings);
     void computeNOP();
     void mutateMinusOne(int sizeParkings);

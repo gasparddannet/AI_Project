@@ -1,7 +1,6 @@
 #include "RecuitSimule.h"
 #include "Solution.h"
 #include "Date.h"
-#include "Time.h"
 // #include "Stay.h"
 #include "Operation.h"
 #include "Parking.h"
@@ -118,7 +117,7 @@ pair<double, Solution> RecuitSimule::fonctionObjectifC(const vector<Parking> &ve
     // return std::make_pair(poids_allocation + poids_nature, Solution(vectPark));
     // cout << "change1" << endl;
     Solution solutionCourant2 = Solution(vectPark);
-    cout << "Apres fonctionObj: " << endl;
+    cout << "\nApres fonctionObj: " << endl;
     for (int i = 0; i<vectOperations.size()-1; i++) {
         cout << solutionCourant2.getSolution()[i] << "|";
     }
@@ -131,11 +130,13 @@ void RecuitSimule::majT()
     T *= 0.1;
 }
 
-Solution RecuitSimule::generateSolution(int sizeParkings)
+Solution RecuitSimule::generateSolution(int sizeParkings, vector<Operation> vectOperations)
 {
     // return (rand() % 1000) / 100.0;
     // solutionCourante.randomizeSubset(0,solutionCourante.getSolution().size(),sizeParkings);
-    solutionCourante.randomize(sizeParkings);
+    solutionCourante.randomize(sizeParkings, vectOperations);
+    // solutionCourante.smartMutateMinusOne(sizeParkings);
+    cout << "generateSOlution done" << endl;
     return solutionCourante;
 }
 
@@ -145,32 +146,33 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
     // double valeurCourante = fonctionObjectifC(vectParkings, vectStays);
     double valeurCourante = pair1.first;
     solutionCourante = pair1.second;
-    cout << "Valeur Initiale: " << valeurCourante << endl;
+    cout << "\nValeur Initiale: " << valeurCourante << endl;
     int compt = 0;
 
     while (T > 0.1 && compt < nbIter)
     {
         for (int i = 0; i < nbIterT; ++i)
         {
-            Solution nouvelleSolution = generateSolution(vectParkings.size());
-            solutionCourante = nouvelleSolution;
-            cout << "Avant 1 " << endl;
-            for (int i = 0; i<vectOperations.size()-1; i++) {
+            // Solution nouvelleSolution = generateSolution(vectParkings.size(), vectOperations);
+            // solutionCourante = nouvelleSolution;
+            solutionCourante = generateSolution(vectParkings.size(), vectOperations);
+            cout << "\nAvant 1 " << endl;
+            for (int i = 0; i<vectOperations.size(); i++) {
                 cout << solutionCourante.getSolution()[i] << "|";
             }
             pair<double, Solution> pair2 = fonctionObjectifC(vectParkings, vectOperations);
             double nouvelleValeur = pair2.first;
-            cout << "Nouvelle Valeur : " << nouvelleValeur << endl;
+            cout << "\nNouvelle Valeur : " << nouvelleValeur << endl;
 
             double differenceValeur = nouvelleValeur - valeurCourante;
             if (differenceValeur < 0)
             {
                 solutionCourante = pair2.second;
                 valeurCourante = nouvelleValeur; 
-                cout << "Apres 2 : " << endl;
-                for (int i = 0; i<vectOperations.size()-1; i++) {
-                    cout << solutionCourante.getSolution()[i] << "|";
-                }
+                cout << "\nApres 2 : " << endl;
+                // for (int i = 0; i<vectOperations.size()-1; i++) {
+                //     cout << solutionCourante.getSolution()[i] << "|";
+                // }
                 solutionGlobal = solutionCourante;
             }
             else
@@ -178,10 +180,10 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
                 if (rand() / static_cast<double>(RAND_MAX) < exp(-differenceValeur / T))
                 {
                     solutionCourante = pair2.second;
-                    cout << "Apres 3 : " << endl;
-                    for (int i = 0; i<vectOperations.size()-1; i++) {
-                        cout << solutionCourante.getSolution()[i] << "|";
-                    }
+                    cout << "\nApres 3 : " << endl;
+                    // for (int i = 0; i<vectOperations.size()-1; i++) {
+                    //     cout << solutionCourante.getSolution()[i] << "|";
+                    // }
                     valeurCourante = nouvelleValeur;
                 }
             }

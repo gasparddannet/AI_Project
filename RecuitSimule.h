@@ -29,7 +29,9 @@ private:
     Solution solutionGlobal;
 
     // Solution generateSolution(Solution solution, int sizeParkings);
-    Solution generateSolution(int sizeParkings);
+    Solution generateSolution(int sizeParkings, vector<Operation> vectOperations);
+    // Solution generateSolution(int sizeParkings);
+
 
 };
 
