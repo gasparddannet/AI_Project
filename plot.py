@@ -10,8 +10,8 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
 FIC = 'test_file_parking_occ.csv'
-N_LABEL_PARK_ON_SCREEN = 7  # Nombre de parking affiché sur chaque figure
-
+N_LABEL_PARK_ON_SCREEN = 5  # Nombre de parking affiché sur chaque figure
+FIC_NAS = 'non_allocated_stays.txt'
 
 def readcsv(fic):
     donnees = []
@@ -23,6 +23,18 @@ def readcsv(fic):
             donnees.append(liste)
     return donnees
 
+def read_txt_non_allocated_stays(fic) :
+    with open(fic, "r") as file:
+        data = []
+        for line in file:
+            ligne = line.strip().split()
+            data.append(ligne)
+    return data
+
+def string_time_to_float(time) :
+    string_h, string_min = time.split(':')
+    floa = int(string_h) + int(string_min)/60
+    return floa
 
 def main():
     donnees = readcsv(FIC)
@@ -33,7 +45,7 @@ def main():
     y = [i+1 for i in range(N_LABEL_PARK_ON_SCREEN)]
     starts = [[] for i in range(nplot)]
     ends = [[] for i in range(nplot)]
-    couleurs = ['r', 'g', 'b', 'y', 'c', 'm', 'k', 'w', 'orange', 'purple']
+    couleurs = ['r', 'g', 'b', 'y', 'c', 'm', 'k', 'orange', 'purple']
 
     for i in range(1, len(donnees)):
         num_fig = int((i-1) / N_LABEL_PARK_ON_SCREEN) # Numéro de figure sur laquelle on travaille
@@ -46,14 +58,11 @@ def main():
             start_hour = lignei[j+2]
             end_date = lignei[j+3]
             end_hour = lignei[j+4]
-            start_string_h, start_string_min = start_hour.split(':')
-            end_string_h, end_string_min = end_hour.split(':')
-            start = int(start_string_h) + int(start_string_min)/60
-            end = int(end_string_h) + int(end_string_min)/60
+            start = string_time_to_float(start_hour)
+            end = string_time_to_float(end_hour)
             starts[num_fig].append(start)
             ends[num_fig].append(end)
-            rectangle = patches.Rectangle(
-                (start, y[k]-0.25), end - start, 0.5, edgecolor=couleurs[int(j/5)], facecolor=couleurs[int(j/5)])
+            rectangle = patches.Rectangle((start, y[k]-0.25), end - start, 0.5, edgecolor=couleurs[int(j/5)], facecolor=couleurs[int(j/5)])
             fig,ax = figax[num_fig]
             ax.add_patch(rectangle)
             ax.text((start + end) / 2, y[k] + 0.4, stay,
@@ -64,7 +73,33 @@ def main():
         ax.set_yticklabels(label[i])
         ax.set_ylim(0, N_LABEL_PARK_ON_SCREEN + 1)
         ax.set_xlim(min(starts[i]),max(ends[i]))
+        ax.set_xlabel('Heure')
+        ax.set_ylabel('Parking')
 
+    # data = read_txt_non_allocated_stays(FIC_NAS)
+    # starts=[]
+    # ends=[]
+    # (fig,ax) = plt.subplots()
+    # y_bis = [i+1 for i in range(len(data))]
+    # for stay in data :
+    #     id_stay = stay[0]
+    #     start_hour = stay[1]
+    #     end_hour = stay[2]
+    #     start = string_time_to_float(start_hour)
+    #     end = string_time_to_float(end_hour)
+    #     starts.append(start)
+    #     ends.append(end)
+    #     rectangle = patches.Rectangle(
+    #             (start, y_bis[i]-0.25), end - start, 0.5, edgecolor='r', facecolor='r')
+    #     ax.add_patch(rectangle)
+    #     ax.text((start + end) / 2, y[i] + 0.4, stay, ha='center', va='center', color='black', size=8)
+    # ax.set_ylim(0, len(y_bis) + 1)
+    # ax.set_xlim(min(starts),max(ends))
+    # ax.set_xlabel('Heure')
+    
     plt.show()
 
+
 main()
+
+#vector<vector<int>>#14-15 mardi 19
