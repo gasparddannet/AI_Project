@@ -33,6 +33,13 @@ Date::~Date()
     // affiche();
 }
 
+int Date::getJour() {return jour}
+int Date::getMois() {return mois}
+int Date::getAnnee() {return annee}
+int Date::getHour() {return hour}
+int Date::getMin() {return min}
+
+
 ostream &operator<<(ostream &o, const Date &d)
 {
     o << std::setw(2) << std::setfill('0') << d.jour;

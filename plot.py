@@ -83,10 +83,8 @@ def main():
     # y_bis = [i+1 for i in range(len(data))]
     # for stay in data :
     #     id_stay = stay[0]
-    #     start_hour = stay[1]
-    #     end_hour = stay[2]
-    #     start = string_time_to_float(start_hour)
-    #     end = string_time_to_float(end_hour)
+    #     start = stay[1]+stay[2]/60
+    #     end = stay[3]+stay[4]/60
     #     starts.append(start)
     #     ends.append(end)
     #     rectangle = patches.Rectangle(

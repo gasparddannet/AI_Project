@@ -16,6 +16,11 @@ class Date
         int comparer(const Date& d);
 
         virtual ~Date();
+        int getJour();
+        int getMois();
+        int getAnnee();
+        int getHour();
+        int getMin();
         friend ostream & operator<<(ostream& o,const Date& d) ;
         // friend ostream & operator<<(ostream& o,const Date* d) ;
         friend istream& operator>>(istream& i, Date& d) ;
