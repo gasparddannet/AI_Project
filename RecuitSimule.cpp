@@ -134,7 +134,8 @@ Solution RecuitSimule::generateSolution(int sizeParkings, vector<Operation> vect
 {
     // return (rand() % 1000) / 100.0;
     // solutionCourante.randomizeSubset(0,solutionCourante.getSolution().size(),sizeParkings);
-    solutionCourante.randomize(sizeParkings, vectOperations);
+    // solutionCourante.randomize(sizeParkings, vectOperations);
+    solutionCourante.mutateMinusOne(sizeParkings, vectOperations);
     // solutionCourante.smartMutateMinusOne(sizeParkings);
     cout << "generateSOlution done" << endl;
     return solutionCourante;

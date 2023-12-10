@@ -17,6 +17,23 @@ int TTMD = 60;
 
 int main()
 {
+
+    int j,m,a,h,min;
+    int j2,m2,a2,h2,min2;
+    j=9;m=8;a=2022;h=9;min=0;
+    j2=9;m2=8;a2=2022;h2=9;min2=0;
+
+    Date d1 = Date(j,m,a,h,min);
+    cout << "Date 1 : " << d1 << endl;
+    Date d2 = Date(j2,m2,a2,h2,min2);
+    cout << "Date 2 : " << d2 << endl;
+
+
+
+    Date d3 = d1 + 30;
+    cout << "Date 1 - 30 :" << d3 << endl;
+
+
     /**** Read Parkings ****/
     cout << "Read Parkings" << endl;
     vector<Parking> vectParkings = Read::readParkings(ParkingFile);
@@ -58,8 +75,8 @@ int main()
         }
     }
 
-    int nbIter = 100;
-    int nbIterT = 100;
+    int nbIter = 1000;
+    int nbIterT = 1000;
     int sizeOperations = vectOperations.size();
     vector<int> vect(sizeOperations);
     int sizeParkings = vectParkings.size();
@@ -88,7 +105,7 @@ int main()
     cout << endl;
     cout << endl;
 
-    double T = 200;
+    double T = 1000;
     RecuitSimule rs(nbIter, nbIterT, solutionInit, T);
     Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations);
 

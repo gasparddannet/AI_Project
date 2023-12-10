@@ -6,6 +6,11 @@ Date::Date(int &j, int &m, int &a, int &h, int &min) : jour(j), mois(m), annee(a
 {
 }
 
+// Date::Date(int j, int m, int a, int h, int min) : jour(j), mois(m), annee(a), hour(h), min(min)
+// {
+// }
+
+
 int Date::comparer(const Date &d)
 {
     if (annee != d.annee)
@@ -33,11 +38,11 @@ Date::~Date()
     // affiche();
 }
 
-int Date::getJour() {return jour}
-int Date::getMois() {return mois}
-int Date::getAnnee() {return annee}
-int Date::getHour() {return hour}
-int Date::getMin() {return min}
+int Date::getJour() {return jour;}
+int Date::getMois() {return mois;}
+int Date::getAnnee() {return annee;}
+int Date::getHour() {return hour;}
+int Date::getMin() {return min;}
 
 
 ostream &operator<<(ostream &o, const Date &d)
@@ -141,35 +146,45 @@ int Date::ecart(const Date &d) // renvoie l'ecart (en minutes) entre deux dates
     throw invalid_argument("The second time is greater than the first");
 }
 
-Date& Date::operator+(const int &t)          // ajoute t minutes a la date
+Date Date::operator+(const int &t)          // ajoute t minutes a la date
 {
+    int hour2;
+    int min2;
+    int jour2 = jour;   
     if (hour*60+min + t >= 24*60) {
-        jour++;
+        jour2 = jour-1;
         int time = hour*60+min+t - 24*60;
-        hour = time/60;
-        min = time%60;
+        hour2 = time/60;
+        min2 = time%60;
     }
     else {
         int time = hour*60+min+t;
-        hour = time/60;
-        min = time % 60;
+        hour2 = time/60;
+        min2 = time % 60;
     }
-    return *this;
+    return Date(jour2, mois, annee, hour2, min2);
 }
 
 
-Date& Date::operator-(const int &t)          // enleve t minutes a la date
+Date Date::operator-(const int &t)          // enleve t minutes a la date
 {
+    int hour2;
+    int min2;
+    int jour2 = jour;
     if (hour*60+min - t <= 0) {
-        jour--;
+        jour2 = jour-1;
         int time = 24*60 - (hour*60+min-t);
-        hour = time/60;
-        min = time%60;
+        hour2 = time/60;
+        min2 = time%60;
+        // cout << "hour : " << hour << std::endl;
+        // cout << "min : " << min << std::endl;
     }
     else {
         int time = hour*60+min-t;
-        hour = time/60;
-        min = time % 60;
+        hour2 = time/60;
+        min2 = time % 60;
+        // cout << "hour : " << hour << std::endl;
+        // cout << "min : " << min << std::endl;
     }
-    return *this;
+    return Date(jour2, mois, annee, hour2, min2);
 }

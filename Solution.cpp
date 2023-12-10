@@ -69,26 +69,37 @@ void Solution::computeNOP()
 
 void Solution::randomize(int sizeParkings, vector<Operation> vectOperations)
 {
-    srand((int)time(0));
+    // srand((int)time(0));
+    std::random_device rd;
+    std::default_random_engine generator(rd());
+
     for (int i = 0; i < solution.size(); i++)
     {
         vector<int> compParkings = vectOperations[i].getCompParkings();
-        solution[i] = compParkings[rand() % compParkings.size()];
+        // solution[i] = compParkings[rand() % compParkings.size()];
+        std::uniform_int_distribution<int> distribution(0, compParkings.size()-1);
+        // std::cout << distribution(generator) << endl;
+        solution[i] = compParkings[distribution(generator)];
     }
 }
 
 //////////////////////////////////////////////////// OPERATORS //////////////////////////////////////////////
 
 // Replace elements in the solution with random Parking assignment if they don't have one
-void Solution::mutateMinusOne(int sizeParkings)
+void Solution::mutateMinusOne(int sizeParkings, vector<Operation> vectOperations)
 {
     // srand(time(NULL));
-    srand((int)time(0));
+    // srand((int)time(0));
+    std::random_device rd;
+    std::default_random_engine generator(rd());
     for (int i = 0; i < solution.size(); i++)
     {
         if (solution[i] == -1)
         {
-            solution[i] = rand() % sizeParkings;
+            // solution[i] = rand() % sizeParkings;
+            vector<int> compParkings = vectOperations[i].getCompParkings();
+            std::uniform_int_distribution<int> distribution(0, compParkings.size()-1);
+            solution[i] = compParkings[distribution(generator)];
         }
     }
 }

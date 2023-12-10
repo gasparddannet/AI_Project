@@ -12,6 +12,7 @@ class Date
     
     public:
         Date(int& j,int& m,int& a,int& h,int& min);
+        // Date(int j,int m,int a,int h,int min);
 
         int comparer(const Date& d);
 
@@ -31,8 +32,8 @@ class Date
         // Date& operator++ ();
         // Date& operator-(const Date &t);
         int ecart(const Date &d);
-        Date& operator+(const int &t);
-        Date& operator-(const int &t);
+        Date operator+(const int &t);
+        Date operator-(const int &t);
 };
 
 

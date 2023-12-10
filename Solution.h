@@ -22,7 +22,7 @@ public:
     void randomize(int sizeParking, vector<Operation> vectOperations);
     void initializeNOP(int sizeParkings);
     void computeNOP();
-    void mutateMinusOne(int sizeParkings);
+    void mutateMinusOne(int sizeParkings, vector<Operation> vectOperations);
     void smartMutateMinusOne(int sizeParkings);
     void randomizeSubset(int i, int j, int sizeParkings);
     void blockReverse(int i,int j);
