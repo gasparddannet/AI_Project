@@ -196,21 +196,23 @@ int main()
     }
     fileOccPark.close();
 
-    // vector<tuple<int,int,int,int,int>> nonAllocatedStays;
-    // for (long unsigned int i = 0; i < vectSolGlobal.size(); i++) {
-    //     if (vectSolGlobal[i] == -1) {
-    //         Stay stay = vectStays[i];
-    //         Date stayArrDate = stay.getArrDate();
-    //         Date stayDepDate = stay.getDepDate();
-    //         nonAllocatedStays.push_back({stay.getId(),stayArrDate.getHour(),stayArrDate.getMin(),stayDepDate.getHour(),stayDepDate.getMin()});
-    //     }
-    // }
-    // std::ofstream outputFile("nonAllocatedStays.txt");
-    // for (const auto& tuple : nonAllocatedStays) {
-    //     outputFile << std::get<0>(tuple) << ' ' << std::get<1>(tuple) << ' ' << std::get<2>(tuple) << ' ' << std::get<3>(tuple) << 
-    //     ' ' << std::get<4>(tuple) <<'\n';
-    // }
-    // outputFile.close();
+
+
+    vector<tuple<int,int,int,int,int>> nonAllocatedStays;
+    for (long unsigned int i = 0; i < vectSolGlobal.size(); i++) {
+        if (vectSolGlobal[i] == -1) {
+            Stay stay = vectStays[i];
+            Date stayArrDate = stay.getArrDate();
+            Date stayDepDate = stay.getDepDate();
+            nonAllocatedStays.push_back({stay.getId(),stayArrDate.getHour(),stayArrDate.getMin(),stayDepDate.getHour(),stayDepDate.getMin()});
+        }
+    }
+    std::ofstream outputFile("nonAllocatedStays.txt");
+    for (const auto& tuple : nonAllocatedStays) {
+        outputFile << std::get<0>(tuple) << ' ' << std::get<1>(tuple) << ' ' << std::get<2>(tuple) << ' ' << std::get<3>(tuple) << 
+        ' ' << std::get<4>(tuple) <<'\n';
+    }
+    outputFile.close();
 
     return 0;
 }
