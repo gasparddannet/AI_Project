@@ -46,6 +46,8 @@ int main()
 
     bool b = d3 <= d4;
     cout << "bool d3 <= d4 : " << b << endl;
+    bool b1 = d4 <= d3;
+    cout << "bool d4 <= d3 : " << b1 << endl;
     if (b) 
     {
         cout << "vrai" << endl;
@@ -148,7 +150,7 @@ int main()
 
     double T = 1000;
     RecuitSimule rs(nbIter, nbIterT, solutionInit, T);
-    // Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations);
+    Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations);
 
     cout << "\n" << endl;
 
@@ -164,8 +166,8 @@ int main()
     if (!file.is_open())
         throw std::runtime_error("Could not open file");
     file << "Stay;BodyType;AircraftType;Towings;Arr_Number;Arr_Date;Arr_Hour;Dep_Number;Dep_Date;Dep_Hour;Parking 1;Contact 1;Zone 1;Start Date 1;Start Hour 1;End Date 1;End Hour 1" << endl;
-    // vector<int> vectSolGlobal = solGlobal.getSolution();
-    vector<int> vectSolGlobal = solutionInit.getSolution();
+    vector<int> vectSolGlobal = solGlobal.getSolution();
+    // vector<int> vectSolGlobal = solutionInit.getSolution();
 
     for (long unsigned int i = 0; i < vectSolGlobal.size(); i++)
     {

@@ -75,13 +75,13 @@ pair<double, Solution> RecuitSimule::fonctionObjectifC(const vector<Parking> &ve
                 // if (endDate1 == startDate2)
                 // {
                     // if (startHour2 <= endHour1)
-                if (startDate1 <= startDate2 && endDate1 <= startDate2)
+                if (startDate1 <= startDate2 && endDate1 >= startDate2)
                 {
                     vectPark[posStay2] = -1;
                     // cout << "Conflit1 startDate1 : " << startDate1 << " et endDate1 " << endDate1 << endl;
                     // cout << "Conflit1 startDate2 : " << startDate2 << " et endDate2 " << endDate2 << "\n"<< endl;
                 }
-                else if (startDate2 <= startDate1 && endDate2 <= startDate1) 
+                else if (startDate2 <= startDate1 && endDate2 >= startDate1) 
                 {
                     vectPark[posStay2] = -1;
                     // cout << "Conflit2 startDate1 : " << startDate1 << " et endDate1 " << endDate1 << endl;
