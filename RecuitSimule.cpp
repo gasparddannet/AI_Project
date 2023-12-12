@@ -139,8 +139,8 @@ Solution RecuitSimule::generateSolution(int sizeParkings, vector<Operation> vect
 {
     // return (rand() % 1000) / 100.0;
     // solutionCourante.randomizeSubset(0,solutionCourante.getSolution().size(),sizeParkings);
-    solutionCourante.randomize(sizeParkings, vectOperations);
-    // solutionCourante.mutateMinusOne(sizeParkings, vectOperations);
+    // solutionCourante.randomize(sizeParkings, vectOperations);
+    solutionCourante.mutateMinusOne(sizeParkings, vectOperations);
     // solutionCourante.smartMutateMinusOne(sizeParkings);
     cout << "generateSOlution done" << endl;
     return solutionCourante;
@@ -199,6 +199,7 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
     }
     cout << "T : " << T << " | compt : " << compt << endl;
     // cout << "cc0" << endl;
-    // cout << "valeurGlobale : " << fonctionObjectif(solutionGlobal, vectParkings, vectStays) << endl;
+    pair<double, Solution> pair = fonctionObjectifC(vectParkings, vectOperations);
+    cout << "Valeur global : " << pair.first << endl;
     return solutionGlobal;
 }
