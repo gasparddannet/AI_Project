@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
 FIC = 'test_file_parking_occ.csv'
-N_LABEL_PARK_ON_SCREEN = 5  # Nombre de parking affiché sur chaque figure
+N_LABEL_PARK_ON_SCREEN = 10  # Nombre de parking affiché sur chaque figure
 FIC_NAS = 'non_allocated_stays.txt'
 
 def readcsv(fic):
