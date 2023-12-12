@@ -75,12 +75,17 @@ pair<double, Solution> RecuitSimule::fonctionObjectifC(const vector<Parking> &ve
                 // if (endDate1 == startDate2)
                 // {
                     // if (startHour2 <= endHour1)
-                if (startDate2 <= endDate1)
+                if (startDate1 <= startDate2 && endDate1 <= startDate2)
                 {
                     vectPark[posStay2] = -1;
+                    // cout << "Conflit1 startDate1 : " << startDate1 << " et endDate1 " << endDate1 << endl;
+                    // cout << "Conflit1 startDate2 : " << startDate2 << " et endDate2 " << endDate2 << "\n"<< endl;
                 }
-                else if (startDate1 <= endDate2) {
+                else if (startDate2 <= startDate1 && endDate2 <= startDate1) 
+                {
                     vectPark[posStay2] = -1;
+                    // cout << "Conflit2 startDate1 : " << startDate1 << " et endDate1 " << endDate1 << endl;
+                    // cout << "Conflit2 startDate2 : " << startDate2 << " et endDate2 " << endDate2 << "\n"<< endl;
                 }
                 // if (endDate2 == startDate1)
                 // {
@@ -127,15 +132,15 @@ pair<double, Solution> RecuitSimule::fonctionObjectifC(const vector<Parking> &ve
 
 void RecuitSimule::majT()
 {
-    T *= 0.1;
+    T *= 0.999;
 }
 
 Solution RecuitSimule::generateSolution(int sizeParkings, vector<Operation> vectOperations)
 {
     // return (rand() % 1000) / 100.0;
     // solutionCourante.randomizeSubset(0,solutionCourante.getSolution().size(),sizeParkings);
-    // solutionCourante.randomize(sizeParkings, vectOperations);
-    solutionCourante.mutateMinusOne(sizeParkings, vectOperations);
+    solutionCourante.randomize(sizeParkings, vectOperations);
+    // solutionCourante.mutateMinusOne(sizeParkings, vectOperations);
     // solutionCourante.smartMutateMinusOne(sizeParkings);
     cout << "generateSOlution done" << endl;
     return solutionCourante;
@@ -192,7 +197,7 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
         compt += 1;
         majT();
     }
-
+    cout << "T : " << T << " | compt : " << compt << endl;
     // cout << "cc0" << endl;
     // cout << "valeurGlobale : " << fonctionObjectif(solutionGlobal, vectParkings, vectStays) << endl;
     return solutionGlobal;

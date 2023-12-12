@@ -45,7 +45,7 @@ def main():
     y = [i+1 for i in range(N_LABEL_PARK_ON_SCREEN)]
     starts = [[] for i in range(nplot)]
     ends = [[] for i in range(nplot)]
-    couleurs = ['r', 'g', 'b', 'y', 'c', 'm', 'k', 'orange', 'purple']
+    couleurs = ['r', 'g', 'b', 'y', 'c', 'm', 'k', 'orange', 'purple', 'darkorange', 'lime', 'royalblue', 'orchid', 'chartreuse']
 
     for i in range(1, len(donnees)):
         num_fig = int((i-1) / N_LABEL_PARK_ON_SCREEN) # Numéro de figure sur laquelle on travaille
@@ -77,24 +77,26 @@ def main():
         ax.set_ylabel('Parking')
 
     data = read_txt_non_allocated_stays(FIC_NAS)
-    starts=[]
-    ends=[]
-    (fig,ax) = plt.subplots()
-    y_bis = [i+1 for i in range(len(data))]
-    for stay in data :
-        id_stay = stay[0]
-        start = int(stay[1])+int(stay[2])/60
-        end = int(stay[3])+int(stay[4])/60
-        starts.append(start)
-        ends.append(end)
-        rectangle = patches.Rectangle(
-                (start, y_bis[i]-0.25), end - start, 0.5, edgecolor='r', facecolor='r')
-        ax.add_patch(rectangle)
-        ax.text((start + end) / 2, y[i] + 0.4, stay, ha='center', va='center', color='black', size=8)
-    ax.set_ylim(0, len(y_bis) + 1)
-    ax.set_xlim(min(starts),max(ends))
-    ax.set_xlabel('Heure')
-    
+    if len(data) > 0:
+        starts=[]
+        ends=[]
+        (fig,ax) = plt.subplots()
+        y_bis = [i+1 for i in range(len(data))]
+
+        for stay in data :
+            id_stay = stay[0]
+            start = int(stay[1])+int(stay[2])/60
+            end = int(stay[3])+int(stay[4])/60
+            starts.append(start)
+            ends.append(end)
+            rectangle = patches.Rectangle(
+                    (start, y_bis[i]-0.25), end - start, 0.5, edgecolor='r', facecolor='r')
+            ax.add_patch(rectangle)
+            ax.text((start + end) / 2, y[i] + 0.4, stay, ha='center', va='center', color='black', size=8)
+        ax.set_ylim(0, len(y_bis) + 1)
+        ax.set_xlim(min(starts),max(ends))
+        ax.set_xlabel('Heure')
+        
     plt.show()
 
 
