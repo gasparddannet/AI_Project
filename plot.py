@@ -70,7 +70,7 @@ def main():
             starts[num_fig].append(start)
             ends[num_fig].append(end)
             width = N_LABEL_PARK_ON_SCREEN/40
-            rectangle = patches.Rectangle((start, y[k]-width), end - start, 0.5, edgecolor=couleurs[int(j/5)], facecolor=couleurs[int(j/5)])
+            rectangle = patches.Rectangle((start, y[k]-0.25), end - start, width, edgecolor=couleurs[int(j/5)], facecolor=couleurs[int(j/5)])
             fig,ax = figax[num_fig]
             ax.add_patch(rectangle)
             ax.text((start + end) / 2, y[k] + 0.4, stay,
@@ -112,7 +112,7 @@ def main():
             ends.append(end)
             
             width = N_NON_ALLOCATED_STAYS_ON_SCREEN/40
-            rectangle = patches.Rectangle((start, y_bis[k]-width), end - start, 0.5, edgecolor='r', facecolor='r')
+            rectangle = patches.Rectangle((start, y_bis[k]-0.25), end - start, width, edgecolor='r', facecolor='r')
             fig,ax = figax[num_fig]
             ax.add_patch(rectangle)
             ax.text((start + end) / 2, y_bis[k]-0.1, id_stay,
