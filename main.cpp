@@ -20,19 +20,38 @@ int main()
 
     int j,m,a,h,min;
     int j2,m2,a2,h2,min2;
-    j=9;m=8;a=2022;h=9;min=0;
-    j2=9;m2=8;a2=2022;h2=9;min2=0;
+    int j3,m3,a3,h3,min3;
+    int j4,m4,a4,h4,min4;
+
+    j=9;m=8;a=2022;h=9;min=10;
+    j2=9;m2=8;a2=2022;h2=9;min2=40;
+    j3=9;m3=8;a3=2022;h3=19;min3=45;
+    j4=9;m4=8;a4=2022;h4=20;min4=45;
+
+
 
     Date d1 = Date(j,m,a,h,min);
     cout << "Date 1 : " << d1 << endl;
     Date d2 = Date(j2,m2,a2,h2,min2);
     cout << "Date 2 : " << d2 << endl;
 
+    Date d3 = Date(j3,m3,a3,h3,min3);
+    Date d4 = Date(j4,m4,a4,h4,min4);
+    cout << "Date 3 : " << d3 << endl;
+    cout << "Date 4 : " << d4 << endl;
 
 
-    Date d3 = d1 + 30;
-    cout << "Date 1 - 30 :" << d3 << endl;
+    Date d5 = d1 + 30;
+    cout << "Date 1 - 30 :" << d5 << endl;
 
+    bool b = d3 <= d4;
+    cout << "bool d3 <= d4 : " << b << endl;
+    bool b1 = d4 <= d3;
+    cout << "bool d4 <= d3 : " << b1 << endl;
+    if (b) 
+    {
+        cout << "vrai" << endl;
+    }
 
     /**** Read Parkings ****/
     cout << "Read Parkings" << endl;
@@ -75,8 +94,32 @@ int main()
         }
     }
 
-    int nbIter = 1000;
-    int nbIterT = 1000;
+    // for (Operation& op : vectOperations)
+    // {
+    //     int idStay = op.getIdStay();
+    //     cout << "StayId : " << idStay;
+    //     for (Stay& s: vectStays) 
+    //     {
+    //         if (s.getId() == idStay)
+    //         {
+    //             int aircraftType = s.getAircraftType();
+    //             cout << " | AircraftType : " << aircraftType << endl;
+    //         }
+    //     }
+    //     vector<int> compParking = op.getCompParkings();
+
+    //     cout << "Park Comp : ";
+    //     for (int posPark : compParking) 
+    //     {
+    //         cout << vectParkings[posPark];
+    //     }
+    //     cout << "\n\n\n";
+    // }    
+
+    cout << endl;
+
+    int nbIter = 10000;
+    int nbIterT = 1;
     int sizeOperations = vectOperations.size();
     vector<int> vect(sizeOperations);
     int sizeParkings = vectParkings.size();
@@ -124,6 +167,8 @@ int main()
         throw std::runtime_error("Could not open file");
     file << "Stay;BodyType;AircraftType;Towings;Arr_Number;Arr_Date;Arr_Hour;Dep_Number;Dep_Date;Dep_Hour;Parking 1;Contact 1;Zone 1;Start Date 1;Start Hour 1;End Date 1;End Hour 1" << endl;
     vector<int> vectSolGlobal = solGlobal.getSolution();
+    // vector<int> vectSolGlobal = solutionInit.getSolution();
+
     for (long unsigned int i = 0; i < vectSolGlobal.size(); i++)
     {
         int idStay = vectOperations[i].getIdStay();

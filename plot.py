@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
 FIC = 'test_file_parking_occ.csv'
-N_LABEL_PARK_ON_SCREEN = 20  # Nombre de parking affiché sur chaque figure
+N_LABEL_PARK_ON_SCREEN = 15  # Nombre de parking affiché sur chaque figure
 N_NON_ALLOCATED_STAYS_ON_SCREEN = int(1.5*N_LABEL_PARK_ON_SCREEN)
 
 FIC_NAS = 'nonAllocatedStays.txt'
@@ -52,7 +52,7 @@ def main():
     y = [i+1 for i in range(N_LABEL_PARK_ON_SCREEN)]
     starts = [[] for i in range(nplot)]
     ends = [[] for i in range(nplot)]
-    couleurs = ['r', 'g', 'b', 'y', 'c', 'm', 'k', 'orange', 'purple']
+    couleurs = ['r', 'g', 'b', 'y', 'c', 'm', 'k', 'orange', 'purple', 'darkorange', 'lime', 'royalblue', 'orchid', 'chartreuse']
 
     for i in range(1, len(donnees)):
         num_fig = int((i-1) / N_LABEL_PARK_ON_SCREEN) # Numéro de figure sur laquelle on travaille

@@ -55,13 +55,19 @@ ostream & operator<<(ostream& o,const Parking& p) {
 	o << "nature : " << p.nature;
     o << "Type Avion : ";
     vector<int> vectTypeAvion = p.typeAvion;
-    vector<int>::iterator it = vectTypeAvion.begin();
-    for (it=vectTypeAvion.begin() ; it != vectTypeAvion.end(); it++) {
-        if (it == vectTypeAvion.end() -1){
-            o << *it << endl;
+    if (!vectTypeAvion.empty())
+    {
+        vector<int>::iterator it = vectTypeAvion.begin();
+        for (it=vectTypeAvion.begin() ; it != vectTypeAvion.end(); it++) 
+        {
+            if (it == vectTypeAvion.end() -1){
+                o << *it << endl;
+            }
+            else o << *it << " | ";
         }
-        else o << *it << " | ";
     }
+    else { cout << "all"<<endl;}
+
     cout << endl;
 	return o;
 }
