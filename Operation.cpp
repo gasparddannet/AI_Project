@@ -1,8 +1,8 @@
 #include "Operation.h"
 
         
-Operation::Operation(const int& idS, const Date& arrDate, const Date& depDate, const vector<int> compParkings):
-    idStay(idS), arrDate(arrDate), depDate(depDate), compatibleParkings(compParkings) {}
+Operation::Operation(const int& idS, const Date& arrDate, const Date& depDate, const vector<int> compParkings, const int nbTowing):
+    idStay(idS), arrDate(arrDate), depDate(depDate), compatibleParkings(compParkings), nbTowing(nbTowing) {}
 
 Operation::~Operation() 
 {
@@ -13,7 +13,7 @@ void Operation::setIdParkind(int idP) {
     idParking = idP;
 }
 
-int Operation::getIdParking() {
+int Operation::getIdParking() const {
     return idParking;
 }
 
@@ -25,10 +25,14 @@ const Date& Operation::getDepDate() const {
     return depDate;
 }
 
-int Operation::getIdStay() {
+int Operation::getIdStay() const {
     return idStay;
 }
 
 const vector<int> Operation::getCompParkings() const {
     return compatibleParkings;
+}
+
+const int Operation::getNbTowing() const {
+    return nbTowing;
 }
