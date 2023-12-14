@@ -81,16 +81,16 @@ int main()
         vector<int> compatibleParkings = Read::createCompatibleParking(aircraftType, vectParkings);
         int nbTowings = vectStays[i].getAuthorizedTowing();
         if (nbTowings == 0) {
-            vectOperations.push_back(Operation(idStay, arrDate, depDate, compatibleParkings));
+            vectOperations.push_back(Operation(idStay, arrDate, depDate, compatibleParkings, 0));
         }
         else if (nbTowings == 1) {
-            vectOperations.push_back(Operation(idStay, arrDate, arrDate+TTMA, compatibleParkings));
-            vectOperations.push_back(Operation(idStay, arrDate+TTMA, depDate, compatibleParkings));
+            vectOperations.push_back(Operation(idStay, arrDate, arrDate+TTMA, compatibleParkings, 1));
+            vectOperations.push_back(Operation(idStay, arrDate+TTMA, depDate, compatibleParkings, 1));
         }
         else if (nbTowings == 2) {
-            vectOperations.push_back(Operation(idStay, arrDate, arrDate+TTMA, compatibleParkings));
-            vectOperations.push_back(Operation(idStay, arrDate+TTMA, depDate-TTMD, compatibleParkings));  
-            vectOperations.push_back(Operation(idStay, depDate-TTMD, depDate, compatibleParkings));
+            vectOperations.push_back(Operation(idStay, arrDate, arrDate+TTMA, compatibleParkings, 2));
+            vectOperations.push_back(Operation(idStay, arrDate+TTMA, depDate-TTMD, compatibleParkings, 3));  
+            vectOperations.push_back(Operation(idStay, depDate-TTMD, depDate, compatibleParkings, 2));
         }
     }
 
@@ -118,8 +118,10 @@ int main()
 
     cout << endl;
 
-    int nbIter = 10000;
+    int nbIter = 1000;
     int nbIterT = 1;
+    double T = 500;
+
     int sizeOperations = vectOperations.size();
     vector<int> vect(sizeOperations);
     int sizeParkings = vectParkings.size();
@@ -148,7 +150,6 @@ int main()
     cout << endl;
     cout << endl;
 
-    double T = 1000;
     RecuitSimule rs(nbIter, nbIterT, solutionInit, T);
     Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations);
 
@@ -179,9 +180,9 @@ int main()
         //         posStay = distance(vectStays.begin(), it);
         //     }
         // }
-        for (long unsigned int i=0; i<vectStays.size(); i++) {
-            if (vectStays[i].getId() == idStay) {
-                posStay = i;
+        for (long unsigned int j=0; j<vectStays.size(); j++) {
+            if (vectStays[j].getId() == idStay) {
+                posStay = j;
             }
         }
 
@@ -200,6 +201,9 @@ int main()
             file << vectParkings[vectSolGlobal[i]].getZone() << ";";
             file << vectOperations[i].getArrDate() << ";";
             file << vectOperations[i].getDepDate() << ";";
+        }
+        else {
+            cout << vectStays[posStay].getId() << " not allocated" << endl;
         }
         file << endl;
     }
@@ -246,9 +250,19 @@ int main()
     vector<tuple<int,int,int,int,int>> nonAllocatedStays;
     for (long unsigned int i = 0; i < vectSolGlobal.size(); i++) {
         if (vectSolGlobal[i] == -1) {
-            Stay stay = vectStays[i];
-            Date stayArrDate = stay.getArrDate();
-            Date stayDepDate = stay.getDepDate();
+            int idStay = vectOperations[i].getIdStay();
+            int posStay;
+            for (long unsigned int j=0; j<vectStays.size(); j++) {
+                if (vectStays[j].getId() == idStay)
+                {
+                    posStay = j;
+                }
+            }
+            
+            Stay stay = vectStays[posStay];
+            Operation op = vectOperations[i];
+            Date stayArrDate = op.getArrDate();
+            Date stayDepDate = op.getDepDate();
             nonAllocatedStays.push_back({stay.getId(),stayArrDate.getHour(),stayArrDate.getMin(),stayDepDate.getHour(),stayDepDate.getMin()});
         }
     }

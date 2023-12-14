@@ -5,8 +5,10 @@
 #include "Operation.h"
 #include "Parking.h"
 #include <algorithm>
+#include <chrono>
 
 using namespace std;
+
 
 RecuitSimule::RecuitSimule(int &nbIter, int &nbIterT, Solution &solutionCourante, double T = 200) : T(T), nbIter(nbIter), nbIterT(nbIterT), solutionCourante(solutionCourante), solutionGlobal(solutionCourante) {}
 
@@ -54,6 +56,8 @@ pair<double, Solution> RecuitSimule::fonctionObjectifC(const vector<Parking> &ve
             tempOccParking[vectPark[i]].push_back({vectOperations[i].getArrDate(), vectOperations[i].getDepDate(), i});
         }
     }
+
+    int* p_buffer= nullptr;
     for (int i = 0; i < sizeParkings; i++)
     {
         int s = tempOccParking[i].size();
@@ -74,14 +78,23 @@ pair<double, Solution> RecuitSimule::fonctionObjectifC(const vector<Parking> &ve
 
                 // if (endDate1 == startDate2)
                 // {
-                    // if (startHour2 <= endHour1)
-                if (startDate1 <= startDate2 && endDate1 >= startDate2)
+                // if (startHour2 <= endHour1)
+                int b = 30;
+                p_buffer = &b;
+                // cout << "*p_buffer " << *p_buffer << endl;
+                if (vectOperations[posStay1].getIdStay() == vectOperations[posStay2].getIdStay()) {
+                    int b=0;
+                    p_buffer = &b;
+                    // cout << "*p_buffer " << *p_buffer << endl;
+                }
+
+                if (startDate1 <= startDate2 && endDate1+*p_buffer >= startDate2)
                 {
                     vectPark[posStay2] = -1;
                     // cout << "Conflit1 startDate1 : " << startDate1 << " et endDate1 " << endDate1 << endl;
                     // cout << "Conflit1 startDate2 : " << startDate2 << " et endDate2 " << endDate2 << "\n"<< endl;
                 }
-                else if (startDate2 <= startDate1 && endDate2 >= startDate1) 
+                else if (startDate2 <= startDate1 && endDate2+*p_buffer >= startDate1)
                 {
                     vectPark[posStay2] = -1;
                     // cout << "Conflit2 startDate1 : " << startDate1 << " et endDate1 " << endDate1 << endl;
@@ -97,35 +110,47 @@ pair<double, Solution> RecuitSimule::fonctionObjectifC(const vector<Parking> &ve
             }
         }
     }
+
     int poids_allocation = 0;
     int poids_nature = 0;
     for (int i = 0; i < vectPark.size(); i++)
     {
-        // Stay stay = vectStays[i];
+        Operation op = vectOperations[i];
         int posPark = vectPark[i];
         if (posPark == -1)
         {
-            poids_allocation += 100;
+            poids_allocation += 150;
         }
         else
         {
             // Parking park = vectParkings[posPark];
             // ParkNature parkNature = vectParkings[posPark].getNature();
-            switch (vectParkings[posPark].getNature())
+
+            if (op.getNbTowing() == 3)
             {
-            case (ParkNature::Large):
-                poids_nature += 50;
-                break;
+                switch (vectParkings[posPark].getNature())
+                case (ParkNature::Contact):
+                    poids_nature += 50;
+                // break;
+            }
+            else
+            {
+                switch (vectParkings[posPark].getNature())
+                case (ParkNature::Large):
+                    poids_nature += 50;
+                // break;
             }
         }
     }
     // return std::make_pair(poids_allocation + poids_nature, Solution(vectPark));
     // cout << "change1" << endl;
     Solution solutionCourant2 = Solution(vectPark);
-    cout << "\nApres fonctionObj: " << endl;
-    for (int i = 0; i<vectOperations.size()-1; i++) {
-        cout << solutionCourant2.getSolution()[i] << "|";
-    }
+
+    // cout << "\nApres fonctionObj: " << endl;
+    // for (int i = 0; i<vectOperations.size()-1; i++) {
+    //     cout << solutionCourant2.getSolution()[i] << "|";
+    // }
+
     // cout << "change2" << endl;
     return make_pair(poids_allocation + poids_nature, solutionCourant2);
 }
@@ -139,15 +164,18 @@ Solution RecuitSimule::generateSolution(int sizeParkings, vector<Operation> vect
 {
     // return (rand() % 1000) / 100.0;
     // solutionCourante.randomizeSubset(0,solutionCourante.getSolution().size(),sizeParkings);
-    solutionCourante.randomize(sizeParkings, vectOperations);
-    // solutionCourante.mutateMinusOne(sizeParkings, vectOperations);
+    // solutionCourante.randomize(sizeParkings, vectOperations);
+    solutionCourante.mutateMinusOne(sizeParkings, vectOperations);
     // solutionCourante.smartMutateMinusOne(sizeParkings);
-    cout << "generateSOlution done" << endl;
+    // cout << "generateSOlution done" << endl;
     return solutionCourante;
 }
 
 Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const vector<Operation> &vectOperations)
 {
+    auto start = std::chrono::high_resolution_clock::now();
+    // const auto start{std::chrono::steady_clock::now()};
+
     pair<double, Solution> pair1 = fonctionObjectifC(vectParkings, vectOperations);
     // double valeurCourante = fonctionObjectifC(vectParkings, vectStays);
     double valeurCourante = pair1.first;
@@ -162,20 +190,20 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
             // Solution nouvelleSolution = generateSolution(vectParkings.size(), vectOperations);
             // solutionCourante = nouvelleSolution;
             solutionCourante = generateSolution(vectParkings.size(), vectOperations);
-            cout << "\nAvant 1 " << endl;
-            for (int i = 0; i<vectOperations.size(); i++) {
-                cout << solutionCourante.getSolution()[i] << "|";
-            }
+            // cout << "\nAvant 1 " << endl;
+            // for (int i = 0; i<vectOperations.size(); i++) {
+            //     cout << solutionCourante.getSolution()[i] << "|";
+            // }
             pair<double, Solution> pair2 = fonctionObjectifC(vectParkings, vectOperations);
             double nouvelleValeur = pair2.first;
-            cout << "\nNouvelle Valeur : " << nouvelleValeur << endl;
+            // cout << "\nNouvelle Valeur : " << nouvelleValeur << endl;
 
             double differenceValeur = nouvelleValeur - valeurCourante;
             if (differenceValeur < 0)
             {
                 solutionCourante = pair2.second;
-                valeurCourante = nouvelleValeur; 
-                cout << "\nApres 2 : " << endl;
+                valeurCourante = nouvelleValeur;
+                // cout << "\nApres 2 : " << endl;
                 // for (int i = 0; i<vectOperations.size()-1; i++) {
                 //     cout << solutionCourante.getSolution()[i] << "|";
                 // }
@@ -186,7 +214,7 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
                 if (rand() / static_cast<double>(RAND_MAX) < exp(-differenceValeur / T))
                 {
                     solutionCourante = pair2.second;
-                    cout << "\nApres 3 : " << endl;
+                    // cout << "\nApres 3 : " << endl;
                     // for (int i = 0; i<vectOperations.size()-1; i++) {
                     //     cout << solutionCourante.getSolution()[i] << "|";
                     // }
@@ -197,8 +225,16 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
         compt += 1;
         majT();
     }
+    auto stop = chrono::high_resolution_clock::now();
+    // const auto end{std::chrono::steady_clock::now()};
+    auto duration = chrono::duration_cast<chrono::seconds>(stop - start);
+    // const std::chrono::duration<double> elapsed_seconds{stop - start};
+    chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(stop - start);
+
     cout << "T : " << T << " | compt : " << compt << endl;
+    cout << "Duration : " << time_span.count() << " seconds" << endl;
     // cout << "cc0" << endl;
-    // cout << "valeurGlobale : " << fonctionObjectif(solutionGlobal, vectParkings, vectStays) << endl;
+    pair<double, Solution> pair = fonctionObjectifC(vectParkings, vectOperations);
+    cout << "Valeur global : " << pair.first << endl;
     return solutionGlobal;
 }

@@ -93,38 +93,41 @@ def main():
     # starts = [[] for i in range(nplot)]
     # ends = [[] for i in range(nplot)]
     
-    starts = []
-    ends = []
-    
-    y_bis = [i+1 for i in range(N_NON_ALLOCATED_STAYS_ON_SCREEN)]
-    for i  in range(len(data)) :
-        num_fig = int((i-1) / N_NON_ALLOCATED_STAYS_ON_SCREEN) # Numéro de figure sur laquelle on travaille
-        k = (i-1) % N_NON_ALLOCATED_STAYS_ON_SCREEN # Indice de la ligne par rapport à la figure correspondante
-        lignei = data[i]
-        for j in range(0, len(lignei)-1, 5):
-            id_stay = lignei[j]
-            start = int(lignei[j+1])+int(lignei[j+2])/60
-            end = int(lignei[j+3])+int(lignei[j+4])/60
-            # starts[num_fig].append(start)
-            # ends[num_fig].append(end)
-            
-            starts.append(start)
-            ends.append(end)
-            
-            width = N_NON_ALLOCATED_STAYS_ON_SCREEN/40
-            rectangle = patches.Rectangle((start, y_bis[k]-0.25), end - start, width, edgecolor='r', facecolor='r')
-            fig,ax = figax[num_fig]
-            ax.add_patch(rectangle)
-            ax.text((start + end) / 2, y_bis[k]-0.1, id_stay,
-                    ha='center', va='center', color='black', size=7)
-    for i,(fig,ax) in enumerate(figax) :
-        ax.set_ylim(0, N_NON_ALLOCATED_STAYS_ON_SCREEN + 1)
-        # ax.set_xlim(min(starts[i]),max(ends[i]))
+
+    if (len(data) > 0):
+        starts = []
+        ends = []
+
         
-        ax.set_xlim(min(starts),max(ends))
-        
-        ax.set_xlabel('Heure')
-        ax.set_title("Non allocated stays")
+        y_bis = [i+1 for i in range(N_NON_ALLOCATED_STAYS_ON_SCREEN)]
+        for i  in range(len(data)) :
+            num_fig = int((i-1) / N_NON_ALLOCATED_STAYS_ON_SCREEN) # Numéro de figure sur laquelle on travaille
+            k = (i-1) % N_NON_ALLOCATED_STAYS_ON_SCREEN # Indice de la ligne par rapport à la figure correspondante
+            lignei = data[i]
+            for j in range(0, len(lignei)-1, 5):
+                id_stay = lignei[j]
+                start = int(lignei[j+1])+int(lignei[j+2])/60
+                end = int(lignei[j+3])+int(lignei[j+4])/60
+                # starts[num_fig].append(start)
+                # ends[num_fig].append(end)
+                
+                starts.append(start)
+                ends.append(end)
+                
+                width = N_NON_ALLOCATED_STAYS_ON_SCREEN/40
+                rectangle = patches.Rectangle((start, y_bis[k]-width), end - start, 0.5, edgecolor='r', facecolor='r')
+                fig,ax = figax[num_fig]
+                ax.add_patch(rectangle)
+                ax.text((start + end) / 2, y_bis[k]-0.1, id_stay,
+                        ha='center', va='center', color='black', size=7)
+        for i,(fig,ax) in enumerate(figax) :
+            ax.set_ylim(0, N_NON_ALLOCATED_STAYS_ON_SCREEN + 1)
+            # ax.set_xlim(min(starts[i]),max(ends[i]))
+            
+            ax.set_xlim(min(starts),max(ends))
+            
+            ax.set_xlabel('Heure')
+            ax.set_title("Non allocated stays")
 
     
     plt.show()
