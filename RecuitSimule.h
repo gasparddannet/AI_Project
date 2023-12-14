@@ -15,7 +15,7 @@ public:
 
     // double fonctionObjectifC(const vector<Parking> &vectParkings, const vector<Stay> &vectStays);
     // double fonctionObjectif(vector<Parking> vectParkings, vector<Stay> vectStays);
-    pair<double, Solution> fonctionObjectifC(const vector<Parking> &vectParkings, const vector<Operation> &vectOperations);
+    pair<double, Solution> fonctionObjectifC(Solution solution, const vector<Parking> &vectParkings, const vector<Operation> &vectOperations);
 
     void majT();
 
@@ -27,11 +27,11 @@ private:
     int nbIterT;
     Solution solutionCourante;
     Solution solutionGlobal;
+    int valeurGlobale;
 
     // Solution generateSolution(Solution solution, int sizeParkings);
-    Solution generateSolution(int sizeParkings, vector<Operation> vectOperations);
+    Solution generateSolution(Solution solution, int sizeParkings, const vector<Operation> &vectOperations, const vector<Parking> &vectParkings);
     // Solution generateSolution(int sizeParkings);
-
 
 };
 

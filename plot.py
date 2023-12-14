@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
 FIC = 'test_file_parking_occ.csv'
+FIC_TEST_FILE = 'test_file.csv'
 N_LABEL_PARK_ON_SCREEN = 15  # Nombre de parking affiché sur chaque figure
 N_NON_ALLOCATED_STAYS_ON_SCREEN = int(1.5*N_LABEL_PARK_ON_SCREEN)
 
@@ -40,7 +41,20 @@ def string_time_to_float(time) :
     floa = int(string_h) + int(string_min)/60
     return floa
 
-    
+
+def read_test_file():
+    dictStayAircraftType = {}
+    with open(FIC_TEST_FILE) as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=';')
+        line_count = 0
+        for row in csv_reader:
+            if line_count == 0:
+                line_count+=1
+            else:
+                dictStayAircraftType[row[0]] = row[2]
+    return dictStayAircraftType
+                
+            
 
 def main():
     ###PLOTING ALLOCATED STAYS###
@@ -53,7 +67,12 @@ def main():
     starts = [[] for i in range(nplot)]
     ends = [[] for i in range(nplot)]
     couleurs = ['r', 'g', 'b', 'y', 'c', 'm', 'k', 'orange', 'purple', 'darkorange', 'lime', 'royalblue', 'orchid', 'chartreuse']
-
+    colorsTypeAircraft = {"318" : 'tomato', "319":'green', "320":'blue', "321":'goldenrod', "223":'brown', "737" : 'orchid'}
+    
+    dictStayAircraftType = read_test_file()
+    # print(dictStayAircraftType)
+    # print(dictStayAircraftType["3300476"])
+    
     for i in range(1, len(donnees)):
         num_fig = int((i-1) / N_LABEL_PARK_ON_SCREEN) # Numéro de figure sur laquelle on travaille
         k = (i-1) % N_LABEL_PARK_ON_SCREEN # Indice de la ligne par rapport à la figure correspondante
@@ -70,7 +89,9 @@ def main():
             starts[num_fig].append(start)
             ends[num_fig].append(end)
             width = N_LABEL_PARK_ON_SCREEN/40
-            rectangle = patches.Rectangle((start, y[k]-width), end - start, 0.5, edgecolor=couleurs[int(j/5)], facecolor=couleurs[int(j/5)])
+            # rectangle = patches.Rectangle((start, y[k]-width), end - start, 0.5, edgecolor=couleurs[int(j/5)], facecolor=couleurs[int(j/5)])
+            color = colorsTypeAircraft[dictStayAircraftType[stay]]
+            rectangle = patches.Rectangle((start, y[k]-width), end - start, 0.5, edgecolor=color, facecolor=color)
             fig,ax = figax[num_fig]
             ax.add_patch(rectangle)
             ax.text((start + end) / 2, y[k] + 0.4, stay,
@@ -127,7 +148,7 @@ def main():
             ax.set_xlabel('Heure')
             ax.set_title("Non allocated stays")
 
-    
+    # ax.legend()
     plt.show()
 
 

@@ -9,13 +9,14 @@
 
 using namespace std;
 
+int _buffer = 30;
 
 RecuitSimule::RecuitSimule(int &nbIter, int &nbIterT, Solution &solutionCourante, double T = 200) : T(T), nbIter(nbIter), nbIterT(nbIterT), solutionCourante(solutionCourante), solutionGlobal(solutionCourante) {}
 
-pair<double, Solution> RecuitSimule::fonctionObjectifC(const vector<Parking> &vectParkings, const vector<Operation> &vectOperations)
+pair<double, Solution> RecuitSimule::fonctionObjectifC(Solution solution, const vector<Parking> &vectParkings, const vector<Operation> &vectOperations)
 {
     // return solution;
-    vector<int> vectPark = solutionCourante.getSolution();
+    vector<int> vectPark = solution.getSolution();
 
     // cout << "Avant : " << endl;
     // for (int i = 0; i<vectStays.size()-1; i++) {
@@ -79,7 +80,7 @@ pair<double, Solution> RecuitSimule::fonctionObjectifC(const vector<Parking> &ve
                 // if (endDate1 == startDate2)
                 // {
                 // if (startHour2 <= endHour1)
-                int b = 30;
+                int b = _buffer;
                 p_buffer = &b;
                 // cout << "*p_buffer " << *p_buffer << endl;
                 if (vectOperations[posStay1].getIdStay() == vectOperations[posStay2].getIdStay()) {
@@ -119,7 +120,7 @@ pair<double, Solution> RecuitSimule::fonctionObjectifC(const vector<Parking> &ve
         int posPark = vectPark[i];
         if (posPark == -1)
         {
-            poids_allocation += 150;
+            poids_allocation += 100;
         }
         else
         {
@@ -130,21 +131,21 @@ pair<double, Solution> RecuitSimule::fonctionObjectifC(const vector<Parking> &ve
             {
                 switch (vectParkings[posPark].getNature())
                 case (ParkNature::Contact):
-                    poids_nature += 50;
+                    poids_nature += 40;
                 // break;
             }
             else
             {
                 switch (vectParkings[posPark].getNature())
                 case (ParkNature::Large):
-                    poids_nature += 50;
+                    poids_nature += 60;
                 // break;
             }
         }
     }
     // return std::make_pair(poids_allocation + poids_nature, Solution(vectPark));
     // cout << "change1" << endl;
-    Solution solutionCourant2 = Solution(vectPark);
+    Solution newSolution2 = Solution(vectPark);
 
     // cout << "\nApres fonctionObj: " << endl;
     // for (int i = 0; i<vectOperations.size()-1; i++) {
@@ -152,23 +153,26 @@ pair<double, Solution> RecuitSimule::fonctionObjectifC(const vector<Parking> &ve
     // }
 
     // cout << "change2" << endl;
-    return make_pair(poids_allocation + poids_nature, solutionCourant2);
+    return make_pair(poids_allocation + poids_nature, newSolution2);
 }
 
 void RecuitSimule::majT()
 {
-    T *= 0.999;
+    T *= 0.998;
 }
 
-Solution RecuitSimule::generateSolution(int sizeParkings, vector<Operation> vectOperations)
+Solution RecuitSimule::generateSolution(Solution solution, int sizeParkings, const vector<Operation> &vectOperations, const vector<Parking> &vectParkings)
 {
     // return (rand() % 1000) / 100.0;
     // solutionCourante.randomizeSubset(0,solutionCourante.getSolution().size(),sizeParkings);
     // solutionCourante.randomize(sizeParkings, vectOperations);
-    solutionCourante.mutateMinusOne(sizeParkings, vectOperations);
+    // solutionCourante.mutateMinusOne(sizeParkings, vectOperations);
+
+    solution.NonAllocAndContact(sizeParkings, vectOperations, vectParkings);
+
     // solutionCourante.smartMutateMinusOne(sizeParkings);
     // cout << "generateSOlution done" << endl;
-    return solutionCourante;
+    return solution;
 }
 
 Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const vector<Operation> &vectOperations)
@@ -176,11 +180,12 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
     auto start = std::chrono::high_resolution_clock::now();
     // const auto start{std::chrono::steady_clock::now()};
 
-    pair<double, Solution> pair1 = fonctionObjectifC(vectParkings, vectOperations);
+    pair<double, Solution> pair1 = fonctionObjectifC(solutionCourante, vectParkings, vectOperations);
     // double valeurCourante = fonctionObjectifC(vectParkings, vectStays);
     double valeurCourante = pair1.first;
     solutionCourante = pair1.second;
-    cout << "\nValeur Initiale: " << valeurCourante << endl;
+    cout << "\nValeur Initiale: " << valeurCourante << "\n\n";
+    valeurGlobale = valeurCourante;
     int compt = 0;
 
     while (T > 0.1 && compt < nbIter)
@@ -189,12 +194,15 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
         {
             // Solution nouvelleSolution = generateSolution(vectParkings.size(), vectOperations);
             // solutionCourante = nouvelleSolution;
-            solutionCourante = generateSolution(vectParkings.size(), vectOperations);
+            // solutionCourante = generateSolution(vectParkings.size(), vectOperations, vectParkings);
+            Solution newSolution = generateSolution(solutionCourante, vectParkings.size(), vectOperations, vectParkings);
+            
+            
             // cout << "\nAvant 1 " << endl;
             // for (int i = 0; i<vectOperations.size(); i++) {
             //     cout << solutionCourante.getSolution()[i] << "|";
             // }
-            pair<double, Solution> pair2 = fonctionObjectifC(vectParkings, vectOperations);
+            pair<double, Solution> pair2 = fonctionObjectifC(newSolution, vectParkings, vectOperations);
             double nouvelleValeur = pair2.first;
             // cout << "\nNouvelle Valeur : " << nouvelleValeur << endl;
 
@@ -208,11 +216,16 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
                 //     cout << solutionCourante.getSolution()[i] << "|";
                 // }
                 solutionGlobal = solutionCourante;
+                valeurGlobale = nouvelleValeur;
+                // cout << "change valeugGlobale" << endl;
             }
             else
             {
+                // cout << "difV : " << differenceValeur << endl;
+                // cout << "rand : " << rand() / static_cast<double>(RAND_MAX) << " | exp : " << exp(-differenceValeur / T) << endl;
                 if (rand() / static_cast<double>(RAND_MAX) < exp(-differenceValeur / T))
                 {
+                    // cout << "passe" << endl;
                     solutionCourante = pair2.second;
                     // cout << "\nApres 3 : " << endl;
                     // for (int i = 0; i<vectOperations.size()-1; i++) {
@@ -234,7 +247,8 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
     cout << "T : " << T << " | compt : " << compt << endl;
     cout << "Duration : " << time_span.count() << " seconds" << endl;
     // cout << "cc0" << endl;
-    pair<double, Solution> pair = fonctionObjectifC(vectParkings, vectOperations);
-    cout << "Valeur global : " << pair.first << endl;
+    // pair<double, Solution> pair = fonctionObjectifC(solutionGlobal, vectParkings, vectOperations);
+    // cout << "Valeur global : " << pair.first << endl;
+    cout << "Valeur globale : " << valeurGlobale << endl;
     return solutionGlobal;
 }
