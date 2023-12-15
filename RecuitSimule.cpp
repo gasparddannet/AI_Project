@@ -6,6 +6,7 @@
 #include "Parking.h"
 #include <algorithm>
 #include <chrono>
+#include <iostream>
 
 using namespace std;
 
@@ -15,7 +16,7 @@ RecuitSimule::RecuitSimule(int &nbIter, int &nbIterT, Solution &solutionCourante
 
 Solution RecuitSimule::correctSolution(Solution solution, const vector<Parking> &vectParkings, const vector<Operation> &vectOperations)
 {
-    vector<int> vectPark = solution.getSolution();
+    vector<vector<int>> vectPark = solution.getSolution();
 
     // cout << "Avant : " << endl;
     // for (int i = 0; i<vectStays.size()-1; i++) {
@@ -24,34 +25,40 @@ Solution RecuitSimule::correctSolution(Solution solution, const vector<Parking> 
 
     int sizeParkings = vectPark.size();
 
-    vector<vector<tuple<Date, Date, int>>> tempOccParking(sizeParkings); // tableau indexe par les parkings des tableaux des tuples startDate, startHour, endDate, endHour
-    for (int i = 0; i < vectPark.size(); i++)
-    {
-        if (vectPark[i] >= 0)
-        {
-            tempOccParking[vectPark[i]].push_back({vectOperations[i].getArrDate(), vectOperations[i].getDepDate(), i});
-        }
-    }
+    // vector<vector<tuple<Date, Date, int>>> tempOccParking(sizeParkings); // tableau indexe par les parkings des tableaux des tuples startDate, startHour, endDate, endHour
+    // for (int i = 0; i < vectPark.size(); i++)
+    // {
+    //     if (vectPark[i] >= 0)
+    //     {
+    //         tempOccParking[vectPark[i]].push_back({vectOperations[i].getArrDate(), vectOperations[i].getDepDate(), i});
+    //     }
+    // }
 
     int* p_buffer= nullptr;
     for (int i = 0; i < sizeParkings; i++)
     {
-        int s = tempOccParking[i].size();
+        int s = vectPark[i].size();
         for (int j = 0; j < s - 1; j++)
         {
-            Date startDate1 = get<0>(tempOccParking[i][j]);
-            Date endDate1 = get<1>(tempOccParking[i][j]);
-            int posStay1 = get<2>(tempOccParking[i][j]);
+            int posOp1 = vectPark[i][j];
+            Operation op1 = vectOperations[posOp1];
+            int idStay1 = op1.getIdStay();
+            Date startDate1 = op1.getArrDate();
+            Date endDate1 = op1.getDepDate();
+            // int posStay1 = get<2>(tempOccParking[i][j]);
             for (int k = j + 1; k < s; k++)
             {
-                Date startDate2 = get<0>(tempOccParking[i][k]);
-                Date endDate2 = get<1>(tempOccParking[i][k]);
-                int posStay2 = get<2>(tempOccParking[i][k]);
+                int posOp2 = vectPark[i][k];
+                Operation op2 = vectOperations[posOp2];
+                int idStay2 = op2.getIdStay();
+                Date startDate2 = op2.getArrDate();
+                Date endDate2 =op2.getDepDate();
+                // int posStay2 = get<2>(tempOccParking[i][k]);
 
                 int b = _buffer;
                 p_buffer = &b;
                 // cout << "*p_buffer " << *p_buffer << endl;
-                if (vectOperations[posStay1].getIdStay() == vectOperations[posStay2].getIdStay()) {
+                if (idStay1 == idStay2) {
                     int b=0;
                     p_buffer = &b;
                     // cout << "*p_buffer " << *p_buffer << endl;
@@ -59,13 +66,16 @@ Solution RecuitSimule::correctSolution(Solution solution, const vector<Parking> 
 
                 if (startDate1 <= startDate2 && endDate1+*p_buffer >= startDate2)
                 {
-                    vectPark[posStay2] = -1;
+                    // vectPark[posStay2] = -1;
+                    vectPark[i].erase(vectPark[i].begin()+k);
+                    vectPark[sizeParkings].push_back(posOp2);
                     // cout << "Conflit1 startDate1 : " << startDate1 << " et endDate1 " << endDate1 << endl;
                     // cout << "Conflit1 startDate2 : " << startDate2 << " et endDate2 " << endDate2 << "\n"<< endl;
                 }
                 else if (startDate2 <= startDate1 && endDate2+*p_buffer >= startDate1)
                 {
-                    vectPark[posStay2] = -1;
+                    vectPark[i].erase(vectPark[i].begin()+k);
+                    vectPark[sizeParkings].push_back(posOp2);
                     // cout << "Conflit2 startDate1 : " << startDate1 << " et endDate1 " << endDate1 << endl;
                     // cout << "Conflit2 startDate2 : " << startDate2 << " et endDate2 " << endDate2 << "\n"<< endl;
                 }
@@ -82,34 +92,41 @@ Solution RecuitSimule::correctSolution(Solution solution, const vector<Parking> 
 
 double RecuitSimule::fonctionObjectif(Solution solution, const vector<Parking> &vectParkings, const vector<Operation> &vectOperations)
 {
-    vector<int> vectPark = solution.getSolution();
+    vector<vector<int>> vectPark = solution.getSolution();
 
     int poids_allocation = 0;
     int poids_nature = 0;
-    for (int i = 0; i < vectPark.size(); i++)
+    int vectParkSize = vectPark.size();
+    for (int i = 0; i < vectParkSize; i++)
     {
-        Operation op = vectOperations[i];
-        int posPark = vectPark[i];
-        if (posPark == -1)
+        for (int j=0; j<vectPark[i].size(); j++)
         {
-            poids_allocation += 100;
-        }
-        else
-        {
+            Operation op = vectOperations[vectPark[i][j]];
+        // int posPark = vectPark[i];
+        // if (posPark == -1)
+        // {
+        //     poids_allocation += 100;
+        // }
+
             // ParkNature parkNature = vectParkings[posPark].getNature();
             if (op.getNbTowing() == 3)
             {
-                switch (vectParkings[posPark].getNature())
+                switch (vectParkings[i].getNature())
                 case (ParkNature::Contact):
                     poids_nature += 40;
             }
             else
             {
-                switch (vectParkings[posPark].getNature())
+                switch (vectParkings[i].getNature())
                 case (ParkNature::Large):
                     poids_nature += 60;
             }
         }
+    }
+    for (int j=0; j<vectPark[vectParkSize].size(); j++) 
+    {
+        poids_allocation += 100;
+
     }
     return poids_allocation + poids_nature;
 }

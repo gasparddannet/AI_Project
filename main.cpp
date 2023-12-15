@@ -76,8 +76,6 @@ int main()
     // }
 
 
-    //TODO change for parking 
-
     // From a Stay Vect to an Operation Vect
     vector<Operation> vectOperations;
     for (long unsigned int i=0; i<vectStays.size(); i++) {
@@ -129,9 +127,8 @@ int main()
     int nbIterT = 1;
     double T = 500;
 
-    int sizeOperations = vectOperations.size();
-    vector<int> vect(sizeOperations);
     int sizeParkings = vectParkings.size();
+    vector<vector<int>> vect(sizeParkings);
 
     Solution solutionInit = Solution(vect);
     
