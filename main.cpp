@@ -75,6 +75,9 @@ int main()
     //     cout << s;
     // }
 
+
+    //TODO change for parking 
+
     // From a Stay Vect to an Operation Vect
     vector<Operation> vectOperations;
     for (long unsigned int i=0; i<vectStays.size(); i++) {
