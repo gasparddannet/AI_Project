@@ -121,6 +121,62 @@ void Solution::smartMutateMinusOne(int sizeParkings)
     }
 }
 
+
+// Replace elements in the solution with random Parking assignment if they don't have one or they're not in Contact
+void Solution::NonAllocAndContact(int sizeParkings, vector<Operation> vectOperations, vector<Parking> vectParkings)
+{
+    std::random_device rd;
+    std::default_random_engine generator(rd());
+    std::random_device rrd;
+    std::default_random_engine rgenerator(rrd());
+    for (int i = 0; i < solution.size(); i++)
+    {
+
+        vector<int> compParkings = vectOperations[i].getCompParkings();
+        std::uniform_int_distribution<int> distribution(0, compParkings.size()-1);
+        std::uniform_real_distribution<float> rdistribution(0, 100);
+        if (solution[i] == -1)
+        {
+            solution[i] = compParkings[distribution(generator)];
+        }
+        else 
+        {
+            int posPark = solution[i];
+            if (vectOperations[i].getNbTowing()==3)
+            {
+                if (vectParkings[posPark].getNature() == ParkNature::Contact)
+                {
+                    solution[i] = compParkings[distribution(generator)];
+                }
+                else
+                {
+                    if (rdistribution(rgenerator) < 0.001) 
+                    {
+                        // cout << "cc1" << endl;
+                        solution[i] = compParkings[distribution(generator)];
+                    }
+                }
+            }
+            else
+            {
+                if (vectParkings[posPark].getNature() == ParkNature::Large)
+                {
+                    solution[i] = compParkings[distribution(generator)];
+                }
+                else
+                {
+                    if (rdistribution(rgenerator) < 0.001) 
+                    {
+                        // cout << "cc2" << endl;
+                        solution[i] = compParkings[distribution(generator)];
+                    }                    
+                }
+            }
+        }
+    }
+}
+
+
 // Randomize elements in the solution, from index i to j
 void Solution::randomizeSubset(int i, int j, int sizeParkings)
 {

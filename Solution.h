@@ -4,6 +4,7 @@
 #include <vector>
 #include <list>
 #include "Operation.h"
+#include "Parking.h"
 
 using namespace std;
 
@@ -30,6 +31,7 @@ public:
     void shuffleSubset(int i,int j);
     void rotateSubset(int i, int j);
     void selectiveMutationSubset(int i, int j, double mutationProbability, int sizeParkings);
+    void NonAllocAndContact(int sizeParkings, vector<Operation> vectOperations, vector<Parking> vectParkings);
 };
 
 #endif

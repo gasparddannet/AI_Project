@@ -118,7 +118,7 @@ int main()
 
     cout << endl;
 
-    int nbIter = 1000;
+    int nbIter = 5000;
     int nbIterT = 1;
     double T = 500;
 
@@ -144,11 +144,11 @@ int main()
     // cout << endl;
     
     solutionInit.randomize(sizeParkings, vectOperations);
-    for (int i = 0; i<sizeOperations; i++) {
-        cout << solutionInit.getSolution()[i] << "|";
-    }
-    cout << endl;
-    cout << endl;
+    // for (int i = 0; i<sizeOperations; i++) {
+    //     cout << solutionInit.getSolution()[i] << "|";
+    // }
+    // cout << endl;
+    // cout << endl;
 
     RecuitSimule rs(nbIter, nbIterT, solutionInit, T);
     Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations);
