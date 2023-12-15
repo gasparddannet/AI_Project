@@ -18,40 +18,44 @@ int TTMD = 60;
 int main()
 {
 
-    int j,m,a,h,min;
-    int j2,m2,a2,h2,min2;
-    int j3,m3,a3,h3,min3;
-    int j4,m4,a4,h4,min4;
+    // int j,m,a,h,min;
+    // int j2,m2,a2,h2,min2;
+    // int j3,m3,a3,h3,min3;
+    // int j4,m4,a4,h4,min4;
 
-    j=9;m=8;a=2022;h=9;min=10;
-    j2=9;m2=8;a2=2022;h2=9;min2=40;
-    j3=9;m3=8;a3=2022;h3=19;min3=45;
-    j4=9;m4=8;a4=2022;h4=20;min4=45;
-
-
-
-    Date d1 = Date(j,m,a,h,min);
-    cout << "Date 1 : " << d1 << endl;
-    Date d2 = Date(j2,m2,a2,h2,min2);
-    cout << "Date 2 : " << d2 << endl;
-
-    Date d3 = Date(j3,m3,a3,h3,min3);
-    Date d4 = Date(j4,m4,a4,h4,min4);
-    cout << "Date 3 : " << d3 << endl;
-    cout << "Date 4 : " << d4 << endl;
+    // j=9;m=8;a=2022;h=9;min=10;
+    // j2=9;m2=8;a2=2022;h2=9;min2=40;
+    // j3=9;m3=8;a3=2022;h3=19;min3=45;
+    // j4=9;m4=8;a4=2022;h4=20;min4=45;
 
 
-    Date d5 = d1 + 30;
-    cout << "Date 1 - 30 :" << d5 << endl;
 
-    bool b = d3 <= d4;
-    cout << "bool d3 <= d4 : " << b << endl;
-    bool b1 = d4 <= d3;
-    cout << "bool d4 <= d3 : " << b1 << endl;
-    if (b) 
-    {
-        cout << "vrai" << endl;
-    }
+    // Date d1 = Date(j,m,a,h,min);
+    // cout << "Date 1 : " << d1 << endl;
+    // Date d2 = Date(j2,m2,a2,h2,min2);
+    // cout << "Date 2 : " << d2 << endl;
+
+    // Date d3 = Date(j3,m3,a3,h3,min3);
+    // Date d4 = Date(j4,m4,a4,h4,min4);
+    // cout << "Date 3 : " << d3 << endl;
+    // cout << "Date 4 : " << d4 << endl;
+
+
+    // Date d5 = d1 + 30;
+    // cout << "Date 1 - 30 :" << d5 << endl;
+
+    // bool b = d3 <= d4;
+    // cout << "bool d3 <= d4 : " << b << endl;
+    // bool b1 = d4 <= d3;
+    // cout << "bool d4 <= d3 : " << b1 << endl;
+    // if (b) 
+    // {
+    //     cout << "vrai" << endl;
+    // }
+
+
+
+
 
     /**** Read Parkings ****/
     cout << "Read Parkings" << endl;
@@ -116,9 +120,9 @@ int main()
     //     cout << "\n\n\n";
     // }    
 
-    cout << endl;
+    // cout << endl;
 
-    int nbIter = 5000;
+    int nbIter = 10000;
     int nbIterT = 1;
     double T = 500;
 
@@ -127,21 +131,6 @@ int main()
     int sizeParkings = vectParkings.size();
 
     Solution solutionInit = Solution(vect);
-    
-    // cout << "size : " << solutionInit.getSolution().size() << endl;
-    // cout << endl;
-    // for (int i = 0; i<sizeStays-1; i++) {
-    //     cout << solutionInit.getSolution()[i] << "|";
-    // }
-    // cout << endl;
-    // cout << endl;
-
-    // solutionInit.randomizeSubset(0, sizeStays-1, sizeParkings);
-    // for (int i = 0; i<sizeStays-1; i++) {
-    //     cout << solutionInit.getSolution()[i] << "|";
-    // }
-    // cout << endl;
-    // cout << endl;
     
     solutionInit.randomize(sizeParkings, vectOperations);
     // for (int i = 0; i<sizeOperations; i++) {
@@ -153,15 +142,8 @@ int main()
     RecuitSimule rs(nbIter, nbIterT, solutionInit, T);
     Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations);
 
-    cout << "\n" << endl;
+    cout << "\n";
 
-    // double finesseGlobal = RecuitSimule::fonctionObjectif(solGlobal, vectParkings, vectStays);
-    // cout << "finesse Globales : " << finesseGlobal << endl;
-    // cout << "cc1" << endl;
-
-    // std::pair<double, Solution> pairGlo = rs.fonctionObjectif(solGlobal, vectParkings, vectStays);
-
-    // cout << "valeurGlobale : " << pairGlo.first << endl;
 
     ofstream file("test_file.csv");
     if (!file.is_open())
@@ -231,14 +213,10 @@ int main()
         {
             Date startDate = get<0>(tempOccParking[i][j]);
             Date endDate = get<1>(tempOccParking[i][j]);
-            // Time startHour = get<1>(tempOccParking[i][j]);
-            // Time endHour = get<3>(tempOccParking[i][j]);
             int posStay = get<2>(tempOccParking[i][j]);
             fileOccPark << vectOperations[posStay].getIdStay() << ";";
             fileOccPark << startDate << ";";
-            // fileOccPark << startHour << ";";
             fileOccPark << endDate << ";";
-            // fileOccPark << endHour << ";";
         }
         // cout << "ligne " << i << endl;
         fileOccPark << endl;

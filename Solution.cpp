@@ -135,6 +135,7 @@ void Solution::NonAllocAndContact(int sizeParkings, vector<Operation> vectOperat
         vector<int> compParkings = vectOperations[i].getCompParkings();
         std::uniform_int_distribution<int> distribution(0, compParkings.size()-1);
         std::uniform_real_distribution<float> rdistribution(0, 100);
+        float p=2;
         if (solution[i] == -1)
         {
             solution[i] = compParkings[distribution(generator)];
@@ -150,7 +151,7 @@ void Solution::NonAllocAndContact(int sizeParkings, vector<Operation> vectOperat
                 }
                 else
                 {
-                    if (rdistribution(rgenerator) < 0.001) 
+                    if (rdistribution(rgenerator) < p) 
                     {
                         // cout << "cc1" << endl;
                         solution[i] = compParkings[distribution(generator)];
@@ -165,7 +166,7 @@ void Solution::NonAllocAndContact(int sizeParkings, vector<Operation> vectOperat
                 }
                 else
                 {
-                    if (rdistribution(rgenerator) < 0.001) 
+                    if (rdistribution(rgenerator) < p) 
                     {
                         // cout << "cc2" << endl;
                         solution[i] = compParkings[distribution(generator)];
