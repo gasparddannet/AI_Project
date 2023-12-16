@@ -123,7 +123,7 @@ int main()
     // cout << endl;
 
     int nbIter = 10000;
-    int nbIterT = 1;
+    int nbIterT = 10;
     double T = 500;
 
     int sizeOperations = vectOperations.size();

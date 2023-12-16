@@ -13,7 +13,7 @@ FIC = 'DataSolution/test_file_parking_occ.csv'
 FIC_TEST_FILE = 'DataSolution/test_file.csv'
 FIC_NAS = 'DataSolution/nonAllocatedStays.txt'
 
-N_LABEL_PARK_ON_SCREEN = 15  # Nombre de parking affiché sur chaque figure
+N_LABEL_PARK_ON_SCREEN = 14  # Nombre de parking affiché sur chaque figure
 N_NON_ALLOCATED_STAYS_ON_SCREEN = int(1.5*N_LABEL_PARK_ON_SCREEN)
 
 
@@ -111,16 +111,15 @@ def main():
 
     ###PLOTING NON ALLOCATED STAYS###
     data = read_txt_non_allocated_stays(FIC_NAS)
-    nplot = int(len(data)/N_NON_ALLOCATED_STAYS_ON_SCREEN) + 1
-    figax = [plt.subplots() for i in range(nplot)]
-    # starts = [[] for i in range(nplot)]
-    # ends = [[] for i in range(nplot)]
-    
-
     if (len(data) > 0):
         starts = []
         ends = []
-
+        
+        
+        nplot = int(len(data)/N_NON_ALLOCATED_STAYS_ON_SCREEN) + 1
+        figax = [plt.subplots() for i in range(nplot)]
+        # starts = [[] for i in range(nplot)]
+        # ends = [[] for i in range(nplot)]
         
         y_bis = [i+1 for i in range(N_NON_ALLOCATED_STAYS_ON_SCREEN)]
         for i  in range(len(data)) :

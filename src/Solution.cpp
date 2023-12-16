@@ -136,44 +136,57 @@ void Solution::NonAllocAndContact(int sizeParkings, vector<Operation> vectOperat
         std::uniform_int_distribution<int> distribution(0, compParkings.size()-1);
         std::uniform_real_distribution<float> rdistribution(0, 100);
         float p=2;
-        if (solution[i] == -1)
+        int posPark = solution[i];
+
+        if (solution[i] == -1 || (vectOperations[i].getNbTowing() == 3 &&
+            ((vectParkings[solution[i]].getNature() == ParkNature::Contact) || (rdistribution(rgenerator) < p)))) 
         {
             solution[i] = compParkings[distribution(generator)];
         }
-        else 
+        else if (vectOperations[i].getNbTowing() != 3 && 
+            ((vectParkings[solution[i]].getNature() == ParkNature::Large) || (rdistribution(rgenerator) < p))) 
         {
-            int posPark = solution[i];
-            if (vectOperations[i].getNbTowing()==3)
-            {
-                if (vectParkings[posPark].getNature() == ParkNature::Contact)
-                {
-                    solution[i] = compParkings[distribution(generator)];
-                }
-                else
-                {
-                    if (rdistribution(rgenerator) < p) 
-                    {
-                        // cout << "cc1" << endl;
-                        solution[i] = compParkings[distribution(generator)];
-                    }
-                }
-            }
-            else
-            {
-                if (vectParkings[posPark].getNature() == ParkNature::Large)
-                {
-                    solution[i] = compParkings[distribution(generator)];
-                }
-                else
-                {
-                    if (rdistribution(rgenerator) < p) 
-                    {
-                        // cout << "cc2" << endl;
-                        solution[i] = compParkings[distribution(generator)];
-                    }                    
-                }
-            }
+            solution[i] = compParkings[distribution(generator)];
         }
+
+        // if (solution[i] == -1) 
+        // {
+        //     solution[i] = compParkings[distribution(generator)];
+        // }
+        // else 
+        // {
+        //     int posPark = solution[i];
+        //     if (vectOperations[i].getNbTowing()==3)
+        //     {
+        //         if (vectParkings[posPark].getNature() == ParkNature::Contact)
+        //         {
+        //             solution[i] = compParkings[distribution(generator)];
+        //         }
+        //         else
+        //         {
+        //             if (rdistribution(rgenerator) < p) 
+        //             {
+        //                 // cout << "cc1" << endl;
+        //                 solution[i] = compParkings[distribution(generator)];
+        //             }
+        //         }
+        //     }
+        //     else
+        //     {
+        //         if (vectParkings[posPark].getNature() == ParkNature::Large)
+        //         {
+        //             solution[i] = compParkings[distribution(generator)];
+        //         }
+        //         else
+        //         {
+        //             if (rdistribution(rgenerator) < p) 
+        //             {
+        //                 // cout << "cc2" << endl;
+        //                 solution[i] = compParkings[distribution(generator)];
+        //             }                    
+        //         }
+        //     }
+        // }
     }
 }
 
