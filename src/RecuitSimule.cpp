@@ -13,6 +13,8 @@ int _buffer = 30;
 
 RecuitSimule::RecuitSimule(int &nbIter, int &nbIterT, Solution &solutionCourante, double T = 200) : T(T), nbIter(nbIter), nbIterT(nbIterT), solutionCourante(solutionCourante), solutionGlobal(solutionCourante) {}
 
+
+
 Solution RecuitSimule::correctSolution(Solution solution, const vector<Parking> &vectParkings, const vector<Operation> &vectOperations)
 {
     vector<int> vectPark = solution.getSolution();
@@ -173,8 +175,8 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
                     valeurCourante = nouvelleValeur;
                 }
             }
+            compt += 1;
         }
-        compt += 1;
         majT();
     }
     auto stop = chrono::high_resolution_clock::now();

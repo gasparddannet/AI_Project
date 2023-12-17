@@ -18,7 +18,8 @@ public:
     void majT();
 
     Solution recuitSimule(const vector<Parking> &vectParkings, const vector<Operation> &vectOperation);
-
+    void heatUp();
+    
 private:
     double T;
     int nbIter; 
