@@ -46,20 +46,29 @@ vector<vector<int>> Solution::getSolution()
 }
 
 
-void Solution::randomize(int sizeParkings, vector<Operation> vectOperations)
+void Solution::randomize(vector<Operation> vectOperations)
 {
     // srand((int)time(0));
     std::random_device rd;
     std::default_random_engine generator(rd());
 
-    for (int i = 0; i < solution.size(); i++)
+    for (int i = 0; i < solution.size()-1; i++)
     {
+        vector<int> vectOp; 
         vector<int> compParkings = vectOperations[i].getCompParkings();
         // solution[i] = compParkings[rand() % compParkings.size()];
-        std::uniform_int_distribution<int> distribution(0, compParkings.size()-1);
+        std::uniform_int_distribution<int> distribution1(0, 5);
+        int k = distribution1(generator);
+        for (int j=0; j<k; j++)
+        {
+            std::uniform_int_distribution<int> distribution2(0, vectOperations.size());
+            vectOp.push_back(distribution2(generator));
+        }
         // std::cout << distribution(generator) << endl;
-        solution[i] = compParkings[distribution(generator)]; // liste d'operations !!! 
+        solution[i] = vectOp;
     }
+    vector<int> vectNonAlloc;
+    solution[solution.size()-1] = vectNonAlloc;
 }
 
 //////////////////////////////////////////////////// OPERATORS //////////////////////////////////////////////

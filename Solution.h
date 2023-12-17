@@ -19,7 +19,7 @@ public:
     Solution & operator=(const Solution& s);
     
     vector<vector<int>> getSolution();
-    void randomize(int sizeParking, vector<Operation> vectOperations);
+    void randomize(vector<Operation> vectOperations);
     // void mutateMinusOne(int sizeParkings, vector<Operation> vectOperations);
     // void smartMutateMinusOne(int sizeParkings);
     // void randomizeSubset(int i, int j, int sizeParkings);

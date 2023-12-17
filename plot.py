@@ -10,7 +10,8 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
 FIC = 'test_file_parking_occ.csv'
-FIC_TEST_FILE = 'test_file.csv'
+# FIC_TEST_FILE = 'test_file.csv'
+FIC_TEST_FILE = 'Data/stays_2F_090822.csv'
 N_LABEL_PARK_ON_SCREEN = 15  # Nombre de parking affiché sur chaque figure
 N_NON_ALLOCATED_STAYS_ON_SCREEN = int(1.5*N_LABEL_PARK_ON_SCREEN)
 
@@ -51,7 +52,7 @@ def read_test_file():
             if line_count == 0:
                 line_count+=1
             else:
-                dictStayAircraftType[row[0]] = row[2]
+                dictStayAircraftType[row[0].strip()] = row[2].strip()
     return dictStayAircraftType
                 
             
@@ -66,7 +67,7 @@ def main():
     y = [i+1 for i in range(N_LABEL_PARK_ON_SCREEN)]
     starts = [[] for i in range(nplot)]
     ends = [[] for i in range(nplot)]
-    couleurs = ['r', 'g', 'b', 'y', 'c', 'm', 'k', 'orange', 'purple', 'darkorange', 'lime', 'royalblue', 'orchid', 'chartreuse']
+    # couleurs = ['r', 'g', 'b', 'y', 'c', 'm', 'k', 'orange', 'purple', 'darkorange', 'lime', 'royalblue', 'orchid', 'chartreuse']
     colorsTypeAircraft = {"318" : 'tomato', "319":'green', "320":'blue', "321":'goldenrod', "223":'brown', "737" : 'orchid'}
     
     dictStayAircraftType = read_test_file()
