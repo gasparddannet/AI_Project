@@ -9,13 +9,13 @@ import csv
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
-FIC = 'test_file_parking_occ.csv'
+FIC = 'DataSolution/test_file_parking_occ.csv'
 # FIC_TEST_FILE = 'test_file.csv'
 FIC_TEST_FILE = 'Data/stays_2F_090822.csv'
 N_LABEL_PARK_ON_SCREEN = 15  # Nombre de parking affiché sur chaque figure
 N_NON_ALLOCATED_STAYS_ON_SCREEN = int(1.5*N_LABEL_PARK_ON_SCREEN)
 
-FIC_NAS = 'nonAllocatedStays.txt'
+FIC_NAS = 'DataSolution/nonAllocatedStays.txt'
 
 def readcsv(fic):
     donnees = []

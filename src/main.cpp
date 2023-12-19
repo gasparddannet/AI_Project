@@ -10,8 +10,8 @@
 
 using namespace std;
 
-string ParkingFile = "Data/parking_2F_2DLarge.csv";
-string StaysFile = "Data/stays_2F_090822.csv";
+string ParkingFile = "../Data/parking_2F_2DLarge.csv";
+string StaysFile = "../Data/stays_2F_090822.csv";
 int TTMA = 30;
 int TTMD = 60;
 
