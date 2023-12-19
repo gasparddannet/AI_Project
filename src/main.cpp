@@ -70,16 +70,16 @@ int main()
     // cout << '\n';
 
     // std::shuffle(vectParkings.begin(), vectParkings.end(), std::default_random_engine());
-<<<<<<< HEAD
-    int nbToErase = static_cast<int>(vectParkings.size()*0.2) ;
+
+    // int nbToErase = static_cast<int>(vectParkings.size()*0.2) ;
     // vectParkings.resize(tronc);
 
-    vectParkings.erase(vectParkings.begin(),vectParkings.begin() + nbToErase);
+    // vectParkings.erase(vectParkings.begin(),vectParkings.begin() + nbToErase);
 
-=======
+
     // int tronc = static_cast<int>(vectParkings.size()*0.8) ;
     //vectParkings.resize(tronc);
->>>>>>> 06152f39b76c1045a1da53662d86c9afda28f8be
+
 
     // vectParkings.erase(vectParkings.begin()+2);
 
