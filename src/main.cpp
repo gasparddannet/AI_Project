@@ -69,9 +69,12 @@ int main()
     cout << '\n';
     cout << '\n';
 
-    std::shuffle(vectParkings.begin(), vectParkings.end(), std::default_random_engine());
-    int tronc = static_cast<int>(vectParkings.size()*0.8) ;
-    //vectParkings.resize(tronc);
+    // std::shuffle(vectParkings.begin(), vectParkings.end(), std::default_random_engine());
+    int nbToErase = static_cast<int>(vectParkings.size()*0.2) ;
+    // vectParkings.resize(tronc);
+
+    vectParkings.erase(vectParkings.begin(),vectParkings.begin() + nbToErase);
+
 
 
     for (Parking &p : vectParkings) {
