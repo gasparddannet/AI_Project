@@ -9,7 +9,7 @@
 
 using namespace std;
 
-int _buffer = 30;
+int _buffer = 20;
 
 RecuitSimule::RecuitSimule(int &nbIter, int &nbIterT, Solution &solutionCourante, double T = 200) : T(T), nbIter(nbIter), nbIterT(nbIterT), solutionCourante(solutionCourante), solutionGlobal(solutionCourante) {}
 

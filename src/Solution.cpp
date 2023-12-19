@@ -143,7 +143,7 @@ void Solution::NonAllocAndContact(int sizeParkings, vector<Operation> vectOperat
         {
             solution[i] = compParkings[distribution(generator)];
         }
-        else if (vectOperations[i].getNbTowing() != 3 && 
+        else if (vectOperations[i].getNbTowing() != 3 &&
             ((vectParkings[solution[i]].getNature() == ParkNature::Large) || (rdistribution(rgenerator) < p))) 
         {
             solution[i] = compParkings[distribution(generator)];
