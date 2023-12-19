@@ -64,6 +64,11 @@ int main()
     vector<Parking> vectParkings = Read::readParkings(ParkingFile);
 
 
+    // for (Parking &p : vectParkings) {
+    //     cout << p;
+    // }
+    // cout << '\n';
+    // cout << '\n';
 
     // std::shuffle(vectParkings.begin(), vectParkings.end(), std::default_random_engine());
     // int tronc = static_cast<int>(vectParkings.size()*0.8) ;
@@ -74,6 +79,9 @@ int main()
     vectParkings.erase(vectParkings.begin(),vectParkings.begin() + nbToErase);
 
     cout << "nbr de Parking supprimé :" << nbToErase << endl;
+
+    // vectParkings.erase(vectParkings.begin()+2);
+
     // vectParkings[2] = vectParkings.back();
     // vectParkings.pop_back();
 
