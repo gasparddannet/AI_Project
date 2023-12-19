@@ -71,7 +71,7 @@ Parking Read::stringstreamToParking(std::stringstream &ss)
     return park;
 }
 
-const vector<Parking> Read::readParkings(string parkingFile)
+vector<Parking> Read::readParkings(string parkingFile)
 {
     vector<Parking> vectParkings;
     ifstream file(parkingFile);

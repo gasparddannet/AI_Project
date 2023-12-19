@@ -8,7 +8,8 @@
 #include <vector>
 #include <algorithm>
 #include <random>
-
+#include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -58,7 +59,6 @@ int main()
 
 
 
-
     /**** Read Parkings ****/
     cout << "Read Parkings" << endl;
     vector<Parking> vectParkings = Read::readParkings(ParkingFile);
@@ -69,10 +69,13 @@ int main()
     cout << '\n';
     cout << '\n';
 
-    std::shuffle(vectParkings.begin(), vectParkings.end(), std::default_random_engine());
-    int tronc = static_cast<int>(vectParkings.size()*0.8) ;
+    // std::shuffle(vectParkings.begin(), vectParkings.end(), std::default_random_engine());
+    // int tronc = static_cast<int>(vectParkings.size()*0.8) ;
     //vectParkings.resize(tronc);
 
+    vectParkings.erase(vectParkings.begin()+2);
+    // vectParkings[2] = vectParkings.back();
+    // vectParkings.pop_back();
 
     for (Parking &p : vectParkings) {
         cout << p;
@@ -142,6 +145,7 @@ int main()
     int sizeOperations = vectOperations.size();
     vector<int> vect(sizeOperations);
     int sizeParkings = vectParkings.size();
+    cout << "SizeParkings : " << sizeParkings << endl;
 
     Solution solutionInit = Solution(vect);
     
