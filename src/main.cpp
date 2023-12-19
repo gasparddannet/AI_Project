@@ -63,6 +63,7 @@ int main()
     cout << "Read Parkings" << endl;
     vector<Parking> vectParkings = Read::readParkings(ParkingFile);
 
+
     // for (Parking &p : vectParkings) {
     //     cout << p;
     // }
@@ -70,16 +71,15 @@ int main()
     // cout << '\n';
 
     // std::shuffle(vectParkings.begin(), vectParkings.end(), std::default_random_engine());
-
-    // int nbToErase = static_cast<int>(vectParkings.size()*0.2) ;
+    // int tronc = static_cast<int>(vectParkings.size()*0.8) ;
+    //vectParkings.resize(tronc);
+    int nbToErase = static_cast<int>(vectParkings.size()*0.1) ;
     // vectParkings.resize(tronc);
 
     // vectParkings.erase(vectParkings.begin(),vectParkings.begin() + nbToErase);
 
 
-    // int tronc = static_cast<int>(vectParkings.size()*0.8) ;
-    //vectParkings.resize(tronc);
-
+    cout << "nbr de Parking supprimé :" << nbToErase << endl;
 
     // vectParkings.erase(vectParkings.begin()+2);
 
@@ -89,8 +89,8 @@ int main()
     // for (Parking &p : vectParkings) {
     //     cout << p;
     // }
-    cout << '\n';
-    cout << '\n';
+    // cout << '\n';
+    // cout << '\n';
 
     /**** Read Stays ****/
     cout << "Read stays" << endl;
@@ -147,9 +147,9 @@ int main()
 
     // cout << endl;
 
-    int nbIter = 20000;
-    int nbIterT = 1;
-    double T = 600;
+    int nbIter = 70000;
+    int nbIterT = 20;
+    double T = 500;
 
     int sizeOperations = vectOperations.size();
     vector<int> vect(sizeOperations);
