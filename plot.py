@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
 FIC = 'DataSolution/test_file_parking_occ.csv'
-FIC_TEST_FILE = 'DataSolution/test_file.csv'
+FIC_TEST_FILE = 'Data/stays_2F_090822.csv'
 FIC_NAS = 'DataSolution/nonAllocatedStays.txt'
 
 N_LABEL_PARK_ON_SCREEN = 14  # Nombre de parking affiché sur chaque figure
@@ -53,7 +53,7 @@ def read_test_file():
             if line_count == 0:
                 line_count+=1
             else:
-                dictStayAircraftType[row[0]] = row[2]
+                dictStayAircraftType[row[0].strip()] = row[2].strip()
     return dictStayAircraftType
                 
             
