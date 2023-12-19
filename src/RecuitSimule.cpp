@@ -155,6 +155,21 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
             double nouvelleValeur = fonctionObjectif(newSolution, vectParkings, vectOperations);
             // cout << "\nNouvelle Valeur : " << nouvelleValeur << endl;
 
+            if (nouvelleValeur == 0)
+            {
+                solutionGlobal = solutionCourante;
+                valeurGlobale = nouvelleValeur;
+                auto stop = chrono::high_resolution_clock::now();
+                auto duration = chrono::duration_cast<chrono::seconds>(stop - start);
+                chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(stop - start);
+
+                cout << "T : " << T << " | compt : " << compt << endl;
+                cout << "Duration : " << time_span.count() << " seconds" << endl;
+                cout << "Valeur globale : " << valeurGlobale << endl;
+                return solutionGlobal;
+                     
+            }
+
             double differenceValeur = nouvelleValeur - valeurCourante;
             if (differenceValeur < 0)
             {

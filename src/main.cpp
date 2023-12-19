@@ -76,10 +76,10 @@ int main()
     int nbToErase = static_cast<int>(vectParkings.size()*0.1) ;
     // vectParkings.resize(tronc);
 
-    // vectParkings.erase(vectParkings.begin(),vectParkings.begin() + nbToErase);
+    vectParkings.erase(vectParkings.begin(),vectParkings.begin() + nbToErase);
 
 
-    cout << "nbr de Parking supprimé :" << nbToErase << endl;
+    cout << "nbr de Parking supprimé: " << nbToErase << endl;
 
     // vectParkings.erase(vectParkings.begin()+2);
 
@@ -147,9 +147,9 @@ int main()
 
     // cout << endl;
 
-    int nbIter = 70000;
+    int nbIter = 60000;
     int nbIterT = 20;
-    double T = 500;
+    double T = 600;
 
     int sizeOperations = vectOperations.size();
     vector<int> vect(sizeOperations);
