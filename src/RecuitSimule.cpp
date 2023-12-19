@@ -81,7 +81,12 @@ Solution RecuitSimule::correctSolution(Solution solution, const vector<Parking> 
                     // vectPark[posStay2] = -1;
                     vectPark[i].erase(vectPark[i].begin()+k);
                     cout << "cs5_1" << endl;
-
+                    
+                    cout << "size : " << vectPark[sizeParkings].size() << endl;
+                    for (int l=0; l<vectPark[sizeParkings].size(); l++)
+                    {
+                        cout << "vectPark[sizeParkings]["<<l<<"]: " << vectPark[sizeParkings][l] << endl;
+                    }
                     vectPark[sizeParkings].push_back(posOp2);
                     cout << "cs5_2" << endl;
 
@@ -95,6 +100,11 @@ Solution RecuitSimule::correctSolution(Solution solution, const vector<Parking> 
                     vectPark[i].erase(vectPark[i].begin()+k);
                     cout << "cs6_1" << endl;
 
+                    cout << "size : " << vectPark[sizeParkings].size() << endl;
+                    for (int l=0; l<vectPark[sizeParkings].size(); l++)
+                    {
+                        cout << "vectPark[sizeParkings]["<<l<<"]: " << vectPark[sizeParkings][l] << endl;
+                    }
                     vectPark[sizeParkings].push_back(posOp2);
                     cout << "cs6_2" << endl;
 
@@ -122,8 +132,8 @@ double RecuitSimule::fonctionObjectif(Solution solution, const vector<Parking> &
 
     int poids_allocation = 0;
     int poids_nature = 0;
-    int vectParkSize = vectPark.size();
-    for (int i = 0; i < vectParkSize; i++)
+    int sizeParkings = vectPark.size() - 1;
+    for (int i = 0; i < sizeParkings; i++)
     {
         for (int j=0; j<vectPark[i].size(); j++)
         {
@@ -149,7 +159,7 @@ double RecuitSimule::fonctionObjectif(Solution solution, const vector<Parking> &
             }
         }
     }
-    for (int j=0; j<vectPark[vectParkSize].size(); j++) 
+    for (int j=0; j<vectPark[sizeParkings].size(); j++) 
     {
         poids_allocation += 100;
 
