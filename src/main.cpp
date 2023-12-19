@@ -7,6 +7,8 @@
 #include "Operation.h"
 #include <vector>
 #include <algorithm>
+#include <random>
+
 
 using namespace std;
 
@@ -61,11 +63,22 @@ int main()
     cout << "Read Parkings" << endl;
     vector<Parking> vectParkings = Read::readParkings(ParkingFile);
 
-    // for (Parking &p : vectParking) {
-    //     cout << p;
-    // }
-    // cout << '\n';
-    // cout << '\n';
+    for (Parking &p : vectParkings) {
+        cout << p;
+    }
+    cout << '\n';
+    cout << '\n';
+
+    std::shuffle(vectParkings.begin(), vectParkings.end(), std::default_random_engine());
+    int tronc = static_cast<int>(vectParkings.size()*0.8) ;
+    //vectParkings.resize(tronc);
+
+
+    for (Parking &p : vectParkings) {
+        cout << p;
+    }
+    cout << '\n';
+    cout << '\n';
 
     /**** Read Stays ****/
     cout << "Read stays" << endl;
