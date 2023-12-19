@@ -17,7 +17,7 @@ class Read
     static ParkNature stringToParkNature(std::string &pn);
     static const vector<int> stringToVectInt(const string &ta);
     static Parking stringstreamToParking(std::stringstream &ss);
-    static const vector<Parking> readParkings(string parkingFile);
+    static vector<Parking> readParkings(string parkingFile);
 
 
     /*************     READ STAYS   *************/ 

@@ -7,9 +7,33 @@ using namespace std;
 
 // string ParkingFile = "Data/parking_2F_2DLarge.csv";
 
-Parking::Parking(string n,string z, string t, ParkNature na, const vector<int> tA):
+Parking::Parking(string n,string z, string t, ParkNature na, vector<int> tA):
     name(n), zone(z), terminal(t), nature(na), typeAvion(tA) {}
 
+
+Parking::Parking(const Parking &p)
+{
+    operator=(p);
+}
+
+Parking &Parking::operator=(const Parking &p)
+{
+    if (this != &p) // Avoid self-assignment
+    {
+        this->name = p.name;
+        this->zone = p.zone;
+        this->terminal = p.terminal;
+        this->nature = p.nature;
+
+        this->typeAvion.resize(p.typeAvion.size());
+
+        for (int i = 0; i < p.typeAvion.size(); i++)
+        {
+            this->typeAvion[i] = p.typeAvion[i];
+        }
+    }
+    return *this;
+}
 
 // static const vector<Parking> readParking() {
 //     vector<Parking> vectParking;

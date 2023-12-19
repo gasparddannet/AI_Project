@@ -11,17 +11,21 @@ using namespace std;
 
 class Parking
 {
-    const string name;
-    const string zone;
-    const string terminal;
-    const ParkNature nature;
+    string name;
+    string zone;
+    string terminal;
+    ParkNature nature;
     // variant<const string, const vector<int>> typeAvion;
-    const vector<int> typeAvion;
+    vector<int> typeAvion;
 
 
     
     public:
-        Parking(string n,string z, string t, ParkNature na, const vector<int> tA);
+        Parking(string n,string z, string t, ParkNature na, vector<int> tA);
+
+        Parking(const Parking & p);
+        Parking & operator=(const Parking& p);
+
         friend ostream & operator<<(ostream& o,const Parking& p) ;
         string getZone() const;
         ParkNature getNature() const;
