@@ -28,7 +28,13 @@ Solution RecuitSimule::correctSolution(Solution solution, const vector<Parking> 
 
     vector<vector<tuple<Date, Date, int>>> tempOccParking(sizeParkings); // tableau indexe par les parkings des tableaux des tuples startDate, startHour, endDate, endHour
     for (int i = 0; i < vectPark.size(); i++)
-    {
+    {   
+        vector<int> compPark = vectOperations[i].getCompParkings() ;  
+        auto it = find(compPark.begin(), compPark.end(), vectPark[i]);
+        if (it == compPark.end()) {
+            vectPark[i] = -1 ; // Les opérations ne respectant pas la contrainte de compatibilité parking sont changés à -1
+        }
+
         if (vectPark[i] >= 0)
         {
             tempOccParking[vectPark[i]].push_back({vectOperations[i].getArrDate(), vectOperations[i].getDepDate(), i});
@@ -177,7 +183,7 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
                 valeurCourante = nouvelleValeur;
                 solutionGlobal = solutionCourante;
                 valeurGlobale = nouvelleValeur;
-                // cout << "change valeugGlobale" << endl;
+                cout << "change valeur Globale :" << valeurGlobale << endl;
             }
             else
             {
