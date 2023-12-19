@@ -98,6 +98,7 @@ int main()
             vectOperations.push_back(Operation(idStay, depDate-TTMD, depDate, compatibleParkings, 2));
         }
     }
+    cout << "cc" << endl;
 
     // for (Operation& op : vectOperations)
     // {
@@ -130,17 +131,30 @@ int main()
     int sizeParkings = vectParkings.size();
     vector<vector<int>> vect(sizeParkings+1);
 
+
+    // vect[sizeParkings].push_back(0);
+
+    // cout << "vect[sizeParking][0] : " << vect[sizeParkings][0] << endl;
+
+    cout << "cc2" << endl;
+
     Solution solutionInit = Solution(vect);
     
+    cout << "cc3" << endl;
+
     solutionInit.randomize(vectOperations);
     // for (int i = 0; i<sizeOperations; i++) {
     //     cout << solutionInit.getSolution()[i] << "|";
     // }
     // cout << endl;
     // cout << endl;
+    cout << "cc4" << endl;
 
     RecuitSimule rs(nbIter, nbIterT, solutionInit, T);
+    cout << "cc5" << endl;
+
     Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations);
+    cout << "cc6" << endl;
 
     cout << "\n";
 
@@ -192,64 +206,66 @@ int main()
     // file.close();
     // cout << "cc2" << endl;
 
-    vector<vector<tuple<Date, Date, int>>> tempOccParking(sizeParkings); // tableau indexe par les parkings des tableaux des tuples startDate, startHour, endDate, endHour
-    for (long unsigned int i = 0; i < vectSolGlobal.size(); i++)
-    {
-        Operation operation = vectOperations[i];
-        int posPark = vectSolGlobal[i];
-        // tempOccParking[posPark].push_back(vectParkSolution[j].getTupleStartEnd());
-        if (posPark >= 0)
-            tempOccParking[posPark].push_back({operation.getArrDate(), operation.getDepDate(), i});
-    }
-    ofstream fileOccPark("test_file_parking_occ.csv");
-    if (!fileOccPark.is_open())
-        throw std::runtime_error("Could not open file");
-    fileOccPark << "Parking;Stay1;Start Date 1 ;Start Hour 1 ;End Date 1 ;End Hour 1;Stay2;Start Date 2 ;Start Hour 2 ;End Date 2 ;End Hour 2;Stay3;Start Date 3 ;Start Hour 3 ;End Date 3 ;End Hour 3;Stay4;Start Date 4 ;Start Hour 4 ;End Date 4 ;End Hour 4" << endl;
-    for (long unsigned int i = 0; i < tempOccParking.size(); i++)
-    {
-        fileOccPark << vectParkings[i].getName() << ";";
-        // cout << "tempOccParking size : " << tempOccParking[i].size() << endl;
-        for (long unsigned int j = 0; j < tempOccParking[i].size(); j++)
-        {
-            Date startDate = get<0>(tempOccParking[i][j]);
-            Date endDate = get<1>(tempOccParking[i][j]);
-            int posStay = get<2>(tempOccParking[i][j]);
-            fileOccPark << vectOperations[posStay].getIdStay() << ";";
-            fileOccPark << startDate << ";";
-            fileOccPark << endDate << ";";
-        }
-        // cout << "ligne " << i << endl;
-        fileOccPark << endl;
-    }
-    fileOccPark.close();
+
+
+    // vector<vector<tuple<Date, Date, int>>> tempOccParking(sizeParkings); // tableau indexe par les parkings des tableaux des tuples startDate, startHour, endDate, endHour
+    // for (long unsigned int i = 0; i < vectSolGlobal.size(); i++)
+    // {
+    //     Operation operation = vectOperations[i];
+    //     int posPark = vectSolGlobal[i];
+    //     // tempOccParking[posPark].push_back(vectParkSolution[j].getTupleStartEnd());
+    //     if (posPark >= 0)
+    //         tempOccParking[posPark].push_back({operation.getArrDate(), operation.getDepDate(), i});
+    // }
+    // ofstream fileOccPark("test_file_parking_occ.csv");
+    // if (!fileOccPark.is_open())
+    //     throw std::runtime_error("Could not open file");
+    // fileOccPark << "Parking;Stay1;Start Date 1 ;Start Hour 1 ;End Date 1 ;End Hour 1;Stay2;Start Date 2 ;Start Hour 2 ;End Date 2 ;End Hour 2;Stay3;Start Date 3 ;Start Hour 3 ;End Date 3 ;End Hour 3;Stay4;Start Date 4 ;Start Hour 4 ;End Date 4 ;End Hour 4" << endl;
+    // for (long unsigned int i = 0; i < tempOccParking.size(); i++)
+    // {
+    //     fileOccPark << vectParkings[i].getName() << ";";
+    //     // cout << "tempOccParking size : " << tempOccParking[i].size() << endl;
+    //     for (long unsigned int j = 0; j < tempOccParking[i].size(); j++)
+    //     {
+    //         Date startDate = get<0>(tempOccParking[i][j]);
+    //         Date endDate = get<1>(tempOccParking[i][j]);
+    //         int posStay = get<2>(tempOccParking[i][j]);
+    //         fileOccPark << vectOperations[posStay].getIdStay() << ";";
+    //         fileOccPark << startDate << ";";
+    //         fileOccPark << endDate << ";";
+    //     }
+    //     // cout << "ligne " << i << endl;
+    //     fileOccPark << endl;
+    // }
+    // fileOccPark.close();
 
 
 
-    vector<tuple<int,int,int,int,int>> nonAllocatedStays;
-    for (long unsigned int i = 0; i < vectSolGlobal.size(); i++) {
-        if (vectSolGlobal[i] == -1) {
-            int idStay = vectOperations[i].getIdStay();
-            int posStay;
-            for (long unsigned int j=0; j<vectStays.size(); j++) {
-                if (vectStays[j].getId() == idStay)
-                {
-                    posStay = j;
-                }
-            }
+    // vector<tuple<int,int,int,int,int>> nonAllocatedStays;
+    // for (long unsigned int i = 0; i < vectSolGlobal.size(); i++) {
+    //     if (vectSolGlobal[i] == -1) {
+    //         int idStay = vectOperations[i].getIdStay();
+    //         int posStay;
+    //         for (long unsigned int j=0; j<vectStays.size(); j++) {
+    //             if (vectStays[j].getId() == idStay)
+    //             {
+    //                 posStay = j;
+    //             }
+    //         }
             
-            Stay stay = vectStays[posStay];
-            Operation op = vectOperations[i];
-            Date stayArrDate = op.getArrDate();
-            Date stayDepDate = op.getDepDate();
-            nonAllocatedStays.push_back({stay.getId(),stayArrDate.getHour(),stayArrDate.getMin(),stayDepDate.getHour(),stayDepDate.getMin()});
-        }
-    }
-    std::ofstream outputFile("nonAllocatedStays.txt");
-    for (const auto& tuple : nonAllocatedStays) {
-        outputFile << std::get<0>(tuple) << ' ' << std::get<1>(tuple) << ' ' << std::get<2>(tuple) << ' ' << std::get<3>(tuple) << 
-        ' ' << std::get<4>(tuple) <<'\n';
-    }
-    outputFile.close();
+    //         Stay stay = vectStays[posStay];
+    //         Operation op = vectOperations[i];
+    //         Date stayArrDate = op.getArrDate();
+    //         Date stayDepDate = op.getDepDate();
+    //         nonAllocatedStays.push_back({stay.getId(),stayArrDate.getHour(),stayArrDate.getMin(),stayDepDate.getHour(),stayDepDate.getMin()});
+    //     }
+    // }
+    // std::ofstream outputFile("nonAllocatedStays.txt");
+    // for (const auto& tuple : nonAllocatedStays) {
+    //     outputFile << std::get<0>(tuple) << ' ' << std::get<1>(tuple) << ' ' << std::get<2>(tuple) << ' ' << std::get<3>(tuple) << 
+    //     ' ' << std::get<4>(tuple) <<'\n';
+    // }
+    // outputFile.close();
 
     return 0;
 }

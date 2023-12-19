@@ -16,6 +16,8 @@ RecuitSimule::RecuitSimule(int &nbIter, int &nbIterT, Solution &solutionCourante
 
 Solution RecuitSimule::correctSolution(Solution solution, const vector<Parking> &vectParkings, const vector<Operation> &vectOperations)
 {
+    cout << "cs1" << endl;
+
     vector<vector<int>> vectPark = solution.getSolution();
 
     // cout << "Avant : " << endl;
@@ -23,7 +25,9 @@ Solution RecuitSimule::correctSolution(Solution solution, const vector<Parking> 
     //     cout << vectPark[i] << "|";
     // }
 
-    int sizeParkings = vectPark.size();
+
+    int sizeParkings = vectPark.size() - 1;
+    cout << "sizeParkings : " << sizeParkings << endl;
 
     // vector<vector<tuple<Date, Date, int>>> tempOccParking(sizeParkings); // tableau indexe par les parkings des tableaux des tuples startDate, startHour, endDate, endHour
     // for (int i = 0; i < vectPark.size(); i++)
@@ -34,12 +38,16 @@ Solution RecuitSimule::correctSolution(Solution solution, const vector<Parking> 
     //     }
     // }
 
+    cout << "cs2" << endl;
+
     int* p_buffer= nullptr;
     for (int i = 0; i < sizeParkings; i++)
     {
         int s = vectPark[i].size();
         for (int j = 0; j < s - 1; j++)
         {
+            cout << "cs3" << endl;
+
             int posOp1 = vectPark[i][j];
             Operation op1 = vectOperations[posOp1];
             int idStay1 = op1.getIdStay();
@@ -48,6 +56,8 @@ Solution RecuitSimule::correctSolution(Solution solution, const vector<Parking> 
             // int posStay1 = get<2>(tempOccParking[i][j]);
             for (int k = j + 1; k < s; k++)
             {
+                cout << "cs4" << endl;
+
                 int posOp2 = vectPark[i][k];
                 Operation op2 = vectOperations[posOp2];
                 int idStay2 = op2.getIdStay();
@@ -65,28 +75,44 @@ Solution RecuitSimule::correctSolution(Solution solution, const vector<Parking> 
                 }
 
                 if (startDate1 <= startDate2 && endDate1+*p_buffer >= startDate2)
-                {
+                {   
+                    cout << "cs5" << endl;
+
                     // vectPark[posStay2] = -1;
                     vectPark[i].erase(vectPark[i].begin()+k);
+                    cout << "cs5_1" << endl;
+
                     vectPark[sizeParkings].push_back(posOp2);
+                    cout << "cs5_2" << endl;
+
                     // cout << "Conflit1 startDate1 : " << startDate1 << " et endDate1 " << endDate1 << endl;
                     // cout << "Conflit1 startDate2 : " << startDate2 << " et endDate2 " << endDate2 << "\n"<< endl;
                 }
                 else if (startDate2 <= startDate1 && endDate2+*p_buffer >= startDate1)
                 {
+                    cout << "cs6" << endl;
+
                     vectPark[i].erase(vectPark[i].begin()+k);
+                    cout << "cs6_1" << endl;
+
                     vectPark[sizeParkings].push_back(posOp2);
+                    cout << "cs6_2" << endl;
+
                     // cout << "Conflit2 startDate1 : " << startDate1 << " et endDate1 " << endDate1 << endl;
                     // cout << "Conflit2 startDate2 : " << startDate2 << " et endDate2 " << endDate2 << "\n"<< endl;
                 }
             }
         }
     }
+    cout << "csf" << endl;
+
     Solution newSolution2 = Solution(vectPark);
     // cout << "\nApres fonctionObj: " << endl;
     // for (int i = 0; i<vectOperations.size()-1; i++) {
     //     cout << newSolution2.getSolution()[i] << "|";
     // }
+    cout << "csf2" << endl;
+
     return newSolution2;
 }
 
@@ -139,10 +165,10 @@ void RecuitSimule::majT()
 Solution RecuitSimule::generateSolution(Solution solution, int sizeParkings, const vector<Operation> &vectOperations, const vector<Parking> &vectParkings)
 {
     // solutionCourante.randomizeSubset(0,solutionCourante.getSolution().size(),sizeParkings);
-    // solutionCourante.randomize(sizeParkings, vectOperations);
+    solutionCourante.randomize(vectOperations);
     // solutionCourante.mutateMinusOne(sizeParkings, vectOperations);
 
-    solution.NonAllocAndContact(sizeParkings, vectOperations, vectParkings);
+    // solution.NonAllocAndContact(sizeParkings, vectOperations, vectParkings);
 
     // solutionCourante.smartMutateMinusOne(sizeParkings);
     // cout << "generateSOlution done" << endl;
@@ -151,6 +177,8 @@ Solution RecuitSimule::generateSolution(Solution solution, int sizeParkings, con
 
 Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const vector<Operation> &vectOperations)
 {
+    cout << "rs1" << endl;
+
     auto start = std::chrono::high_resolution_clock::now();
 
     solutionCourante = correctSolution(solutionCourante, vectParkings, vectOperations);
@@ -159,16 +187,19 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
     cout << "\nValeur Initiale: " << valeurCourante << "\n\n";
     valeurGlobale = valeurCourante;
     int compt = 0;
+    cout << "rs2" << endl;
 
     while (T > 0.001 && compt < nbIter)
     {
         for (int i = 0; i < nbIterT; ++i)
         {
             Solution newSolution = generateSolution(solutionCourante, vectParkings.size(), vectOperations, vectParkings);
+            cout << "rs3" << endl;
             
             newSolution = correctSolution(newSolution, vectParkings, vectOperations);
             double nouvelleValeur = fonctionObjectif(newSolution, vectParkings, vectOperations);
             // cout << "\nNouvelle Valeur : " << nouvelleValeur << endl;
+            cout << "rs4" << endl;
 
             double differenceValeur = nouvelleValeur - valeurCourante;
             if (differenceValeur < 0)

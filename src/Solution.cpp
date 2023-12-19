@@ -48,15 +48,15 @@ vector<vector<int>> Solution::getSolution()
 
 void Solution::randomize(vector<Operation> vectOperations)
 {
-    // srand((int)time(0));
     std::random_device rd;
     std::default_random_engine generator(rd());
 
-    for (int i = 0; i < vectOperations.size()-1; i++)
+    for (int i = 0; i < vectOperations.size(); i++)
     {
-        std::uniform_int_distribution<int> distribution1(0, solution.size());
+        vector<int> compPark = vectOperations[i].getCompParkings();
+        std::uniform_int_distribution<int> distribution1(0, compPark.size()-1);
         int k = distribution1(generator);
-        solution[k].push_back(i);
+        solution[compPark[k]].push_back(i);
     }
 }
 
