@@ -5,6 +5,7 @@
 #include "sstream"
 #include "Read.h"
 #include "Operation.h"
+#include "TXTWrite.h"
 #include <vector>
 #include <algorithm>
 #include <random>
@@ -264,12 +265,8 @@ int main()
             nonAllocatedStays.push_back({stay.getId(),stayArrDate.getHour(),stayArrDate.getMin(),stayDepDate.getHour(),stayDepDate.getMin()});
         }
     }
-    std::ofstream outputFile("../DataSolution/nonAllocatedStays.txt");
-    for (const auto& tuple : nonAllocatedStays) {
-        outputFile << std::get<0>(tuple) << ' ' << std::get<1>(tuple) << ' ' << std::get<2>(tuple) << ' ' << std::get<3>(tuple) << 
-        ' ' << std::get<4>(tuple) <<'\n';
-    }
-    outputFile.close();
+    TXTWrite writer("nonAllocatedStays.txt") ;
+    writer.write(nonAllocatedStays);
 
     return 0;
 }

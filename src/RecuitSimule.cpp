@@ -4,6 +4,7 @@
 // #include "Stay.h"
 #include "Operation.h"
 #include "Parking.h"
+#include "TXTWrite.h"
 #include <algorithm>
 #include <chrono>
 
@@ -155,6 +156,7 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
     valeurGlobale = valeurCourante;
     int compt = 0;
     int acc = 1;
+    vector<double> histoT ;
     while (T > 0.001 && compt < nbIter)
     {
         for (int i = 0; i < nbIterT; ++i)
@@ -208,8 +210,10 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
                     valeurCourante = nouvelleValeur;
                 }
             }
-            compt += 1;
+            
         }
+        compt += 1;
+        histoT.push_back(T);
         majT(acc);
     }
     auto stop = chrono::high_resolution_clock::now();
@@ -222,5 +226,8 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
     // double vGlobal = fonctionObjectif(solutionGlobal, vectParkings, vectOperations);
     // cout << "Valeur global : " << vGlobal << endl;
     std::cout << "Valeur globale : " << valeurGlobale << endl;
+
+    TXTWrite writer("histoT.txt");
+    writer.write(histoT);
     return solutionGlobal;
 }
