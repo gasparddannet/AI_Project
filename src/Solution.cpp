@@ -76,9 +76,10 @@ void Solution::randomize(int sizeParkings, vector<Operation> vectOperations)
     for (int i = 0; i < solution.size(); i++)
     {
         vector<int> compParkings = vectOperations[i].getCompParkings();
+
         // solution[i] = compParkings[rand() % compParkings.size()];
         std::uniform_int_distribution<int> distribution(0, compParkings.size()-1);
-        // std::cout << distribution(generator) << endl;
+        // std::cout << endl << "random : " << distribution(generator) << endl;
         solution[i] = compParkings[distribution(generator)];
     }
 }

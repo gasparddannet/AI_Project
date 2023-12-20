@@ -122,8 +122,12 @@ double RecuitSimule::fonctionObjectif(Solution solution, const vector<Parking> &
     return poids_allocation + poids_nature;
 }
 
-void RecuitSimule::majT()
+void RecuitSimule::majT(int &acc)
 {
+    if (T < exp(-acc)) {
+        T += 600/acc  ;
+        acc += 1 ;
+    }
     T *= 0.996;
 }
 
@@ -133,7 +137,7 @@ Solution RecuitSimule::generateSolution(Solution solution, int sizeParkings, con
     // solutionCourante.randomize(sizeParkings, vectOperations);
     // solutionCourante.mutateMinusOne(sizeParkings, vectOperations);
 
-    solution.NonAllocAndContact(sizeParkings, vectOperations, vectParkings);
+    solution.NonAllocAndContact(sizeParkings,vectOperations,vectParkings);
 
     // solutionCourante.smartMutateMinusOne(sizeParkings);
     // cout << "generateSOlution done" << endl;
@@ -147,10 +151,10 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
     solutionCourante = correctSolution(solutionCourante, vectParkings, vectOperations);
     double valeurCourante = fonctionObjectif(solutionCourante, vectParkings, vectOperations);
 
-    cout << "\nValeur Initiale: " << valeurCourante << "\n\n";
+    std::cout << "\nValeur Initiale: " << valeurCourante << "\n\n";
     valeurGlobale = valeurCourante;
     int compt = 0;
-
+    int acc = 1;
     while (T > 0.001 && compt < nbIter)
     {
         for (int i = 0; i < nbIterT; ++i)
@@ -169,11 +173,19 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
                 auto duration = chrono::duration_cast<chrono::seconds>(stop - start);
                 chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(stop - start);
 
-                cout << "T : " << T << " | compt : " << compt << endl;
-                cout << "Duration : " << time_span.count() << " seconds" << endl;
-                cout << "Valeur globale : " << valeurGlobale << endl;
+                std::cout << "T : " << T << " | compt : " << compt << endl;
+                std::cout << "Duration : " << time_span.count() << " seconds" << endl;
+                std::cout << "Valeur globale : " << valeurGlobale << endl;
                 return solutionGlobal;
                      
+            }
+
+            if (nouvelleValeur - valeurGlobale < 0) {
+                solutionCourante = newSolution;
+                valeurCourante = nouvelleValeur;
+                solutionGlobal = solutionCourante;
+                valeurGlobale = nouvelleValeur;
+                std::cout << "change valeur Globale :" << valeurGlobale << endl;
             }
 
             double differenceValeur = nouvelleValeur - valeurCourante;
@@ -181,9 +193,9 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
             {
                 solutionCourante = newSolution;
                 valeurCourante = nouvelleValeur;
-                solutionGlobal = solutionCourante;
-                valeurGlobale = nouvelleValeur;
-                cout << "change valeur Globale :" << valeurGlobale << endl;
+                // solutionGlobal = solutionCourante;
+                // valeurGlobale = nouvelleValeur;
+                // cout << "change valeur Globale :" << valeurGlobale << endl;
             }
             else
             {
@@ -198,17 +210,17 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
             }
             compt += 1;
         }
-        majT();
+        majT(acc);
     }
     auto stop = chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<chrono::seconds>(stop - start);
     chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(stop - start);
 
-    cout << "T : " << T << " | compt : " << compt << endl;
-    cout << "Duration : " << time_span.count() << " seconds" << endl;
+    std::cout << "T : " << T << " | compt : " << compt << endl;
+    std::cout << "Duration : " << time_span.count() << " seconds" << endl;
     // cout << "cc0" << endl;
     // double vGlobal = fonctionObjectif(solutionGlobal, vectParkings, vectOperations);
     // cout << "Valeur global : " << vGlobal << endl;
-    cout << "Valeur globale : " << valeurGlobale << endl;
+    std::cout << "Valeur globale : " << valeurGlobale << endl;
     return solutionGlobal;
 }

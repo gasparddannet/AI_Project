@@ -15,7 +15,7 @@ public:
 
     Solution correctSolution(Solution solution, const vector<Parking> &vectParkings, const vector<Operation> &vectOperations);
     double fonctionObjectif(Solution solution, const vector<Parking> &vectParkings, const vector<Operation> &vectOperations);
-    void majT();
+    void majT(int &acc);
 
     Solution recuitSimule(const vector<Parking> &vectParkings, const vector<Operation> &vectOperation);
     void heatUp();

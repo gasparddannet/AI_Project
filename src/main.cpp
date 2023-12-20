@@ -70,15 +70,9 @@ int main()
     // cout << '\n';
     // cout << '\n';
 
-    // std::shuffle(vectParkings.begin(), vectParkings.end(), std::default_random_engine());
-    // int tronc = static_cast<int>(vectParkings.size()*0.8) ;
-    //vectParkings.resize(tronc);
+
     int nbToErase = static_cast<int>(vectParkings.size()*0.1) ;
-    // vectParkings.resize(tronc);
-
     vectParkings.erase(vectParkings.begin(),vectParkings.begin() + nbToErase);
-
-
     cout << "nbr de Parking supprimé: " << nbToErase << endl;
 
     // vectParkings.erase(vectParkings.begin()+2);
@@ -148,7 +142,7 @@ int main()
     // cout << endl;
 
     int nbIter = 100000;
-    int nbIterT = 30;
+    int nbIterT = 20;
     double T = 600;
 
     int sizeOperations = vectOperations.size();
