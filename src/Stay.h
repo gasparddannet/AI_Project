@@ -14,7 +14,7 @@ class Stay
 {
     const int id;
     const BodyType bodyType;
-    const int aircraftType;
+    const string aircraftType;
     const int authorizedTowing;
     const string arrOwnerCie;
     const string arrExploitingCie;
@@ -32,7 +32,7 @@ class Stay
     const string depStop;
 
     public:
-        Stay(const int id, const BodyType bT, const int aT, const int auT, const string aOC, const string aEC, 
+        Stay(const int id, const BodyType bT, const string aT, const int auT, const string aOC, const string aEC, 
         const int aN, const Date aD, const CourrierCode aCC, const string aS, const string dOC,
         const string dEC, const int dN, const Date dD, const CourrierCode dCC, const string dS);
 
@@ -43,7 +43,7 @@ class Stay
         Date getDepDate() const;
         // Time getDepHour() const;
         int getAuthorizedTowing() const;
-        int getAircraftType() const;
+        string getAircraftType() const;
         int getId() const;
         BodyType getBodyType() const;
         int getArrNumber() const;

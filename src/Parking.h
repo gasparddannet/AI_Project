@@ -16,12 +16,12 @@ class Parking
     string terminal;
     ParkNature nature;
     // variant<const string, const vector<int>> typeAvion;
-    vector<int> typeAvion;
+    vector<string> typeAvion;
 
 
     
     public:
-        Parking(string n,string z, string t, ParkNature na, vector<int> tA);
+        Parking(string n,string z, string t, ParkNature na, vector<string> tA);
 
         Parking(const Parking & p);
         Parking & operator=(const Parking& p);
@@ -29,7 +29,7 @@ class Parking
         friend ostream & operator<<(ostream& o,const Parking& p) ;
         string getZone() const;
         ParkNature getNature() const;
-        vector<int> getTypeAvion() const;
+        vector<string> getTypeAvion() const;
         string getName() const;
         
         // static const vector<Parking> readParking();

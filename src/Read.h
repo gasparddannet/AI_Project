@@ -15,7 +15,7 @@ class Read
     public:
     static string & rtrim(string &s);
     static ParkNature stringToParkNature(std::string &pn);
-    static const vector<int> stringToVectInt(const string &ta);
+    static const vector<string> stringToVectString(const string &ta);
     static Parking stringstreamToParking(std::stringstream &ss);
     static vector<Parking> readParkings(string parkingFile);
 
@@ -31,7 +31,7 @@ class Read
     static const vector<Stay> readStays(string staysFile); 
 
 
-    static const vector<int> createCompatibleParking(int aircraftType, vector<Parking> vectParkings);
+    static const vector<int> createCompatibleParking(string aircraftType, vector<Parking> vectParkings);
 
 };
 

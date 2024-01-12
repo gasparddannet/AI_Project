@@ -18,7 +18,7 @@ RecuitSimule::RecuitSimule(int &nbIter, int &nbIterT, Solution &solutionCourante
 
 Solution RecuitSimule::correctSolution(Solution solution, const vector<Parking> &vectParkings, const vector<Operation> &vectOperations)
 {   
-    cout << "Call correctSolution" << endl;
+    // cout << "Call correctSolution" << endl;
     vector<int> vectPark = solution.getSolution();
 
     // cout << "Avant : " << endl;
@@ -139,9 +139,9 @@ Solution RecuitSimule::generateSolution(Solution solution, int sizeParkings, con
     // solutionCourante.randomize(sizeParkings, vectOperations);
     // solution.mutateMinusOne(sizeParkings, vectOperations);
 
-    //solution.NonAllocAndContact(sizeParkings,vectOperations,vectParkings);
+    solution.NonAllocAndContact(sizeParkings,vectOperations,vectParkings);
     
-    solution.smartMutateMinusOne(sizeParkings);
+    // solution.smartMutateMinusOne(sizeParkings);
     // cout << "generateSOlution done" << endl;
     return solution;
 }

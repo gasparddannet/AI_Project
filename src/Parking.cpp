@@ -7,7 +7,7 @@ using namespace std;
 
 // string ParkingFile = "Data/parking_2F_2DLarge.csv";
 
-Parking::Parking(string n,string z, string t, ParkNature na, vector<int> tA):
+Parking::Parking(string n,string z, string t, ParkNature na, vector<string> tA):
     name(n), zone(z), terminal(t), nature(na), typeAvion(tA) {}
 
 
@@ -76,12 +76,12 @@ ostream & operator<<(ostream& o,const Parking& p) {
 	o << "name : " << p.name << endl;
 	o << "zone : " << p.zone << endl;
 	o << "terminal : " << p.terminal << endl;
-	o << "nature : " << p.nature;
+	o << "nature : " << p.nature << endl;
     o << "Type Avion : ";
-    vector<int> vectTypeAvion = p.typeAvion;
+    vector<string> vectTypeAvion = p.typeAvion;
     if (!vectTypeAvion.empty())
     {
-        vector<int>::iterator it = vectTypeAvion.begin();
+        vector<string>::iterator it = vectTypeAvion.begin();
         for (it=vectTypeAvion.begin() ; it != vectTypeAvion.end(); it++) 
         {
             if (it == vectTypeAvion.end() -1){
@@ -104,7 +104,7 @@ ParkNature Parking::getNature() const{
     return nature;
 }
 
-vector<int> Parking::getTypeAvion() const {
+vector<string> Parking::getTypeAvion() const {
     return typeAvion;
 }
 
