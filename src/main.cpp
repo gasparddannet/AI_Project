@@ -160,8 +160,9 @@ int main()
     // cout << endl;
     // cout << endl;
 
+    string operateur = "MutateMinusOne" ;
     RecuitSimule rs(nbIter, nbIterT, solutionInit, T);
-    Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations);
+    Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations, operateur);
 
     cout << "\n";
 

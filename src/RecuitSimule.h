@@ -17,7 +17,7 @@ public:
     double fonctionObjectif(Solution solution, const vector<Parking> &vectParkings, const vector<Operation> &vectOperations);
     void majT(int &acc);
 
-    Solution recuitSimule(const vector<Parking> &vectParkings, const vector<Operation> &vectOperation);
+    Solution recuitSimule(const vector<Parking> &vectParkings, const vector<Operation> &vectOperation, string operateur);
     void heatUp();
     
 private:
@@ -29,7 +29,7 @@ private:
     int valeurGlobale;
 
     // Solution generateSolution(Solution solution, int sizeParkings);
-    Solution generateSolution(Solution solution, int sizeParkings, const vector<Operation> &vectOperations, const vector<Parking> &vectParkings);
+    Solution generateSolution(Solution solution, int sizeParkings, const vector<Operation> &vectOperations, const vector<Parking> &vectParkings, string operateur);
 };
 
 #endif // RECUITSIMULE_H
