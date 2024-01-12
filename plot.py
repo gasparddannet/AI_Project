@@ -68,7 +68,7 @@ def main():
     starts = [[] for i in range(nplot)]
     ends = [[] for i in range(nplot)]
     # couleurs = ['r', 'g', 'b', 'y', 'c', 'm', 'k', 'orange', 'purple', 'darkorange', 'lime', 'royalblue', 'orchid', 'chartreuse']
-    colorsTypeAircraft = {"318" : 'tomato', "319":'green', "320":'blue', "321":'goldenrod', "223":'brown', "737" : 'orchid'}
+    colorsTypeAircraft = {"318" : 'tomato', "319":'green', "320":'blue', "321":'goldenrod', "223":'brown', "737" : 'orchid', "E70":'chartreuse', "E90":'royalblue'}
     
     dictStayAircraftType = read_test_file()
     # print(dictStayAircraftType)

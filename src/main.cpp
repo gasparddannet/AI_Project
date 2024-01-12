@@ -14,8 +14,11 @@
 
 using namespace std;
 
-string ParkingFile = "../Data/parking_2F_2DLarge.csv";
-string StaysFile = "../Data/stays_2F_090822.csv";
+// string ParkingFile = "../Data/parking_2F_2DLarge.csv";
+// string StaysFile = "../Data/stays_2F_090822.csv";
+
+string ParkingFile = "../Data/parkings.csv";
+string StaysFile = "../Data/stays.csv";
 int TTMA = 30;
 int TTMD = 60;
 
@@ -72,9 +75,12 @@ int main()
     // cout << '\n';
 
 
-    int nbToErase = static_cast<int>(vectParkings.size()*0.1) ;
-    vectParkings.erase(vectParkings.begin(),vectParkings.begin() + nbToErase);
-    cout << "nbr de Parking supprimé: " << nbToErase << endl;
+
+    // int nbToErase = static_cast<int>(vectParkings.size()*0.1) ;
+    // vectParkings.erase(vectParkings.begin(),vectParkings.begin() + nbToErase);
+    // cout << "nbr de Parking supprimé: " << nbToErase << endl;
+
+
 
     // vectParkings.erase(vectParkings.begin()+2);
 
@@ -101,7 +107,7 @@ int main()
         int idStay = vectStays[i].getId();
         Date arrDate = vectStays[i].getArrDate();
         Date depDate = vectStays[i].getDepDate();
-        int aircraftType = vectStays[i].getAircraftType();
+        string aircraftType = vectStays[i].getAircraftType();
         vector<int> compatibleParkings = Read::createCompatibleParking(aircraftType, vectParkings);
         int nbTowings = vectStays[i].getAuthorizedTowing();
         if (nbTowings == 0) {

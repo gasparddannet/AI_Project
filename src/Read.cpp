@@ -3,14 +3,16 @@
 #include "BodyType.h"
 #include "ParkNature.h"
 #include <algorithm>
+#include <boost/algorithm/string.hpp>
+
 
 using namespace std;
 
-string &Read::rtrim(string &s)
-{
-    s.erase(s.find_last_not_of(' ') + 1);
-    return s;
-}
+// string &Read::rtrim(string &s)
+// {
+//     s.erase(s.find_last_not_of(' ') + 1);
+//     return s;
+// }
 
 /**********************************************/
 /*************     READ PARKING   *************/
@@ -35,10 +37,10 @@ ParkNature Read::stringToParkNature(std::string &pn)
     throw std::invalid_argument("Wrong Parking Nature");
 }
 
-const vector<int> Read::stringToVectInt(const string &ta)
+const vector<string> Read::stringToVectString(const string &ta)
 {
     // variant<const string, const vector<int>> variantTa;
-    vector<int> Ta;
+    vector<string> Ta;
     stringstream ss(ta);
     string type;
     while (getline(ss, type, ','))
@@ -52,7 +54,9 @@ const vector<int> Read::stringToVectInt(const string &ta)
         {
             // cout << type << endl;
             // variantTa.emplace<1>.push_back(stoi(type));
-            Ta.push_back(stoi(type));
+            // Ta.push_back(stoi(type));
+            Ta.push_back(type);
+
         }
     }
     return Ta;
@@ -60,19 +64,30 @@ const vector<int> Read::stringToVectInt(const string &ta)
 
 Parking Read::stringstreamToParking(std::stringstream &ss)
 {
+    // cout << "stringstreamToPArkings\n";
     vector<string> row;
     string val;
     while (getline(ss, val, ';'))
     {
-        val = rtrim(val);
+        boost::trim(val);
+        // val = rtrim(val);
         row.push_back(val);
     }
-    Parking park = Parking(row[0], row[1], row[2], stringToParkNature(row[3]), stringToVectInt(row[4]));
+
+    // for (string& s:row)
+    // {
+    //     cout << s;
+    //     cout << endl;
+    // }
+    // cout << typeid(row[0]).name() << endl;
+
+    Parking park = Parking(row[0], row[1], row[2], stringToParkNature(row[3]), stringToVectString(row[4]));
     return park;
 }
 
 vector<Parking> Read::readParkings(string parkingFile)
 {
+    // cout << "Read parkings   \n";
     vector<Parking> vectParkings;
     ifstream file(parkingFile);
     if (!file.is_open())
@@ -80,6 +95,7 @@ vector<Parking> Read::readParkings(string parkingFile)
 
     string line;
     getline(file, line);
+
     while (getline(file, line))
     {
         std::stringstream ss(line);
@@ -94,13 +110,23 @@ vector<Parking> Read::readParkings(string parkingFile)
 /*************     READ STAYS   *************/
 /**********************************************/
 
-BodyType Read::stringToBodyType(std::string &bt)
+BodyType Read::stringToBodyType(std::string& bt)
 {
     if (bt == "MP")
     {
         return BodyType::MP;
     }
-    throw std::invalid_argument("Wrong Body Type");
+    else if (bt == "3N")
+    {
+        return BodyType::N3;
+    }
+    else if (bt == "GP")
+    {
+        return BodyType::GP;
+    }
+
+    string msg = "Wrong Body Type :" + bt;
+    throw std::invalid_argument(msg);
 }
 
 CourrierCode Read::stringToCourrierCode(string &cc)
@@ -109,7 +135,13 @@ CourrierCode Read::stringToCourrierCode(string &cc)
     {
         return CourrierCode::MC;
     }
-    throw std::invalid_argument("Wrong Courrier Code");
+    else if (cc == "LC")
+    {
+        return CourrierCode::LC;
+    }
+
+    string msg = "Wrong Courrier Code :" + cc;
+    throw std::invalid_argument(msg);
 }
 
 Date Read::stringToDate(string &d, string &t)
@@ -170,16 +202,26 @@ int Read::getAuthorizedTowing(int &isTowable, Date &arrDate, Date &depDate)
 
 Stay Read::stringstreamToStay(stringstream &ss)
 {
+    // cout << "StringstramToStay" << endl;
     vector<string> row;
     string val;
     while (getline(ss, val, ';'))
     {
-        val = rtrim(val);
+        // val = rtrim(val);
+        boost::trim(val);
         row.push_back(val);
     }
+
+    // for (string& s:row)
+    // {
+    //     cout << s;
+    //     cout << endl;
+    // }
+
+    cout << row[9] << endl;
     int id = stoi(row[0]);
     BodyType bodyType = stringToBodyType(row[1]);
-    int aircraftType = stoi(row[2]);
+    string aircraftType = row[2];
     string arrOwnerCie = row[4];
     string arrExploitingCie = row[5];
     int arrNumber = stoi(row[6]);
@@ -192,7 +234,13 @@ Stay Read::stringstreamToStay(stringstream &ss)
     int depNumber = stoi(row[13]);
     Date depDate = stringToDate(row[14], row[15]);
     // Time depHour = stringToTime(row[15]);
-    CourrierCode depCourrierCode = stringToCourrierCode(row[16]);
+    CourrierCode depCourrierCode;
+    try {
+        depCourrierCode = stringToCourrierCode(row[16]);
+    }   
+    catch (std::invalid_argument& e) {
+        depCourrierCode = stringToCourrierCode(row[9]);
+    }
     string depStop = row[17];
     int isTowable = stoi(row[3]);
     int authorizedTowing = getAuthorizedTowing(isTowable, arrDate, depDate);
@@ -224,12 +272,12 @@ const vector<Stay> Read::readStays(string staysFile)
     return vectStays;
 }
 
-const vector<int> Read::createCompatibleParking(int aircraftType, vector<Parking> vectParkings)
+const vector<int> Read::createCompatibleParking(string aircraftType, vector<Parking> vectParkings)
 {
     vector<int> compatibleParkings;
     for (int i = 0; i < vectParkings.size(); i++)
     {
-        const vector<int> parkTypesAvion = vectParkings[i].getTypeAvion();
+        const vector<string> parkTypesAvion = vectParkings[i].getTypeAvion();
 
         if (!parkTypesAvion.empty())
         {

@@ -147,10 +147,11 @@ Solution RecuitSimule::generateSolution(Solution solution, int sizeParkings, con
     // }
     // solutionCourante.randomizeSubset(0,solutionCourante.getSolution().size(),sizeParkings);
     //solution.randomize(sizeParkings, vectOperations);
-    solution.mutateMinusOne(sizeParkings, vectOperations);
+    // solution.mutateMinusOne(sizeParkings, vectOperations);
 
-    // solution.NonAllocAndContact(sizeParkings,vectOperations,vectParkings);
+    solution.NonAllocAndContact(sizeParkings,vectOperations,vectParkings);
     
+    // solution.smartMutateMinusOne(sizeParkings);
     // cout << "generateSOlution done" << endl;
     return solution;
 }
