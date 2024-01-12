@@ -148,8 +148,8 @@ int main()
 
     // cout << endl;
 
-    int nbIter = 100000;
-    int nbIterT = 20;
+    int nbIter = 5000;
+    int nbIterT = 10;
     double T = 600;
 
     int sizeOperations = vectOperations.size();

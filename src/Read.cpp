@@ -218,7 +218,6 @@ Stay Read::stringstreamToStay(stringstream &ss)
     //     cout << endl;
     // }
 
-    cout << row[9] << endl;
     int id = stoi(row[0]);
     BodyType bodyType = stringToBodyType(row[1]);
     string aircraftType = row[2];
