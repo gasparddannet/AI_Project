@@ -5,6 +5,7 @@
 #include "sstream"
 #include "Read.h"
 #include "Operation.h"
+#include "TXTWrite.h"
 #include <vector>
 #include <algorithm>
 #include <random>
@@ -70,15 +71,9 @@ int main()
     // cout << '\n';
     // cout << '\n';
 
-    // std::shuffle(vectParkings.begin(), vectParkings.end(), std::default_random_engine());
-    // int tronc = static_cast<int>(vectParkings.size()*0.8) ;
-    //vectParkings.resize(tronc);
+
     int nbToErase = static_cast<int>(vectParkings.size()*0.1) ;
-    // vectParkings.resize(tronc);
-
     vectParkings.erase(vectParkings.begin(),vectParkings.begin() + nbToErase);
-
-
     cout << "nbr de Parking supprimé: " << nbToErase << endl;
 
     // vectParkings.erase(vectParkings.begin()+2);
@@ -147,7 +142,7 @@ int main()
 
     // cout << endl;
 
-    int nbIter = 60000;
+    int nbIter = 100000;
     int nbIterT = 20;
     double T = 600;
 
@@ -270,12 +265,8 @@ int main()
             nonAllocatedStays.push_back({stay.getId(),stayArrDate.getHour(),stayArrDate.getMin(),stayDepDate.getHour(),stayDepDate.getMin()});
         }
     }
-    std::ofstream outputFile("../DataSolution/nonAllocatedStays.txt");
-    for (const auto& tuple : nonAllocatedStays) {
-        outputFile << std::get<0>(tuple) << ' ' << std::get<1>(tuple) << ' ' << std::get<2>(tuple) << ' ' << std::get<3>(tuple) << 
-        ' ' << std::get<4>(tuple) <<'\n';
-    }
-    outputFile.close();
+    TXTWrite writer("nonAllocatedStays.txt") ;
+    writer.write(nonAllocatedStays);
 
     return 0;
 }

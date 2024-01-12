@@ -76,9 +76,10 @@ void Solution::randomize(int sizeParkings, vector<Operation> vectOperations)
     for (int i = 0; i < solution.size(); i++)
     {
         vector<int> compParkings = vectOperations[i].getCompParkings();
+
         // solution[i] = compParkings[rand() % compParkings.size()];
         std::uniform_int_distribution<int> distribution(0, compParkings.size()-1);
-        // std::cout << distribution(generator) << endl;
+        // std::cout << endl << "random : " << distribution(generator) << endl;
         solution[i] = compParkings[distribution(generator)];
     }
 }
@@ -230,14 +231,19 @@ void Solution::doubleFlip(int i1, int j1, int i2, int j2)
 }
 
 // Shuffle a subset of elements within the solution.
-void Solution::shuffleSubset(int i, int j)
+void Solution::shuffleRandomSubset()
 {
-    if (i >= 0 && i < solution.size() && j >= 0 && j < solution.size() && i < j)
-    {
-        vector<int> subset(solution.begin() + i, solution.begin() + j + 1);
-        shuffle(subset.begin(), subset.end(), default_random_engine(std::time(0)));
-        copy(subset.begin(), subset.end(), solution.begin() + i);
-    }
+    std::random_device rd;
+    std::default_random_engine generator(rd());
+    std::uniform_int_distribution<int> distribution1(0, solution.size());
+    std::uniform_int_distribution<int> distribution2(0, solution.size());
+
+    int i = distribution1(generator);
+    int j = distribution2(generator);
+
+    vector<int> subset(solution.begin() + min(i,j), solution.begin() + max(i,j) + 1);
+    shuffle(subset.begin(), subset.end(), default_random_engine(std::time(0)));
+    copy(subset.begin(), subset.end(), solution.begin() + min(i,j));
 }
 
 // Rotate a subset of elements within the solution
