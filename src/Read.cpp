@@ -200,7 +200,9 @@ int Read::getAuthorizedTowing(int &isTowable, Date &arrDate, Date &depDate)
         return 0;
 }
 
-Stay Read::stringstreamToStay(stringstream &ss)
+
+
+Stay Read::stringstreamToStayOriginal(stringstream &ss)
 {
     // cout << "StringstramToStay" << endl;
     vector<string> row;
@@ -217,20 +219,18 @@ Stay Read::stringstreamToStay(stringstream &ss)
     //     cout << s;
     //     cout << endl;
     // }
-
-    cout << row[9] << endl;
     int id = stoi(row[0]);
     BodyType bodyType = stringToBodyType(row[1]);
     string aircraftType = row[2];
-    string arrOwnerCie = row[4];
-    string arrExploitingCie = row[5];
+    // string arrOwnerCie = row[4];
+    // string arrExploitingCie = row[5];
     int arrNumber = stoi(row[6]);
     Date arrDate = stringToDate(row[7], row[8]);
     // Time arrHour = stringToTime(row[8]);
     CourrierCode arrCourrierCode = stringToCourrierCode(row[9]);
-    string arrStop = row[10];
-    string depOwnerCie = row[11];
-    string depExploitingCie = row[12];
+    // string arrStop = row[10];
+    // string depOwnerCie = row[11];
+    // string depExploitingCie = row[12];
     int depNumber = stoi(row[13]);
     Date depDate = stringToDate(row[14], row[15]);
     // Time depHour = stringToTime(row[15]);
@@ -241,15 +241,56 @@ Stay Read::stringstreamToStay(stringstream &ss)
     catch (std::invalid_argument& e) {
         depCourrierCode = stringToCourrierCode(row[9]);
     }
-    string depStop = row[17];
+    // string depStop = row[17];
     int isTowable = stoi(row[3]);
     int authorizedTowing = getAuthorizedTowing(isTowable, arrDate, depDate);
 
-    Stay stay = Stay(id, bodyType, aircraftType, authorizedTowing, arrOwnerCie, arrExploitingCie,
-                     arrNumber, arrDate, arrCourrierCode, arrStop, depOwnerCie,
-                     depExploitingCie, depNumber, depDate, depCourrierCode, row[17]);
+    // Stay stay = Stay(id, bodyType, aircraftType, authorizedTowing, arrOwnerCie, arrExploitingCie,
+    //                  arrNumber, arrDate, arrCourrierCode, arrStop, depOwnerCie,
+    //                  depExploitingCie, depNumber, depDate, depCourrierCode, row[17]);
+    Stay stay = Stay(id, bodyType, aircraftType, authorizedTowing, arrNumber, arrDate,
+                    arrCourrierCode, depNumber, depDate, depCourrierCode);
     return stay;
 }
+
+
+Stay Read::stringstreamToStay(stringstream &ss)
+{
+    vector<string> row;
+    string val;
+    while (getline(ss, val, ';'))
+    {
+        boost::trim(val);
+        row.push_back(val);
+    }
+
+    // for (string& s:row)
+    // {
+    //     cout << s;
+    //     cout << endl;
+    // }
+    int id = stoi(row[0]);
+    BodyType bodyType = stringToBodyType(row[1]);
+    string aircraftType = row[2];
+    int authorizedTowing = stoi(row[3]);
+    int arrNumber = stoi(row[4]);
+    Date arrDate = stringToDate(row[5], row[6]);
+    CourrierCode arrCourrierCode = stringToCourrierCode(row[7]);
+    int depNumber = stoi(row[8]);
+    Date depDate = stringToDate(row[9], row[10]);
+    CourrierCode depCourrierCode;
+    try {
+        depCourrierCode = stringToCourrierCode(row[11]);
+    }   
+    catch (std::invalid_argument& e) {
+        depCourrierCode = stringToCourrierCode(row[7]);
+    }
+
+    Stay stay = Stay(id, bodyType, aircraftType, authorizedTowing, arrNumber, arrDate,
+                    arrCourrierCode, depNumber, depDate, depCourrierCode);
+    return stay; 
+}
+
 
 const vector<Stay> Read::readStays(string staysFile)
 {

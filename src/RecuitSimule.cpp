@@ -222,9 +222,8 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
                     valeurCourante = nouvelleValeur;
                 }
             }
-            
+            compt += 1;
         }
-        compt += 1;
         histoT.push_back(T);
         majT(acc);
         histoVal.push_back({valeurCourante,valeurGlobale}) ;

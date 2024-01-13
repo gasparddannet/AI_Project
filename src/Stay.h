@@ -16,25 +16,24 @@ class Stay
     const BodyType bodyType;
     const string aircraftType;
     const int authorizedTowing;
-    const string arrOwnerCie;
-    const string arrExploitingCie;
+    // const string arrOwnerCie;
+    // const string arrExploitingCie;
     const int arrNumber;
     const Date arrDate;
     // const Time arrHour;
     const CourrierCode arrCourrierCode;
-    const string arrStop;
-    const string depOwnerCie;
-    const string depExploitingCie;
+    // const string arrStop;
+    // const string depOwnerCie;
+    // const string depExploitingCie;
     const int depNumber;
     const Date depDate;
     // const Time depHour;
     const CourrierCode depCourrierCode;
-    const string depStop;
+    // const string depStop;
 
     public:
-        Stay(const int id, const BodyType bT, const string aT, const int auT, const string aOC, const string aEC, 
-        const int aN, const Date aD, const CourrierCode aCC, const string aS, const string dOC,
-        const string dEC, const int dN, const Date dD, const CourrierCode dCC, const string dS);
+        Stay(const int id, const BodyType bT, const string aT, const int auT, 
+        const int aN, const Date aD, const CourrierCode aCC, const int dN, const Date dD, const CourrierCode dCC);
 
         friend ostream & operator<<(ostream& o,const Stay& p) ;
 
@@ -48,6 +47,10 @@ class Stay
         BodyType getBodyType() const;
         int getArrNumber() const;
         int getDepNumber() const;
+        CourrierCode getArrCourrierCode() const;
+        CourrierCode getDepCourrierCode() const;
+
+
 };
 
 #endif
