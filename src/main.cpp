@@ -302,7 +302,7 @@ int main()
 
 
 
-    vector<tuple<int,int,int,int,int>> nonAllocatedStays;
+    vector<tuple<int,int,int,int,int,int,int>> nonAllocatedStays;
     for (long unsigned int i = 0; i < vectSolGlobal.size(); i++) {
         if (vectSolGlobal[i] == -1) {
             int idStay = vectOperations[i].getIdStay();
@@ -318,7 +318,7 @@ int main()
             Operation op = vectOperations[i];
             Date stayArrDate = op.getArrDate();
             Date stayDepDate = op.getDepDate();
-            nonAllocatedStays.push_back({stay.getId(),stayArrDate.getHour(),stayArrDate.getMin(),stayDepDate.getHour(),stayDepDate.getMin()});
+            nonAllocatedStays.push_back({stay.getId(),stayArrDate.getJour(), stayArrDate.getHour(),stayArrDate.getMin(),stayDepDate.getJour(),stayDepDate.getHour(),stayDepDate.getMin()});
         }
     }
     TXTWrite writer("nonAllocatedStays.txt") ;

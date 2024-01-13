@@ -13,7 +13,7 @@ private:
 public:
     TXTWrite(const std::string& filename);
     void write(const std::vector<std::tuple<int, double>>& vectToWrite);
-    void write(const std::vector<std::tuple<int, int, int, int, int>>& vectToWrite);
+    void write(const std::vector<std::tuple<int, int, int, int, int, int, int>>& vectToWrite);
     void write(const std::vector<double>& vectToWrite) ;
     void write(const std::vector<std::tuple<int,int>>& vectToWrite, std::string titre) ;
     void setFilename(const std::string& f);

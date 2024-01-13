@@ -43,9 +43,14 @@ def read_txt_non_allocated_stays(fic) :
 
 def string_time_to_float(time) :
     string_h, string_min = time.split(':')
+    # floa = int(string_h) + int(string_min)/60
     floa = int(string_h) + int(string_min)/60
     return floa
 
+def string_date_to_float(date) :
+    string_d, _, _ = date.split('/')
+    floa = int(string_d)*24
+    return floa
 
 def read_test_file():
     dictStayAircraftType = {}
@@ -89,8 +94,8 @@ def main():
             start_hour = lignei[j+2]
             end_date = lignei[j+3]
             end_hour = lignei[j+4]
-            start = string_time_to_float(start_hour)
-            end = string_time_to_float(end_hour)
+            start = string_time_to_float(start_hour) + string_date_to_float(start_date)
+            end = string_time_to_float(end_hour) + string_date_to_float(end_date)
             starts[num_fig].append(start)
             ends[num_fig].append(end)
             width = N_LABEL_PARK_ON_SCREEN/40
@@ -125,26 +130,26 @@ def main():
         # ends = [[] for i in range(nplot)]
         
         y_bis = [i+1 for i in range(N_NON_ALLOCATED_STAYS_ON_SCREEN)]
-        for i  in range(len(data)) :
+        for i in range(len(data)) :
             num_fig = int((i-1) / N_NON_ALLOCATED_STAYS_ON_SCREEN) # Numéro de figure sur laquelle on travaille
             k = (i-1) % N_NON_ALLOCATED_STAYS_ON_SCREEN # Indice de la ligne par rapport à la figure correspondante
             lignei = data[i]
-            for j in range(0, len(lignei)-1, 5):
-                id_stay = lignei[j]
-                start = int(lignei[j+1])+int(lignei[j+2])/60
-                end = int(lignei[j+3])+int(lignei[j+4])/60
-                # starts[num_fig].append(start)
-                # ends[num_fig].append(end)
-                
-                starts.append(start)
-                ends.append(end)
-                
-                width = N_NON_ALLOCATED_STAYS_ON_SCREEN/40
-                rectangle = patches.Rectangle((start, y_bis[k]-width), end - start, 0.5, edgecolor='r', facecolor='r')
-                fig,ax = figax[num_fig]
-                ax.add_patch(rectangle)
-                ax.text((start + end) / 2, y_bis[k]-0.1, id_stay,
-                        ha='center', va='center', color='black', size=7)
+            
+            id_stay = lignei[0]
+            start = int(lignei[1])*24 + int(lignei[2]) + int(lignei[3])/60
+            end = int(lignei[4])*24 + int(lignei[5]) + int(lignei[6])/60
+            # starts[num_fig].append(start)
+            # ends[num_fig].append(end)
+            
+            starts.append(start)
+            ends.append(end)
+            
+            width = N_NON_ALLOCATED_STAYS_ON_SCREEN/40
+            rectangle = patches.Rectangle((start, y_bis[k]-width), end - start, 0.5, edgecolor='r', facecolor='r')
+            fig,ax = figax[num_fig]
+            ax.add_patch(rectangle)
+            ax.text((start + end) / 2, y_bis[k]-0.1, id_stay,
+                    ha='center', va='center', color='black', size=7)
         for i,(fig,ax) in enumerate(figax) :
             ax.set_ylim(0, N_NON_ALLOCATED_STAYS_ON_SCREEN + 1)
             # ax.set_xlim(min(starts[i]),max(ends[i]))
