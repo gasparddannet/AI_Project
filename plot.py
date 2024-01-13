@@ -13,6 +13,8 @@ FIC = 'DataSolution/test_file_parking_occ.csv'
 # FIC_TEST_FILE = 'test_file.csv'
 # FIC_TEST_FILE = 'Data/stays_2F_090822.csv'
 FIC_TEST_FILE = 'Data/stays.csv'
+# FIC_TEST_FILE = 'Data/stays_21_06_2016.csv'
+
 
 N_LABEL_PARK_ON_SCREEN = 15  # Nombre de parking affiché sur chaque figure
 N_NON_ALLOCATED_STAYS_ON_SCREEN = int(1.5*N_LABEL_PARK_ON_SCREEN)
@@ -100,14 +102,14 @@ def main():
             ax.text((start + end) / 2, y[k] + 0.4, stay,
                     ha='center', va='center', color='black', size=8)
     
-    for i,(fig,ax) in enumerate(figax) :
+    
+    for i,(fig,ax) in enumerate(figax):
         ax.set_yticks(y)
         ax.set_yticklabels(label[i])
         ax.set_ylim(0, N_LABEL_PARK_ON_SCREEN + 1)
         ax.set_xlim(min(starts[i]),max(ends[i]))
         ax.set_xlabel('Heure')
         ax.set_ylabel('Parking')
-
 
 
     ###PLOTING NON ALLOCATED STAYS###
