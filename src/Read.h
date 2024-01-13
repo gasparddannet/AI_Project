@@ -27,6 +27,7 @@ class Read
     static Date stringToDate(string &d, string &t);
     // static Time stringToTime(string &t);
     static int getAuthorizedTowing(int &isTowable, Date& arrDate, Date& depDate);
+    static Stay stringstreamToStayOriginal(stringstream &ss);
     static Stay stringstreamToStay(stringstream &ss);
     static const vector<Stay> readStays(string staysFile); 
 

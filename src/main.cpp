@@ -18,7 +18,7 @@ using namespace std;
 // string StaysFile = "../Data/stays_2F_090822.csv";
 
 string ParkingFile = "../Data/parkings.csv";
-string StaysFile = "../Data/stays.csv";
+string StaysFile = "../Data/stays_21_06_2016.csv";
 int TTMA = 30;
 int TTMD = 60;
 
@@ -97,9 +97,58 @@ int main()
     cout << "Read stays" << endl;
     vector<Stay> vectStays = Read::readStays(StaysFile);
 
+
+    /*******************************************************************/
+    /*******************************************************************/
+    /*******************************************************************/
+    // vector<int> vectorDay;
     // for (Stay &s : vectStays) {
-    //     cout << s;
+    //     int day = s.getArrDate().getJour();
+    //     if (!(std::find(vectorDay.begin(), vectorDay.end(), day) != vectorDay.end()))
+    //     {
+    //         vectorDay.push_back(day);
+    //     }
     // }
+
+    // for (int& d:vectorDay)
+    // {
+    //     cout << d << endl;
+    // }
+
+    // for (int& d:vectorDay)
+    // {
+    //     string filename = "../Data/stays_" + to_string(d) + "_08_2022.csv";
+    //     cout << "filename : " << filename << endl;
+    //     ofstream file(filename);
+    //     if (!file.is_open())
+    //         throw std::runtime_error("Could not open file");
+    //     file << "Stay;BodyType;AircraftType;NbTowings;Arr_Number;Arr_Date;Arr_Hour;Arr_CourrierCode;Dep_Number;Dep_Date;Dep_Hour;Dep_CourrierCode" << endl;
+        
+
+    //     for (Stay &s : vectStays)
+    //     {
+    //         if (s.getArrDate().getJour() == d)
+    //         {
+    //             file << s.getId() << ";";
+    //             file << s.getBodyType() << ";";
+    //             file << s.getAircraftType() << ";";
+    //             file << s.getAuthorizedTowing() << ";";
+    //             file << s.getArrNumber() << ";";
+    //             file << s.getArrDate() << ";";
+    //             file << s.getArrCourrierCode() << ";";
+    //             file << s.getDepNumber() << ";";
+    //             file << s.getDepDate() << ";";
+    //             file << s.getDepCourrierCode();
+    //             file << endl;
+    //         }
+    //     }
+    //     file.close();
+    // }
+
+    /*******************************************************************/
+    /*******************************************************************/
+    /*******************************************************************/
+
 
     // From a Stay Vect to an Operation Vect
     vector<Operation> vectOperations;
@@ -148,7 +197,7 @@ int main()
 
     // cout << endl;
 
-    int nbIter = 5000;
+    int nbIter = 10000;
     int nbIterT = 10;
     double T = 600;
 
@@ -166,7 +215,7 @@ int main()
     // cout << endl;
     // cout << endl;
 
-    string operateur = "MutateMinusOne" ;
+    string operateur = "NonAllocAndContact";
     RecuitSimule rs(nbIter, nbIterT, solutionInit, T);
     Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations, operateur);
 
