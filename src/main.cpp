@@ -166,7 +166,7 @@ int main()
     // cout << endl;
     // cout << endl;
 
-    string operateur = "MutateMinusOne" ;
+    string operateur = "NonAllocAndContact" ;
     RecuitSimule rs(nbIter, nbIterT, solutionInit, T);
     Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations, operateur);
 

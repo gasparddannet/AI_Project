@@ -56,10 +56,36 @@ def read_test_file():
     return dictStayAircraftType
                 
             
+def store(data) :
+    dicoDatePark = {}
+    emptyParks = []
+    for i in range(1, len(data)):
+        lignei = data[i]
+        if (len(lignei) < 3) : #parking vide  
+            emptyParks.append(lignei)
+        else :
+            parking = lignei.pop(0)
+            for j in range(0, len(lignei)-1, 5):
+                date = lignei[j+1]
+                if (date,parking) in dicoDatePark:
+                    dicoDatePark[(date,parking)].append(lignei[j:j+5])
+                else :
+                    dicoDatePark[(date,parking)]=[lignei[j:j+5]]
+    dicoData = {}
+    for (date, parking), stays in dicoDatePark.items():
+        liste_stays = []
+        for l in stays :
+            liste_stays.extend(l)
+        liste_stays.insert(0,parking)
+        if date in dicoData :
+            dicoData[date].append(liste_stays)
+        else :
+            dicoData[date] = [liste_stays]
+    return dicoData
 
-def main():
+
+def plot(donnees,date):
     ###PLOTING ALLOCATED STAYS###
-    donnees = readcsv(FIC)
     nplot = int(len(donnees)/N_LABEL_PARK_ON_SCREEN) + 1  # Nombre de figure
     figax = [plt.subplots() for i in range(nplot)]
 
@@ -74,9 +100,9 @@ def main():
     # print(dictStayAircraftType)
     # print(dictStayAircraftType["3300476"])
     
-    for i in range(1, len(donnees)):
-        num_fig = int((i-1) / N_LABEL_PARK_ON_SCREEN) # Numéro de figure sur laquelle on travaille
-        k = (i-1) % N_LABEL_PARK_ON_SCREEN # Indice de la ligne par rapport à la figure correspondante
+    for i in range(len(donnees)):
+        num_fig = int((i) / N_LABEL_PARK_ON_SCREEN) # Numéro de figure sur laquelle on travaille
+        k = (i) % N_LABEL_PARK_ON_SCREEN # Indice de la ligne par rapport à la figure correspondante
         lignei = donnees[i]
         label[num_fig][k] = lignei.pop(0)
         for j in range(0, len(lignei)-1, 5):
@@ -105,11 +131,13 @@ def main():
         ax.set_xlim(min(starts[i]),max(ends[i]))
         ax.set_xlabel('Heure')
         ax.set_ylabel('Parking')
+        ax.set_title(date)
+    plt.show()
 
 
 
     ###PLOTING NON ALLOCATED STAYS###
-    data = read_txt_non_allocated_stays(FIC_NAS)
+def plot_nas(data) :
     if (len(data) > 0):
         starts = []
         ends = []
@@ -154,6 +182,12 @@ def main():
     plt.show()
 
 
-main()
+def main():
+    donnees = readcsv(FIC)
+    dicodate = store(donnees)
+    for date, stays in dicodate.items():
+        plot(stays,date)
+    data = read_txt_non_allocated_stays(FIC_NAS)
+    plot_nas(data)
 
-#vector<vector<int>>#14-15 mardi 19
+main()
