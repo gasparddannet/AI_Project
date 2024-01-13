@@ -197,9 +197,9 @@ int main()
 
     // cout << endl;
 
-    int nbIter = 10000;
-    int nbIterT = 10;
-    double T = 600;
+    int nbIter = 30000;
+    int nbIterT = 3;
+    double T = 400;
 
     int sizeOperations = vectOperations.size();
     vector<int> vect(sizeOperations);

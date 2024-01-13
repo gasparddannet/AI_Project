@@ -193,15 +193,27 @@ void Solution::NonAllocAndContact(int sizeParkings, vector<Operation> vectOperat
 
 
 // Randomize elements in the solution, from index i to j
-void Solution::randomizeSubset(int i, int j, int sizeParkings)
+void Solution::randomizeSubset(int sizeParkings, vector<Operation> vectOperations)
 {
-    srand((int)time(0));
-    if (i >= 0 && i < solution.size() && j >= 0 && j < solution.size() && i < j)
+    std::random_device rd1;
+    std::default_random_engine generator1(rd1());
+    std::uniform_int_distribution<int> distribution1(0, solution.size()-1);
+    int i = distribution1(generator1);
+    
+    std::random_device rd2;
+    std::default_random_engine generator2(rd2());
+    std::uniform_int_distribution<int> distribution2(i, solution.size()-1);
+    int j = distribution2(generator2);
+
+    std::random_device rd3;
+    std::default_random_engine generator3(rd3());
+    // if (i >= 0 && i < solution.size() && j >= 0 && j < solution.size() && i < j)
+    // {
+    for (int k = i; k <= j; k++)
     {
-        for (int k = i; k <= j; k++)
-        {
-            solution[k] = rand() % sizeParkings;
-        }
+        vector<int> compParkings = vectOperations[k].getCompParkings();
+        std::uniform_int_distribution<int> distribution3(0, compParkings.size()-1);
+        solution[k] = compParkings[distribution3(generator3)];
     }
     // else std::cout << "erreur" << std::endl;
 }

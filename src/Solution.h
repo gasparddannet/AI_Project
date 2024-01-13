@@ -25,7 +25,7 @@ public:
     void computeNOP();
     void mutateMinusOne(int sizeParkings, vector<Operation> vectOperations);
     void smartMutateMinusOne(int sizeParkings);
-    void randomizeSubset(int i, int j, int sizeParkings);
+    void randomizeSubset(int sizeParkings, vector<Operation> vectOperations);
     void blockReverse(int i,int j);
     void doubleFlip(int i1, int j1, int i2, int j2);
     void shuffleRandomSubset();
