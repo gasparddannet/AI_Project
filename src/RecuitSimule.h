@@ -12,7 +12,7 @@
 
 class RecuitSimule {
 public:
-    RecuitSimule(int &nbIter, int &nbIterT, Solution &solutionCourante, Operateur* opNAAC, Operateur* opRS, double T);
+    RecuitSimule(int &nbIter, int &nbIterT, Solution &solutionCourante, vector<Operateur*> operateurs, double T);
 
     Solution correctSolution(Solution solution, const vector<Parking> &vectParkings, const vector<Operation> &vectOperations);
     double fonctionObjectif(Solution solution, const vector<Parking> &vectParkings, const vector<Operation> &vectOperations);
@@ -28,11 +28,10 @@ private:
     Solution solutionCourante;
     Solution solutionGlobal;
     int valeurGlobale;
-    Operateur* opNAAC;
-    Operateur* opRS;
+    vector<Operateur*> operateurs;
 
     // Solution generateSolution(Solution solution, int sizeParkings);
-    Solution generateSolution(Solution solution, int compt);
+    Solution generateSolution(Solution &solution, int compt);
 };
 
 #endif // RECUITSIMULE_H
