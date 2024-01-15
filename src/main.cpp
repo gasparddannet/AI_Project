@@ -164,7 +164,7 @@ int main()
     // cout << endl;
 
     // int nbIter = 80000;
-    int nbIter = 130000;
+    int nbIter = 100000;
     int nbIterT = 3;
     double T = 300;
 
@@ -182,11 +182,11 @@ int main()
     // cout << endl;
     // cout << endl;
 
-    //NonAllocAndContact opA(sizeParkings,solutionInit,vectOperations,vectParkings);
+    NonAllocAndContact opA(sizeParkings,solutionInit,vectOperations,vectParkings);
     RandomizeSubset opB(sizeParkings,solutionInit,vectOperations,vectParkings);
-    MutateMinusOne opA(sizeParkings,solutionInit,vectOperations,vectParkings);
+    MutateMinusOne opC(sizeParkings,solutionInit,vectOperations,vectParkings);
 
-    vector<Operateur*> operateurs = {&opA,&opB};
+    vector<Operateur*> operateurs = {&opA};
     RecuitSimule rs(nbIter, nbIterT, solutionInit, operateurs, T);
     Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations);
 
