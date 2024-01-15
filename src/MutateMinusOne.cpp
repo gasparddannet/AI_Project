@@ -15,7 +15,7 @@ public:
         std::random_device rd;
         std::default_random_engine generator(rd());
         vector<int> sol = solution.getSolution();
-        for (int i = 0; i < sol.size(); i++)
+        for (long unsigned int i = 0; i < sol.size(); i++)
         {
             if (sol[i] == -1)
             {

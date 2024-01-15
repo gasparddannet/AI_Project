@@ -18,7 +18,7 @@ public:
         std::random_device rrd;
         std::default_random_engine rgenerator(rrd());
         vector<int> sol = solution.getSolution();
-        for (int i = 0; i < sol.size(); i++)
+        for (long unsigned int i = 0; i < sol.size(); i++)
         {
 
             vector<int> compParkings = vectOperations[i].getCompParkings();
