@@ -67,19 +67,16 @@ def read_test_file():
             
 def store(data) :
     dicoDatePark = {}
-    emptyParks = []
     for i in range(1, len(data)):
         lignei = data[i]
-        if (len(lignei) < 3) : #parking vide  
-            emptyParks.append(lignei)
-        else :
-            parking = lignei.pop(0)
-            for j in range(0, len(lignei)-1, 5):
-                date = lignei[j+1]
-                if (date,parking) in dicoDatePark:
-                    dicoDatePark[(date,parking)].append(lignei[j:j+5])
-                else :
-                    dicoDatePark[(date,parking)]=[lignei[j:j+5]]
+        parking = lignei.pop(0)
+        for j in range(0, len(lignei)-1, 5):
+            date = lignei[j+1]
+            if (date,parking) in dicoDatePark:
+                dicoDatePark[(date,parking)].append(lignei[j:j+5])
+            else :
+                dicoDatePark[(date,parking)]=[lignei[j:j+5]]
+            
     dicoData = {}
     for (date, parking), stays in dicoDatePark.items():
         liste_stays = []
@@ -92,6 +89,16 @@ def store(data) :
             dicoData[date] = [liste_stays]
     return dicoData
 
+def store_nas(data) :
+    dicoDataNas = {}
+    for i in range(len(data)) :
+        lignei = data[i]
+        date = lignei[1]+'/06/2016'
+        if date in dicoDataNas :
+            dicoDataNas[date].append(lignei)
+        else :
+            dicoDataNas[date] = [lignei]
+    return dicoDataNas
 
 def plot(donnees,date):
     ###PLOTING ALLOCATED STAYS###
@@ -146,7 +153,7 @@ def plot(donnees,date):
 
 
     ###PLOTING NON ALLOCATED STAYS###
-def plot_nas(data) :
+def plot_nas(data,date) :
     if (len(data) > 0):
         starts = []
         ends = []
@@ -185,7 +192,7 @@ def plot_nas(data) :
             ax.set_xlim(min(starts),max(ends))
             
             ax.set_xlabel('Heure')
-            ax.set_title("Non allocated stays")
+            ax.set_title("Non allocated stays  " + date)
 
     # ax.legend()
     plt.show()
@@ -193,10 +200,12 @@ def plot_nas(data) :
 
 def main():
     donnees = readcsv(FIC)
-    dicodate = store(donnees)
-    for date, stays in dicodate.items():
+    dicoDate = store(donnees)
+    for date, stays in dicoDate.items():
         plot(stays,date)
     data = read_txt_non_allocated_stays(FIC_NAS)
-    plot_nas(data)
+    dicoDateNas = store_nas(data)
+    for date, nas in dicoDateNas.items() :
+        plot_nas(nas,date)
 
 main()
