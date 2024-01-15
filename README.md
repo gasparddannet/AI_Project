@@ -9,4 +9,4 @@ And then `./main` to execute the project.
 
 Or if the makefile doesn't work, type in the following command :
 
-`g++ TXTWrite.cpp Date.cpp Operation.cpp RecuitSimule.cpp Parking.cpp Stay.cpp Read.cpp Solution.cpp main.cpp -o main`
+`g++ TXTWrite.cpp Date.cpp Operation.cpp RecuitSimule.cpp Parking.cpp Stay.cpp Read.cpp Solution.cpp RandomizeSubset.cpp  SelectiveMutationSubset.cpp Randomize.cpp MutateMinusOne.cpp NonAllocAndContact.cpp main.cpp -o main`

@@ -254,7 +254,9 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
 
     TXTWrite writer("histoT.txt");
     writer.write(histoT);
-    // if (operateur->getName() == "randomize") {
+    // cout << "Nom opérateur :" << operateur->getName() << endl ;
+
+    // if (operateur->getName() == "Randomize") {
     //     writer.setFilename("histoValR.txt") ;
     // }
     // else if (operateur->getName() == "NonAllocAndContact") {
@@ -263,6 +265,14 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
     // else if (operateur->getName() == "MutateMinusOne") {
     //     writer.setFilename("histoValMMO.txt") ;
     // }
+    // else if (operateur->getName() == "RandomizeSubset") {
+    //     writer.setFilename("histoValRS.txt") ;
+    // }
+    // else if (operateur->getName() == "SelectiveMutationSubset") {
+    //     writer.setFilename("histoValSMS.txt") ;
+    // }
+    // writer.write(histoVal, operateur->getName()) ;
+
 
     writer.setFilename("histoVaRSandNAAC.txt");
     writer.write(histoVal, "RSandNAAX");
