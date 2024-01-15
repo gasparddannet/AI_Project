@@ -193,7 +193,7 @@ int main()
     cout << "\n";
 
 
-    ofstream file("../DataSolution/test_file.csv");
+    ofstream file("../dataSolution/test_file.csv");
     if (!file.is_open())
         throw std::runtime_error("Could not open file");
     file << "Stay;BodyType;AircraftType;Towings;Arr_Number;Arr_Date;Arr_Hour;Dep_Number;Dep_Date;Dep_Hour;Parking 1;Contact 1;Zone 1;Start Date 1;Start Hour 1;End Date 1;End Hour 1" << endl;
@@ -249,7 +249,7 @@ int main()
         if (posPark >= 0)
             tempOccParking[posPark].push_back({operation.getArrDate(), operation.getDepDate(), i});
     }
-    ofstream fileOccPark("../DataSolution/test_file_parking_occ.csv");
+    ofstream fileOccPark("../dataSolution/test_file_parking_occ.csv");
     if (!fileOccPark.is_open())
         throw std::runtime_error("Could not open file");
     fileOccPark << "Parking;Stay1;Start Date 1 ;Start Hour 1 ;End Date 1 ;End Hour 1;Stay2;Start Date 2 ;Start Hour 2 ;End Date 2 ;End Hour 2;Stay3;Start Date 3 ;Start Hour 3 ;End Date 3 ;End Hour 3;Stay4;Start Date 4 ;Start Hour 4 ;End Date 4 ;End Hour 4" << endl;
