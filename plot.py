@@ -11,8 +11,8 @@ import matplotlib.patches as patches
 
 FIC = 'DataSolution/test_file_parking_occ.csv'
 # FIC_TEST_FILE = 'test_file.csv'
-# FIC_TEST_FILE = 'Data/stays_2F_090822.csv'
-FIC_TEST_FILE = 'Data/stays.csv'
+FIC_TEST_FILE = 'Data/stays_2F_090822.csv'
+# FIC_TEST_FILE = 'Data/stays.csv'
 # FIC_TEST_FILE = 'Data/stays_21_06_2016.csv'
 
 

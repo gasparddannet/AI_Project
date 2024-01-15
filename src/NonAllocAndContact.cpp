@@ -10,8 +10,8 @@ class NonAllocAndContact : public Operateur
 private:
 
 public:
-    NonAllocAndContact(int &sizeParkings, Solution &solution, vector<Operation> &vectOperations, vector<Parking> &vectParkings) : Operateur(sizeParkings,solution,vectOperations,vectParkings){name="NonAllocAndContact";}
-    Solution apply() override
+    NonAllocAndContact(int &sizeParkings, Solution &solution, vector<Operation> &vectOperations, vector<Parking> &vectParkings) : Operateur(sizeParkings,solution,vectOperations,vectParkings) {name="NonAllocAndContact";}
+    Solution apply(double T) override
     {
         std::random_device rd;
         std::default_random_engine generator(rd());
@@ -23,19 +23,56 @@ public:
 
             vector<int> compParkings = vectOperations[i].getCompParkings();
             std::uniform_int_distribution<int> distribution(0, compParkings.size() - 1);
-            std::uniform_real_distribution<float> rdistribution(0, 100);
-            float p = 2;
+            std::uniform_real_distribution<double> rdistribution(0, 100);
+            std::uniform_real_distribution<double> distribution2(0.0, 1.0);
+
+            double p = 2;
             int posPark = sol[i];
 
-            if (posPark == -1 || (vectOperations[i].getNbTowing() == 3 &&
-                                  ((vectParkings[posPark].getNature() == ParkNature::Contact) || (rdistribution(rgenerator) < p))))
+            // if (posPark == -1 || (vectOperations[i].getNbTowing() == 3 &&
+            //                       ((vectParkings[posPark].getNature() == ParkNature::Contact) || (rdistribution(rgenerator) < p))))
+            // {
+            //     solution.changeSolutionI(i, compParkings[distribution(generator)]);
+            // }
+            // else if (vectOperations[i].getNbTowing() != 3 &&
+            //          ((vectParkings[posPark].getNature() == ParkNature::Large) || (rdistribution(rgenerator) < p)))
+            // {
+            //     solution.changeSolutionI(i, compParkings[distribution(generator)]);
+            // }
+
+
+            if (posPark == -1)
             {
                 solution.changeSolutionI(i, compParkings[distribution(generator)]);
             }
-            else if (vectOperations[i].getNbTowing() != 3 &&
-                     ((vectParkings[posPark].getNature() == ParkNature::Large) || (rdistribution(rgenerator) < p)))
+
+            else 
             {
-                solution.changeSolutionI(i, compParkings[distribution(generator)]);
+                vector<int> compParkingsContact = vectOperations[i].getCompParkingsContact();
+                vector<int> compParkingsLarge = vectOperations[i].getCompParkingsLarge();
+                    
+                if (vectOperations[i].getNbTowing() == 3 &&
+                        ((vectParkings[posPark].getNature() == ParkNature::Contact) || (rdistribution(rgenerator) < p)))
+                {
+                    std::uniform_int_distribution<int> distribution(0, compParkingsLarge.size() - 1);
+                    solution.changeSolutionI(i, compParkingsLarge[distribution(generator)]);
+                    
+                }
+
+                else if (vectOperations[i].getNbTowing() != 3 &&
+                     ((vectParkings[posPark].getNature() == ParkNature::Large) || (rdistribution(rgenerator) < p)))
+                {   
+                    if (distribution2(generator) > exp(-T/100))
+                    {
+                        std::uniform_int_distribution<int> distribution(0, compParkingsLarge.size() - 1);
+                        solution.changeSolutionI(i, compParkingsLarge[distribution(generator)]);  
+                    }
+                    else 
+                    {
+                        solution.changeSolutionI(i, compParkings[distribution(generator)]); 
+                    }
+
+                }
             }
         }
         return solution;

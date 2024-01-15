@@ -315,29 +315,41 @@ const vector<Stay> Read::readStays(string staysFile)
     return vectStays;
 }
 
-const vector<int> Read::createCompatibleParking(string aircraftType, vector<Parking> vectParkings)
+const pair<vector<int>, vector<int>> Read::createCompatibleParking(string aircraftType, vector<Parking> vectParkings)
 {
-    vector<int> compatibleParkings;
+    vector<int> compatibleParkingsContact;
+    vector<int> compatibleParkingsLarge;
     for (int i = 0; i < vectParkings.size(); i++)
     {
         const vector<string> parkTypesAvion = vectParkings[i].getTypeAvion();
 
         if (!parkTypesAvion.empty())
         {
-            if (find(parkTypesAvion.begin(), parkTypesAvion.end(), aircraftType) != parkTypesAvion.end()){
-                compatibleParkings.push_back(i);
+            if (find(parkTypesAvion.begin(), parkTypesAvion.end(), aircraftType) != parkTypesAvion.end())
+            {
+                switch (vectParkings[i].getNature())
+                {
+                case (ParkNature::Contact):
+                    compatibleParkingsContact.push_back(i);
+                    break;
+                case (ParkNature::Large):
+                    compatibleParkingsLarge.push_back(i);
+                    break;
+                }
             }
-            // for (int j = 0; j < vectParkings[i].getTypeAvion().size(); j++)
-            // {
-            //     if (vectParkings[i].getTypeAvion()[j] == aircraftType)
-            //     {
-            //         compatibleParkings.push_back(i);
-            //     }
-            // }
+
         }
         else {
-            compatibleParkings.push_back(i);
+            switch (vectParkings[i].getNature())
+            {
+            case (ParkNature::Contact):
+                compatibleParkingsContact.push_back(i);
+                break;
+            case (ParkNature::Large):
+                compatibleParkingsLarge.push_back(i);
+                break;
+            }
         }
     }
-    return compatibleParkings;
+    return make_pair(compatibleParkingsContact, compatibleParkingsLarge);
 }

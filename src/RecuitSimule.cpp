@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <chrono>
 #include <string>
+#include <random>
 
 using namespace std;
 
@@ -103,7 +104,7 @@ double RecuitSimule::fonctionObjectif(Solution solution, const vector<Parking> &
         int posPark = vectPark[i];
         if (posPark == -1)
         {
-            poids_allocation += 100;
+            poids_allocation += 50;
         }
         else
         {
@@ -112,26 +113,26 @@ double RecuitSimule::fonctionObjectif(Solution solution, const vector<Parking> &
             {
                 switch (vectParkings[posPark].getNature())
                 case (ParkNature::Contact):
-                    poids_nature += 40;
+                    poids_nature += 5;
             }
             else
             {
                 switch (vectParkings[posPark].getNature())
                 case (ParkNature::Large):
-                    poids_nature += 60;
+                    poids_nature += 8;
             }
         }
     }
     return poids_allocation + poids_nature;
 }
 
-void RecuitSimule::majT(int &acc)
+void RecuitSimule::majT(float &acc)
 {
     if (T < exp(-acc)) {
-        T += 400/acc  ;
-        acc += 1 ;
+        T += 280/acc  ;
+        acc += 0.25 ;
     }
-    T *= 0.996;
+    T *= 0.999;
 }
 
 Solution RecuitSimule::generateSolution(Solution solution, int compt)
@@ -152,18 +153,19 @@ Solution RecuitSimule::generateSolution(Solution solution, int compt)
     // solution.NonAllocAndContact(sizeParkings,vectOperations,vectParkings);
 
     Solution *sol;
-    if (compt % 100 == 0)
-    {
-        opNAAC->setSolution(solution);
-        *sol = opNAAC->apply();
-    }
+    // if (compt % 100 == 0)
+    // {
+    //     opNAAC->setSolution(solution);
+    //     *sol = opNAAC->apply();
+    // }
 
-    else 
-    {
-        opRS->setSolution(solution);
-        *sol = opRS->apply();
-    }
-
+    // else 
+    // {
+    //     opRS->setSolution(solution);
+    //     *sol = opRS->apply();
+    // }
+    opNAAC->setSolution(solution);
+    *sol = opNAAC->apply(T);
     // solution.smartMutateMinusOne(sizeParkings);
     // cout << "generateSOlution done" << endl;
     return *sol;
@@ -171,6 +173,9 @@ Solution RecuitSimule::generateSolution(Solution solution, int compt)
 
 Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const vector<Operation> &vectOperations)
 {
+    std::random_device rd;
+    std::default_random_engine generator(rd());
+
     auto start = std::chrono::high_resolution_clock::now();
 
     solutionCourante = correctSolution(solutionCourante, vectParkings, vectOperations);
@@ -179,7 +184,7 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
     std::cout << "\nValeur Initiale: " << valeurCourante << "\n\n";
     valeurGlobale = valeurCourante;
     int compt = 0;
-    int acc = 1;
+    float acc = 1;
     vector<double> histoT ;
     vector<tuple<int,int>> histoVal ;
     while (T > 0.001 && compt < nbIter)
@@ -226,9 +231,12 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
             }
             else
             {
+                std::uniform_real_distribution<float> distribution(0.0,1.0);
+
                 // cout << "difV : " << differenceValeur << endl;
                 // cout << "rand : " << rand() / static_cast<double>(RAND_MAX) << " | exp : " << exp(-differenceValeur / T) << endl;
-                if (rand() / static_cast<double>(RAND_MAX) < exp(-differenceValeur / T))
+                // if (rand() / static_cast<double>(RAND_MAX) < exp(-differenceValeur / T))
+                if (distribution(generator) < exp(-differenceValeur / T))
                 {
                     // cout << "passe" << endl;
                     solutionCourante = newSolution;

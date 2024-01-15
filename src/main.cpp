@@ -19,55 +19,16 @@
 
 using namespace std;
 
-// string ParkingFile = "../Data/parking_2F_2DLarge.csv";
-// string StaysFile = "../Data/stays_2F_090822.csv";
+string ParkingFile = "../Data/parking_2F_2DLarge.csv";
+string StaysFile = "../Data/stays_9_08_2022.csv";
 
-string ParkingFile = "../Data/parkings.csv";
-string StaysFile = "../Data/stays_21_06_2016.csv";
+// string ParkingFile = "../Data/parkings.csv";
+// string StaysFile = "../Data/stays_21_06_2016.csv";
 int TTMA = 30;
 int TTMD = 60;
 
 int main()
 {
-
-    // int j,m,a,h,min;
-    // int j2,m2,a2,h2,min2;
-    // int j3,m3,a3,h3,min3;
-    // int j4,m4,a4,h4,min4;
-
-    // j=9;m=8;a=2022;h=9;min=10;
-    // j2=9;m2=8;a2=2022;h2=9;min2=40;
-    // j3=9;m3=8;a3=2022;h3=19;min3=45;
-    // j4=9;m4=8;a4=2022;h4=20;min4=45;
-
-
-
-    // Date d1 = Date(j,m,a,h,min);
-    // cout << "Date 1 : " << d1 << endl;
-    // Date d2 = Date(j2,m2,a2,h2,min2);
-    // cout << "Date 2 : " << d2 << endl;
-
-    // Date d3 = Date(j3,m3,a3,h3,min3);
-    // Date d4 = Date(j4,m4,a4,h4,min4);
-    // cout << "Date 3 : " << d3 << endl;
-    // cout << "Date 4 : " << d4 << endl;
-
-
-    // Date d5 = d1 + 30;
-    // cout << "Date 1 - 30 :" << d5 << endl;
-
-    // bool b = d3 <= d4;
-    // cout << "bool d3 <= d4 : " << b << endl;
-    // bool b1 = d4 <= d3;
-    // cout << "bool d4 <= d3 : " << b1 << endl;
-    // if (b) 
-    // {
-    //     cout << "vrai" << endl;
-    // }
-
-
-
-
     /**** Read Parkings ****/
     cout << "Read Parkings" << endl;
     vector<Parking> vectParkings = Read::readParkings(ParkingFile);
@@ -81,8 +42,8 @@ int main()
 
 
 
-    // int nbToErase = static_cast<int>(vectParkings.size()*0.1) ;
-    // vectParkings.erase(vectParkings.begin(),vectParkings.begin() + nbToErase);
+    int nbToErase = static_cast<int>(vectParkings.size()*0.1) ;
+    vectParkings.erase(vectParkings.begin(),vectParkings.begin() + nbToErase);
     // cout << "nbr de Parking supprimé: " << nbToErase << endl;
 
 
@@ -162,19 +123,19 @@ int main()
         Date arrDate = vectStays[i].getArrDate();
         Date depDate = vectStays[i].getDepDate();
         string aircraftType = vectStays[i].getAircraftType();
-        vector<int> compatibleParkings = Read::createCompatibleParking(aircraftType, vectParkings);
+        pair<vector<int>,vector<int>> compatibleParkings = Read::createCompatibleParking(aircraftType, vectParkings);
         int nbTowings = vectStays[i].getAuthorizedTowing();
         if (nbTowings == 0) {
-            vectOperations.push_back(Operation(idStay, arrDate, depDate, compatibleParkings, 0));
+            vectOperations.push_back(Operation(idStay, arrDate, depDate, compatibleParkings.first, compatibleParkings.second, 0));
         }
         else if (nbTowings == 1) {
-            vectOperations.push_back(Operation(idStay, arrDate, arrDate+TTMA, compatibleParkings, 1));
-            vectOperations.push_back(Operation(idStay, arrDate+TTMA, depDate, compatibleParkings, 1));
+            vectOperations.push_back(Operation(idStay, arrDate, arrDate+TTMA, compatibleParkings.first, compatibleParkings.second, 1));
+            vectOperations.push_back(Operation(idStay, arrDate+TTMA, depDate, compatibleParkings.first, compatibleParkings.second, 1));
         }
         else if (nbTowings == 2) {
-            vectOperations.push_back(Operation(idStay, arrDate, arrDate+TTMA, compatibleParkings, 2));
-            vectOperations.push_back(Operation(idStay, arrDate+TTMA, depDate-TTMD, compatibleParkings, 3));  
-            vectOperations.push_back(Operation(idStay, depDate-TTMD, depDate, compatibleParkings, 2));
+            vectOperations.push_back(Operation(idStay, arrDate, arrDate+TTMA, compatibleParkings.first, compatibleParkings.second, 2));
+            vectOperations.push_back(Operation(idStay, arrDate+TTMA, depDate-TTMD, compatibleParkings.first, compatibleParkings.second, 3));  
+            vectOperations.push_back(Operation(idStay, depDate-TTMD, depDate, compatibleParkings.first, compatibleParkings.second, 2));
         }
     }
 
@@ -203,9 +164,9 @@ int main()
     // cout << endl;
 
     // int nbIter = 80000;
-    int nbIter = 150000;
+    int nbIter = 130000;
     int nbIterT = 3;
-    double T = 500;
+    double T = 300;
 
     int sizeOperations = vectOperations.size();
     vector<int> vect(sizeOperations);

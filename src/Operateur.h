@@ -15,7 +15,7 @@ public:
     Operateur(int &sizeParkings, Solution &solution, const vector<Operation> &vectOperations,const vector<Parking> &vectParkings) : sizeParkings(sizeParkings), solution(solution), vectOperations(vectOperations), vectParkings(vectParkings) {}
     virtual ~Operateur() {}
 
-    virtual Solution apply() = 0;
+    virtual Solution apply(double T) = 0;
     string getName() {return name;}
     // void setSizeParkings(int sp) {sizeParkings=sp;}
     void setSolution(Solution &sol) {solution=sol;}

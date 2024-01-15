@@ -32,7 +32,7 @@ class Read
     static const vector<Stay> readStays(string staysFile); 
 
 
-    static const vector<int> createCompatibleParking(string aircraftType, vector<Parking> vectParkings);
+    static const pair<vector<int>,vector<int>> createCompatibleParking(string aircraftType, vector<Parking> vectParkings);
 
 };
 
