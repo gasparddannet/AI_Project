@@ -20,6 +20,10 @@ public:
     Solution & operator=(const Solution& s);
     
     vector<int> getSolution();
+    void setSolution(vector<int> &s);
+    void changeSolutionI(int i,int k);
+    int getSize();
+
     void randomize(int sizeParking, vector<Operation> vectOperations);
     void initializeNOP(int sizeParkings);
     void computeNOP();

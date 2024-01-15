@@ -13,7 +13,7 @@ using namespace std;
 
 int _buffer = 20;
 
-RecuitSimule::RecuitSimule(int &nbIter, int &nbIterT, Solution &solutionCourante, double T = 200) : T(T), nbIter(nbIter), nbIterT(nbIterT), solutionCourante(solutionCourante), solutionGlobal(solutionCourante) {}
+RecuitSimule::RecuitSimule(int &nbIter, int &nbIterT, Solution &solutionCourante, Operateur* operateur, double T = 200) : T(T), nbIter(nbIter), nbIterT(nbIterT), solutionCourante(solutionCourante), solutionGlobal(solutionCourante), operateur(operateur) {}
 
 
 
@@ -134,7 +134,7 @@ void RecuitSimule::majT(int &acc)
     T *= 0.996;
 }
 
-Solution RecuitSimule::generateSolution(Solution solution, int sizeParkings, const vector<Operation> &vectOperations, const vector<Parking> &vectParkings, string operateur)
+Solution RecuitSimule::generateSolution(Solution solution, int sizeParkings, const vector<Operation> &vectOperations, const vector<Parking> &vectParkings)
 {
     // if (operateur == "randomize" ) {
     //     solution.randomize(sizeParkings, vectOperations);
@@ -149,15 +149,19 @@ Solution RecuitSimule::generateSolution(Solution solution, int sizeParkings, con
     //solution.randomize(sizeParkings, vectOperations);
     // solution.mutateMinusOne(sizeParkings, vectOperations);
 
-    solution.NonAllocAndContact(sizeParkings,vectOperations,vectParkings);
-    // solution.randomizeSubset(sizeParkings, vectOperations);
+    // solution.NonAllocAndContact(sizeParkings,vectOperations,vectParkings);
+    operateur->setSolution(solution);
+    // operateur->setSizeParkings(sizeParkings);
+    // operateur->setVecOperations(vectOperations);
+    // operateur->setVecParkings(vectParkings);
+    Solution sol = operateur->apply();
 
     // solution.smartMutateMinusOne(sizeParkings);
     // cout << "generateSOlution done" << endl;
-    return solution;
+    return sol;
 }
 
-Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const vector<Operation> &vectOperations, string operateur)
+Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const vector<Operation> &vectOperations)
 {
     auto start = std::chrono::high_resolution_clock::now();
 
@@ -174,7 +178,7 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
     {
         for (int i = 0; i < nbIterT; ++i)
         {
-            Solution newSolution = generateSolution(solutionCourante, vectParkings.size(), vectOperations, vectParkings, operateur);
+            Solution newSolution = generateSolution(solutionCourante, vectParkings.size(), vectOperations, vectParkings);
             
             newSolution = correctSolution(newSolution, vectParkings, vectOperations);
             double nouvelleValeur = fonctionObjectif(newSolution, vectParkings, vectOperations);
@@ -242,15 +246,15 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
 
     TXTWrite writer("histoT.txt");
     writer.write(histoT);
-    if (operateur == "randomize") {
+    if (operateur->getName() == "randomize") {
         writer.setFilename("histoValR.txt") ;
     }
-    else if (operateur == "NonAllocAndContact") {
+    else if (operateur->getName() == "NonAllocAndContact") {
         writer.setFilename("histoValNAAC.txt") ;
     }
-    else if (operateur == "MutateMinusOne") {
+    else if (operateur->getName() == "MutateMinusOne") {
         writer.setFilename("histoValMMO.txt") ;
     }
-    writer.write(histoVal, operateur) ;
+    writer.write(histoVal, operateur->getName()) ;
     return solutionGlobal;
 }

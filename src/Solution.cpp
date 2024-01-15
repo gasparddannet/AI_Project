@@ -46,6 +46,17 @@ vector<int> Solution::getSolution()
     return solution;
 }
 
+void Solution::setSolution(vector<int> &s) {
+    solution=s;
+}
+
+void Solution::changeSolutionI(int i, int k) {
+    solution[i]=k;
+}
+
+int Solution::getSize() {
+    return solution.size();
+}
 // Number of Stays on each Parking initialized to 0
 void Solution::initializeNOP(int sizeParkings)
 {
