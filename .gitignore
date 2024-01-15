@@ -14,7 +14,8 @@
 *.exe
 *.o
 
+DataSolution/
 trash/
 .project
 .vs/
-DataSolution/
+

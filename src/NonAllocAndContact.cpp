@@ -18,7 +18,7 @@ public:
         std::random_device rrd;
         std::default_random_engine rgenerator(rrd());
         vector<int> sol = solution.getSolution();
-        for (int i = 0; i < sol.size(); i++)
+        for (long unsigned int i = 0; i < sol.size(); i++)
         {
 
             vector<int> compParkings = vectOperations[i].getCompParkings();
@@ -30,7 +30,7 @@ public:
             if (posPark == -1 || (vectOperations[i].getNbTowing() == 3 &&
                                   ((vectParkings[posPark].getNature() == ParkNature::Contact) || (rdistribution(rgenerator) < p))))
             {
-                posPark = compParkings[distribution(generator)];
+                solution.changeSolutionI(i, compParkings[distribution(generator)]);
             }
             else if (vectOperations[i].getNbTowing() != 3 &&
                      ((vectParkings[posPark].getNature() == ParkNature::Large) || (rdistribution(rgenerator) < p)))
