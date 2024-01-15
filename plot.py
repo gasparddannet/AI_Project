@@ -8,6 +8,7 @@ Created on Fri Nov 24 01:07:47 2023
 import csv
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
+import numpy as np
 
 FIC = 'dataSolution/test_file_parking_occ.csv'
 # FIC_TEST_FILE = 'test_file.csv'
@@ -145,8 +146,18 @@ def plot(donnees):
         ax.set_yticks(y)
         ax.set_yticklabels(label[i])
         ax.set_ylim(0, N_LABEL_PARK_ON_SCREEN + 1)
-        ax.set_xlim(min(starts[i]),max(ends[i]))
-
+        xmin, xmax = min(starts[i]),max(ends[i])
+        ax.set_xlim(xmin, xmax)
+        heures = np.arange(int(xmin),int(xmax))
+        jours = (heures // 24) + 1
+        if len(jours == 1) :
+            ax.set_title(f"{jours[0]}/06/16")
+        else :  
+            for jour in jours :
+                heure = (jour - 1) * 24
+                ax.vlines(x=heure, ymin=0, ymax=1, color='red', linestyle='-', linewidth=2)
+                ax.text(heure-1, -2, f"{jour}/06/16" , color='red', fontsize=12)
+        
 
         ax.set_xlabel('Heure')
         ax.set_ylabel('Parking')
