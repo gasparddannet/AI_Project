@@ -8,11 +8,11 @@ Created on Fri Jan 12 10:36:58 2024
 import matplotlib.pyplot as plt
 
 
-FIC_NAAC = 'DataSolution/histoValNAAC.txt'
-FIC_R = 'DataSolution/histoValR.txt'
-FIC_MMO = 'DataSolution/histoValMMO.txt'
-FIC_RS = 'DataSolution/histoValRS.txt'
-FIC_SMS = 'DataSolution/histoValSMS.txt'
+FIC_NAAC = 'DataSolution/NonAllocAndContact.txt'
+FIC_R = 'DataSolution/Randomize.txt'
+FIC_MMO = 'DataSolution/MutateMinusOne.txt'
+FIC_RS = 'DataSolution/RandomizeSubset.txt'
+FIC_SMS = 'DataSolution/SelectiveMutationSubset.txt'
 
 
 def read_txt(fic) :
