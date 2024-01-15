@@ -25,7 +25,6 @@ def readcsv(fic):
     donnees = []
     with open(fic, 'r') as f_csv:
         lecteur_csv = csv.reader(f_csv)
-
         for ligne in lecteur_csv:
             liste = ligne[0].split(';')
             donnees.append(liste)
@@ -100,7 +99,8 @@ def store_nas(data) :
             dicoDataNas[date] = [lignei]
     return dicoDataNas
 
-def plot(donnees,date):
+# def plot(donnees,date):
+def plot(donnees):
     ###PLOTING ALLOCATED STAYS###
     nplot = int(len(donnees)/N_LABEL_PARK_ON_SCREEN) + 1  # Nombre de figure
     figax = [plt.subplots() for i in range(nplot)]
@@ -116,7 +116,7 @@ def plot(donnees,date):
     # print(dictStayAircraftType)
     # print(dictStayAircraftType["3300476"])
     
-    for i in range(len(donnees)):
+    for i in range(1,len(donnees)):
         num_fig = int((i) / N_LABEL_PARK_ON_SCREEN) # Numéro de figure sur laquelle on travaille
         k = (i) % N_LABEL_PARK_ON_SCREEN # Indice de la ligne par rapport à la figure correspondante
         lignei = donnees[i]
@@ -127,8 +127,8 @@ def plot(donnees,date):
             start_hour = lignei[j+2]
             end_date = lignei[j+3]
             end_hour = lignei[j+4]
-            start = string_time_to_float(start_hour) # + string_date_to_float(start_date)
-            end = string_time_to_float(end_hour) #+ string_date_to_float(end_date)
+            start = string_time_to_float(start_hour) + string_date_to_float(start_date)
+            end = string_time_to_float(end_hour) + string_date_to_float(end_date)
             starts[num_fig].append(start)
             ends[num_fig].append(end)
             width = N_LABEL_PARK_ON_SCREEN/40
@@ -148,12 +148,13 @@ def plot(donnees,date):
         ax.set_xlim(min(starts[i]),max(ends[i]))
         ax.set_xlabel('Heure')
         ax.set_ylabel('Parking')
-        ax.set_title(date)
-    plt.show()
+        # ax.set_title(date)
+    # plt.show()
 
 
     ###PLOTING NON ALLOCATED STAYS###
-def plot_nas(data,date) :
+# def plot_nas(data,date) :
+def plot_nas(data) :
     if (len(data) > 0):
         starts = []
         ends = []
@@ -171,8 +172,8 @@ def plot_nas(data,date) :
             lignei = data[i]
             
             id_stay = lignei[0]
-            start =  int(lignei[2]) + int(lignei[3])/60 #+ int(lignei[1])*24
-            end = int(lignei[4])*24 + int(lignei[5]) + int(lignei[6])/60 #+ int(lignei[1])*24
+            start =  int(lignei[2]) + int(lignei[3])/60 + int(lignei[1])*24
+            end = int(lignei[5]) + int(lignei[6])/60 + int(lignei[4])*24
             # starts[num_fig].append(start)
             # ends[num_fig].append(end)
             
@@ -192,20 +193,24 @@ def plot_nas(data,date) :
             ax.set_xlim(min(starts),max(ends))
             
             ax.set_xlabel('Heure')
-            ax.set_title("Non allocated stays  " + date)
+            # ax.set_title("Non allocated stays  " + date)
+            ax.set_title("Non allocated stays")
 
     # ax.legend()
-    plt.show()
+    # plt.show()
 
 
 def main():
     donnees = readcsv(FIC)
-    dicoDate = store(donnees)
-    for date, stays in dicoDate.items():
-        plot(stays,date)
+    # dicoDate = store(donnees)
+    # for date, stays in dicoDate.items():
+    #     plot(stays,date)
+    plot(donnees)
     data = read_txt_non_allocated_stays(FIC_NAS)
-    dicoDateNas = store_nas(data)
-    for date, nas in dicoDateNas.items() :
-        plot_nas(nas,date)
+    # dicoDateNas = store_nas(data)
+    # for date, nas in dicoDateNas.items() :
+    #     plot_nas(nas,date)
+    plot_nas(data)
+    plt.show()
 
 main()

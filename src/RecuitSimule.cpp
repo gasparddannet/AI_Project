@@ -149,8 +149,8 @@ Solution RecuitSimule::generateSolution(Solution solution, int sizeParkings, con
     //solution.randomize(sizeParkings, vectOperations);
     // solution.mutateMinusOne(sizeParkings, vectOperations);
 
-    // solution.NonAllocAndContact(sizeParkings,vectOperations,vectParkings);
-    solution.randomizeSubset(sizeParkings, vectOperations);
+    solution.NonAllocAndContact(sizeParkings,vectOperations,vectParkings);
+    // solution.randomizeSubset(sizeParkings, vectOperations);
 
     // solution.smartMutateMinusOne(sizeParkings);
     // cout << "generateSOlution done" << endl;
