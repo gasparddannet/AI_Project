@@ -146,6 +146,10 @@ def plot(donnees):
         ax.set_yticklabels(label[i])
         ax.set_ylim(0, N_LABEL_PARK_ON_SCREEN + 1)
         ax.set_xlim(min(starts[i]),max(ends[i]))
+        heures = np.arrange(min(starts[i]),max(ends[i])
+        jours = (heures // 24) + 1
+        ax.set_xticks(heures, [f"{heure % 24}h\n {jour}/06/16" for heure, jour in zip(heures, jours)])
+
         ax.set_xlabel('Heure')
         ax.set_ylabel('Parking')
         # ax.set_title(date)

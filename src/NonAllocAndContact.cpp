@@ -30,7 +30,7 @@ public:
             if (posPark == -1 || (vectOperations[i].getNbTowing() == 3 &&
                                   ((vectParkings[posPark].getNature() == ParkNature::Contact) || (rdistribution(rgenerator) < p))))
             {
-                posPark = compParkings[distribution(generator)];
+                solution.changeSolutionI(i, compParkings[distribution(generator)]);
             }
             else if (vectOperations[i].getNbTowing() != 3 &&
                      ((vectParkings[posPark].getNature() == ParkNature::Large) || (rdistribution(rgenerator) < p)))

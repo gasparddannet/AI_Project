@@ -220,7 +220,7 @@ int main()
     // cout << endl;
     // cout << endl;
 
-    NonAllocAndContact operateur(sizeParkings,solutionInit,vectOperations,vectParkings);
+    RandomizeSubset operateur(sizeParkings,solutionInit,vectOperations,vectParkings);
     RecuitSimule rs(nbIter, nbIterT, solutionInit, &operateur, T);
     Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations);
 

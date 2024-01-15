@@ -11,6 +11,10 @@ import matplotlib.pyplot as plt
 FIC_NAAC = 'DataSolution/histoValNAAC.txt'
 FIC_R = 'DataSolution/histoValR.txt'
 FIC_MMO = 'DataSolution/histoValMMO.txt'
+FIC_RS = 'DataSolution/histoValRS.txt'
+FIC_SMS = 'DataSolution/histoValSMS.txt'
+
+
 def read_txt(fic) :
     with open(fic, "r") as file:
         data = []
@@ -45,9 +49,13 @@ def main() :
     a, y_NAAC = plotOperator(FIC_NAAC)
     a, y_R = plotOperator(FIC_R)
     a, y_MMO = plotOperator(FIC_MMO)
+    a, y_RS = plotOperator(FIC_RS)
+    a, y_SMS = plotOperator(FIC_SMS)
     plt.plot(a, y_NAAC, label = "NonAllocatedAndContact")
     plt.plot(a, y_MMO, label = "MinuteMinusOne")
     plt.plot(a, y_R, label = "Randomize")
+    plt.plot(a, y_RS, label = "RandomizeSubset")
+    plt.plot(a, y_SMS, label = "SelectiveMutationSubset")
     plt.xlabel('Itération')
     plt.ylabel('Finesse')
     plt.legend()
