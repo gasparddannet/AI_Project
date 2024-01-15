@@ -13,7 +13,7 @@ class Read
 {
     /*************     READ PARKING   *************/ 
     public:
-    static string & rtrim(string &s);
+    static string & trim(string &s);
     static ParkNature stringToParkNature(std::string &pn);
     static const vector<string> stringToVectString(const string &ta);
     static Parking stringstreamToParking(std::stringstream &ss);

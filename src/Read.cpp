@@ -3,16 +3,17 @@
 #include "BodyType.h"
 #include "ParkNature.h"
 #include <algorithm>
-#include <boost/algorithm/string.hpp>
+// #include <boost/algorithm/string.hpp>
 
 
 using namespace std;
 
-// string &Read::rtrim(string &s)
-// {
-//     s.erase(s.find_last_not_of(' ') + 1);
-//     return s;
-// }
+string &Read::trim(string &s)
+{
+    s.erase(s.find_last_not_of(' ') + 1);       //suffixing spaces
+    s.erase(0, s.find_first_not_of(' '));       //prefixing spaces
+    return s;
+}
 
 /**********************************************/
 /*************     READ PARKING   *************/
@@ -69,8 +70,8 @@ Parking Read::stringstreamToParking(std::stringstream &ss)
     string val;
     while (getline(ss, val, ';'))
     {
-        boost::trim(val);
-        // val = rtrim(val);
+        val = trim(val);
+        // boost::trim(val);
         row.push_back(val);
     }
 
@@ -209,8 +210,8 @@ Stay Read::stringstreamToStayOriginal(stringstream &ss)
     string val;
     while (getline(ss, val, ';'))
     {
-        // val = rtrim(val);
-        boost::trim(val);
+        val = trim(val);
+        // boost::trim(val);
         row.push_back(val);
     }
 
@@ -260,7 +261,8 @@ Stay Read::stringstreamToStay(stringstream &ss)
     string val;
     while (getline(ss, val, ';'))
     {
-        boost::trim(val);
+        val = trim(val);
+        // boost::trim(val);
         row.push_back(val);
     }
 
