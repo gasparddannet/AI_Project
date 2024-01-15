@@ -153,19 +153,37 @@ Solution RecuitSimule::generateSolution(Solution &solution, int compt)
     // solution.NonAllocAndContact(sizeParkings,vectOperations,vectParkings);
 
     // Solution *sol;
-    if (operateurs.size() > 1)
+    if (operateurs.size() >= 4)
     {
-        if (compt % 100 == 0)
+        if (compt % 1000 == 0)
         {
             operateurs[0]->setSolution(solution);
             solution = operateurs[0]->apply(T);
+            // cout << "cc0" << endl;
         }
 
+        // else if (compt % 100 == 0)
+        // {
+        //     operateurs[1]->setSolution(solution);
+        //     solution = operateurs[1]->apply(T);
+        //     // cout << "cc1" << endl;
+        // }
+
+        if (compt % 50 == 0)
+        {
+            operateurs[2]->setSolution(solution);
+            solution = operateurs[2]->apply(T);
+            // cout << "cc2" << endl;
+        }
         else
         {
-            operateurs[1]->setSolution(solution);
-            solution = operateurs[1]->apply(T);
+            operateurs[3]->setSolution(solution);
+            solution = operateurs[3]->apply(T);
+            // cout << "cc3" << endl;
         }
+
+        // operateurs[2]->setSolution(solution);
+        // solution = operateurs[2]->apply(T);
     }
     else {
         operateurs[0]->setSolution(solution);
@@ -193,7 +211,7 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
     float acc = 1;
     vector<double> histoT ;
     vector<tuple<int,int>> histoVal ;
-    while (T > 0.0001 && compt < nbIter)
+    while (T > 0.001 && compt < nbIter)
     {
         for (int i = 0; i < nbIterT; ++i)
         {
@@ -250,10 +268,10 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
                 }
             }
             compt += 1;
+            histoVal.push_back({valeurCourante, valeurGlobale});
         }
         histoT.push_back(T);
         majT(acc);
-        histoVal.push_back({valeurCourante, valeurGlobale});
     }
     auto stop = chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<chrono::seconds>(stop - start);

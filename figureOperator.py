@@ -8,11 +8,12 @@ Created on Fri Jan 12 10:36:58 2024
 import matplotlib.pyplot as plt
 
 
-FIC_NAAC = 'DataSolution/NonAllocAndContact.txt'
-FIC_R = 'DataSolution/Randomize.txt'
-FIC_MMO = 'DataSolution/MutateMinusOne.txt'
-FIC_RS = 'DataSolution/RandomizeSubset.txt'
-FIC_SMS = 'DataSolution/SelectiveMutationSubset.txt'
+FIC_NAAC = 'dataSolution/NonAllocAndContact.txt'
+FIC_R = 'dataSolution/Randomize.txt'
+FIC_MMO = 'dataSolution/MutateMinusOne.txt'
+FIC_RS = 'dataSolution/RandomizeSubset.txt'
+FIC_SMS = 'dataSolution/SelectiveMutationSubset.txt'
+FIC = 'dataSolution/NonAllocAndContactANDRandomizeSubset.txt'
 
 
 def read_txt(fic) :
@@ -42,23 +43,27 @@ def plotOperator(fic) :
     plt.ylabel('Finesse')
     plt.title(operateur)
     plt.legend()
-    plt.show()
+    # plt.show()
     return abscisses, yValGlobale
 
 def main() :
-    a, y_NAAC = plotOperator(FIC_NAAC)
-    a, y_R = plotOperator(FIC_R)
-    a, y_MMO = plotOperator(FIC_MMO)
-    a, y_RS = plotOperator(FIC_RS)
-    a, y_SMS = plotOperator(FIC_SMS)
-    plt.plot(a, y_NAAC, label = "NonAllocatedAndContact")
-    plt.plot(a, y_MMO, label = "MinuteMinusOne")
-    plt.plot(a, y_R, label = "Randomize")
-    plt.plot(a, y_RS, label = "RandomizeSubset")
-    plt.plot(a, y_SMS, label = "SelectiveMutationSubset")
-    plt.xlabel('Itération')
-    plt.ylabel('Finesse')
-    plt.legend()
+    # a, y_NAAC = plotOperator(FIC_NAAC)
+    # a, y_R = plotOperator(FIC_R)
+    # a, y_MMO = plotOperator(FIC_MMO)
+    # a, y_RS = plotOperator(FIC_RS)
+    # a, y_SMS = plotOperator(FIC_SMS)
+    # a, y_SMS = plotOperator(FIC_SMS)
+    a, y = plotOperator(FIC)
+    
+    # plt.plot(a, y_NAAC, label = "NonAllocatedAndContact")
+    # plt.plot(a, y_MMO, label = "MinuteMinusOne")
+    # plt.plot(a, y_R, label = "Randomize")
+    # plt.plot(a, y_RS, label = "RandomizeSubset")
+    # plt.plot(a, y_SMS, label = "SelectiveMutationSubset")
+    # plt.plot(a, y)
+    # plt.xlabel('Itération')
+    # plt.ylabel('Finesse')
+    # plt.legend()
     plt.show()
     
 main()

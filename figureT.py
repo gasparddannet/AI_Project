@@ -7,7 +7,7 @@ Created on Wed Dec 20 20:32:02 2023
 import matplotlib.pyplot as plt
 
 
-FIC = 'DataSolution/histoT.txt'
+FIC = 'dataSolution/histoT.txt'
 
 def read_txt(fic) :
     with open(fic, "r") as file:

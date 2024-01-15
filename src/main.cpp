@@ -16,14 +16,15 @@
 #include "SelectiveMutationSubset.cpp"
 #include "Randomize.cpp"
 #include "MutateMinusOne.cpp"
+#include "Mutate.cpp"
 
 using namespace std;
 
-string ParkingFile = "../Data/parking_2F_2DLarge.csv";
-string StaysFile = "../Data/stays_9_08_2022.csv";
+// string ParkingFile = "../Data/parking_2F_2DLarge.csv";
+// string StaysFile = "../Data/stays_9_08_2022.csv";
 
-// string ParkingFile = "../Data/parkings.csv";
-// string StaysFile = "../Data/stays_21_06_2016.csv";
+string ParkingFile = "../Data/parkings.csv";
+string StaysFile = "../Data/stays_21_06_2016.csv";
 int TTMA = 30;
 int TTMD = 60;
 
@@ -164,7 +165,7 @@ int main()
     // cout << endl;
 
     // int nbIter = 80000;
-    int nbIter = 100000;
+    int nbIter = 50000;
     int nbIterT = 3;
     double T = 300;
 
@@ -182,11 +183,12 @@ int main()
     // cout << endl;
     // cout << endl;
 
-    NonAllocAndContact opA(sizeParkings,solutionInit,vectOperations,vectParkings);
-    RandomizeSubset opB(sizeParkings,solutionInit,vectOperations,vectParkings);
-    MutateMinusOne opC(sizeParkings,solutionInit,vectOperations,vectParkings);
+    NonAllocAndContact opNAAC(sizeParkings,solutionInit,vectOperations,vectParkings);
+    RandomizeSubset opRS(sizeParkings,solutionInit,vectOperations,vectParkings);
+    MutateMinusOne opMMO(sizeParkings,solutionInit,vectOperations,vectParkings);
+    Mutate opM(sizeParkings,solutionInit,vectOperations,vectParkings);
 
-    vector<Operateur*> operateurs = {&opA};
+    vector<Operateur*> operateurs = {&opNAAC, &opRS, &opMMO, &opM};
     RecuitSimule rs(nbIter, nbIterT, solutionInit, operateurs, T);
     Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations);
 
