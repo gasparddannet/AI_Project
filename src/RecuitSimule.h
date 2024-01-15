@@ -8,16 +8,17 @@
 #include "Parking.h"
 // #include "Stay.h"
 #include "Operation.h"
+#include "Operateur.h"
 
 class RecuitSimule {
 public:
-    RecuitSimule(int &nbIter, int &nbIterT, Solution &solutionCourante, double T);
+    RecuitSimule(int &nbIter, int &nbIterT, Solution &solutionCourante, Operateur* operateur, double T);
 
     Solution correctSolution(Solution solution, const vector<Parking> &vectParkings, const vector<Operation> &vectOperations);
     double fonctionObjectif(Solution solution, const vector<Parking> &vectParkings, const vector<Operation> &vectOperations);
     void majT(int &acc);
 
-    Solution recuitSimule(const vector<Parking> &vectParkings, const vector<Operation> &vectOperation, string operateur);
+    Solution recuitSimule(const vector<Parking> &vectParkings, const vector<Operation> &vectOperation);
     void heatUp();
     
 private:
@@ -27,9 +28,10 @@ private:
     Solution solutionCourante;
     Solution solutionGlobal;
     int valeurGlobale;
+    Operateur* operateur;
 
     // Solution generateSolution(Solution solution, int sizeParkings);
-    Solution generateSolution(Solution solution, int sizeParkings, const vector<Operation> &vectOperations, const vector<Parking> &vectParkings, string operateur);
+    Solution generateSolution(Solution solution, int sizeParkings, const vector<Operation> &vectOperations, const vector<Parking> &vectParkings);
 };
 
 #endif // RECUITSIMULE_H

@@ -11,6 +11,11 @@
 #include <random>
 #include <iostream>
 #include <string>
+#include "RandomizeSubset.cpp"
+#include "NonAllocAndContact.cpp"
+#include "SelectiveMutationSubset.cpp"
+#include "Randomize.cpp"
+#include "MutateMinusOne.cpp"
 
 using namespace std;
 
@@ -215,9 +220,9 @@ int main()
     // cout << endl;
     // cout << endl;
 
-    string operateur = "NonAllocAndContact";
-    RecuitSimule rs(nbIter, nbIterT, solutionInit, T);
-    Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations, operateur);
+    NonAllocAndContact operateur(sizeParkings,solutionInit,vectOperations,vectParkings);
+    RecuitSimule rs(nbIter, nbIterT, solutionInit, &operateur, T);
+    Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations);
 
     cout << "\n";
 
