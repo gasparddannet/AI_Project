@@ -202,9 +202,10 @@ int main()
 
     // cout << endl;
 
-    int nbIter = 30000;
+    // int nbIter = 80000;
+    int nbIter = 150000;
     int nbIterT = 3;
-    double T = 400;
+    double T = 500;
 
     int sizeOperations = vectOperations.size();
     vector<int> vect(sizeOperations);
@@ -220,8 +221,10 @@ int main()
     // cout << endl;
     // cout << endl;
 
-    NonAllocAndContact operateur(sizeParkings,solutionInit,vectOperations,vectParkings);
-    RecuitSimule rs(nbIter, nbIterT, solutionInit, &operateur, T);
+    NonAllocAndContact opNAAC(sizeParkings,solutionInit,vectOperations,vectParkings);
+    RandomizeSubset opRS(sizeParkings,solutionInit,vectOperations,vectParkings);
+
+    RecuitSimule rs(nbIter, nbIterT, solutionInit, &opNAAC, &opRS, T);
     Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations);
 
     cout << "\n";

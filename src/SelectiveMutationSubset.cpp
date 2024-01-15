@@ -30,11 +30,16 @@ public:
 
         for (long unsigned int k = i; k <= j; k++)
         {
-            double randValue = static_cast<double>(rand()) / RAND_MAX;
-                if (randValue < mutationProbability)
-                {
-                    solution.changeSolutionI(k, rand() % sizeParkings);
-                }
+            std::uniform_real_distribution<float> distribution4(0,1);
+            float p = distribution4(generator1);
+            // double randValue = static_cast<double>(rand()) / RAND_MAX;
+                // if (randValue < mutationProbability)
+            if (p < mutationProbability)
+            {
+                vector<int> compParkings = vectOperations[k].getCompParkings();
+                std::uniform_int_distribution<int> distribution3(0, compParkings.size() - 1);
+                solution.changeSolutionI(k, compParkings[distribution3(generator3)]);
+            }
         }
         return solution;
         
