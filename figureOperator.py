@@ -31,19 +31,30 @@ def plotOperator(fic) :
     n = len(f)
     yValCourante = []
     yValGlobale = []
+    yNewVal = []
+    yValT = []
     abscisses = []
     operateur = f[0][0]
     for i in range(1,n) :
         yValCourante.append(int(f[i][0]))
         yValGlobale.append(int(f[i][1]))
+        yNewVal.append(int(f[i][2]))
+        yValT.append(int(f[i][3]))
         abscisses.append(i)
     plt.plot(abscisses, yValCourante, label = "Valeur Courante")
     plt.plot(abscisses, yValGlobale, label = "Valeur Globale")
+    plt.plot(abscisses, yNewVal, label = "New Val")
+    # plt.plot(abscisses, yValT, label = "T")
     plt.xlabel('Itération')
     plt.ylabel('Finesse')
     plt.title(operateur)
     plt.legend()
     # plt.show()
+    
+    plt.figure()
+    plt.plot(abscisses, yValT)
+    plt.xlabel("Iteration")
+    plt.ylabel("T")
     return abscisses, yValGlobale
 
 def main() :

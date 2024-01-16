@@ -30,4 +30,10 @@ TXTWrite.o : TXTWrite.h
 
 # NonAllocAndContact.o : NonAllocAndContact.cpp
 
+clean:
+	rm *.o
+	
+run:
+	./main && \
+	cd .. ; python3 figureOperator.py
 

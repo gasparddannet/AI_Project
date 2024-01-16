@@ -27,11 +27,11 @@ void TXTWrite::write(const std::vector<double>& vectToWrite) {
     outputFile.close();
 }
 
-void TXTWrite::write(const std::vector<std::tuple<int,int>>& vectToWrite, std::string titre) {
+void TXTWrite::write(const std::vector<std::tuple<int,int, int, int>>& vectToWrite, std::string titre) {
     std::ofstream outputFile("../dataSolution/" + filename);
     outputFile << titre << "\n";
     for (const auto& tuple : vectToWrite) {
-        outputFile << std::get<0>(tuple) << ' ' << std::get<1>(tuple) << '\n';
+        outputFile << std::get<0>(tuple) << ' ' << std::get<1>(tuple) << ' ' << std::get<2>(tuple) << ' ' << std::get<3>(tuple) << '\n';
     }
     outputFile.close();
 }

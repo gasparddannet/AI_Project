@@ -210,7 +210,7 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
     int compt = 0;
     float acc = 1;
     vector<double> histoT ;
-    vector<tuple<int,int>> histoVal ;
+    vector<tuple<int,int, int, int>> histoVal ;
     while (T > 0.001 && compt < nbIter)
     {
         for (int i = 0; i < nbIterT; ++i)
@@ -268,7 +268,7 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
                 }
             }
             compt += 1;
-            histoVal.push_back({valeurCourante, valeurGlobale});
+            histoVal.push_back({valeurCourante, valeurGlobale, nouvelleValeur, T});
         }
         histoT.push_back(T);
         majT(acc);
