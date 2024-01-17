@@ -27,7 +27,7 @@ private:
     int nbIterT;
     Solution solutionCourante;
     Solution solutionGlobal;
-    int valeurGlobale;
+    double valeurGlobale;
     vector<Operateur*> operateurs;
 
     // Solution generateSolution(Solution solution, int sizeParkings);

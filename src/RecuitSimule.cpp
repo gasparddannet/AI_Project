@@ -19,28 +19,28 @@ RecuitSimule::RecuitSimule(int &nbIter, int &nbIterT, Solution &solutionCourante
 Solution RecuitSimule::correctSolution(Solution solution, const vector<Parking> &vectParkings, const vector<Operation> &vectOperations)
 {
     // cout << "Call correctSolution" << endl;
-    vector<int> vectPark = solution.getSolution();
+    vector<int> sol = solution.getSolution();
 
     // cout << "Avant : " << endl;
     // for (int i = 0; i<vectStays.size()-1; i++) {
     //     cout << vectPark[i] << "|";
     // }
 
-    int sizeParkings = vectPark.size();
+    int sizeParkings = vectParkings.size();
 
     vector<vector<tuple<Date, Date, int>>> tempOccParking(sizeParkings); // tableau indexe par les parkings des tableaux des tuples startDate, startHour, endDate, endHour
-    for (int i = 0; i < vectPark.size(); i++)
+    for (int i = 0; i < sol.size(); i++)
     {
         vector<int> compPark = vectOperations[i].getCompParkings();
-        auto it = find(compPark.begin(), compPark.end(), vectPark[i]);
+        auto it = find(compPark.begin(), compPark.end(), sol[i]);
         if (it == compPark.end())
         {
-            vectPark[i] = -1; // Les opérations ne respectant pas la contrainte de compatibilité parking sont changés à -1
+            sol[i] = -1; // Les opérations ne respectant pas la contrainte de compatibilité parking sont changés à -1
         }
 
-        if (vectPark[i] >= 0)
+        if (sol[i] >= 0)
         {
-            tempOccParking[vectPark[i]].push_back({vectOperations[i].getArrDate(), vectOperations[i].getDepDate(), i});
+            tempOccParking[sol[i]].push_back({vectOperations[i].getArrDate(), vectOperations[i].getDepDate(), i});
         }
     }
 
@@ -71,20 +71,20 @@ Solution RecuitSimule::correctSolution(Solution solution, const vector<Parking> 
 
                 if (startDate1 <= startDate2 && endDate1 + *p_buffer >= startDate2)
                 {
-                    vectPark[posStay2] = -1;
+                    sol[posStay2] = -1;
                     // cout << "Conflit1 startDate1 : " << startDate1 << " et endDate1 " << endDate1 << endl;
                     // cout << "Conflit1 startDate2 : " << startDate2 << " et endDate2 " << endDate2 << "\n"<< endl;
                 }
                 else if (startDate2 <= startDate1 && endDate2 + *p_buffer >= startDate1)
                 {
-                    vectPark[posStay2] = -1;
+                    sol[posStay2] = -1;
                     // cout << "Conflit2 startDate1 : " << startDate1 << " et endDate1 " << endDate1 << endl;
                     // cout << "Conflit2 startDate2 : " << startDate2 << " et endDate2 " << endDate2 << "\n"<< endl;
                 }
             }
         }
     }
-    Solution newSolution2 = Solution(vectPark);
+    Solution newSolution2 = Solution(sol);
     // cout << "\nApres fonctionObj: " << endl;
     // for (int i = 0; i<vectOperations.size()-1; i++) {
     //     cout << newSolution2.getSolution()[i] << "|";
@@ -104,7 +104,7 @@ double RecuitSimule::fonctionObjectif(Solution solution, const vector<Parking> &
         int posPark = vectPark[i];
         if (posPark == -1)
         {
-            poids_allocation += 50;
+            poids_allocation += 3;
         }
         else
         {
@@ -113,13 +113,13 @@ double RecuitSimule::fonctionObjectif(Solution solution, const vector<Parking> &
             {
                 switch (vectParkings[posPark].getNature())
                 case (ParkNature::Contact):
-                    poids_nature += 5;
+                    poids_nature += 0.5;
             }
             else
             {
                 switch (vectParkings[posPark].getNature())
                 case (ParkNature::Large):
-                    poids_nature += 8;
+                    poids_nature += 1;
             }
         }
     }
@@ -128,11 +128,12 @@ double RecuitSimule::fonctionObjectif(Solution solution, const vector<Parking> &
 
 void RecuitSimule::majT(float &acc)
 {
-    if (T < exp(-acc)) {
-        T += 280/acc  ;
-        acc += 0.25 ;
-    }
-    T *= 0.999;
+    // if (T < exp(-acc)) {
+    //     T += 300/acc  ;
+    //     acc += 1 ;
+    // }
+    T *= 0.99;
+
 }
 
 Solution RecuitSimule::generateSolution(Solution &solution, int compt)
@@ -152,46 +153,47 @@ Solution RecuitSimule::generateSolution(Solution &solution, int compt)
 
     // solution.NonAllocAndContact(sizeParkings,vectOperations,vectParkings);
 
-    // Solution *sol;
+    // Solution* sol;
     if (operateurs.size() >= 4)
     {
-        if (compt % 1000 == 0)
-        {
-            operateurs[0]->setSolution(solution);
-            solution = operateurs[0]->apply(T);
-            // cout << "cc0" << endl;
-        }
+        // if (compt % 1000 == 0)
+        // {
+            // operateurs[0]->setSolution(solution);
+            // solution = operateurs[0]->apply(T);
+        //     // cout << "cc0" << endl;
+        // }
 
         // else if (compt % 100 == 0)
         // {
         //     operateurs[1]->setSolution(solution);
         //     solution = operateurs[1]->apply(T);
-        //     // cout << "cc1" << endl;
+        //     // // cout << "cc1" << endl;
         // }
 
-        if (compt % 50 == 0)
-        {
-            operateurs[2]->setSolution(solution);
-            solution = operateurs[2]->apply(T);
+        // if (compt % 50 == 0)
+        // {
+            // operateurs[2]->setSolution(solution);
+            // solution = (operateurs[2]->apply(T));
+            // sol = &sol2;
             // cout << "cc2" << endl;
-        }
-        else
-        {
+        // }
+        // else
+        // {
             operateurs[3]->setSolution(solution);
             solution = operateurs[3]->apply(T);
-            // cout << "cc3" << endl;
-        }
+        //     // cout << "cc3" << endl;
+        // }
 
-        // operateurs[2]->setSolution(solution);
-        // solution = operateurs[2]->apply(T);
+
     }
-    else {
-        operateurs[0]->setSolution(solution);
-        solution = operateurs[0]->apply(T);
-    }
+    // else {
+    //     operateurs[0]->setSolution(solution);
+    //     solution = operateurs[0]->apply(T);
+    // }
     // solution.smartMutateMinusOne(sizeParkings);
     // cout << "generateSOlution done" << endl;
 
+    // return *sol;
     return solution;
 }
 
@@ -210,8 +212,9 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
     int compt = 0;
     float acc = 1;
     vector<double> histoT ;
-    vector<tuple<int,int, int, int>> histoVal ;
-    while (T > 0.001 && compt < nbIter)
+    vector<tuple<double,double, double, double>> histoVal ;
+    // while (T > 0.05 && compt < nbIter)
+    while (compt < nbIter)
     {
         for (int i = 0; i < nbIterT; ++i)
         {
@@ -220,6 +223,7 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
             newSolution = correctSolution(newSolution, vectParkings, vectOperations);
             double nouvelleValeur = fonctionObjectif(newSolution, vectParkings, vectOperations);
             // cout << "\nNouvelle Valeur : " << nouvelleValeur << endl;
+            double differenceValeur = nouvelleValeur - valeurCourante;
 
             if (nouvelleValeur == 0)
             {
@@ -235,20 +239,26 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
                 return solutionGlobal;
             }
 
-            if (nouvelleValeur - valeurGlobale < 0)
-            {
-                solutionCourante = newSolution;
-                valeurCourante = nouvelleValeur;
-                solutionGlobal = solutionCourante;
-                valeurGlobale = nouvelleValeur;
-                std::cout << "change valeur Globale :" << valeurGlobale << endl;
-            }
 
-            double differenceValeur = nouvelleValeur - valeurCourante;
-            if (differenceValeur < 0)
+            // else if (nouvelleValeur - valeurGlobale < 0)
+            // {
+            //     solutionCourante = newSolution;
+            //     valeurCourante = nouvelleValeur;
+            //     solutionGlobal = solutionCourante;
+            //     valeurGlobale = nouvelleValeur;
+            //     std::cout << "change valeur Globale :" << valeurGlobale << endl;
+            // }
+
+            else if (differenceValeur < 0)
             {
                 solutionCourante = newSolution;
                 valeurCourante = nouvelleValeur;
+                if (nouvelleValeur - valeurGlobale < 0)
+                {
+                    solutionGlobal = solutionCourante;
+                    valeurGlobale = nouvelleValeur;
+                    std::cout << "change valeur Globale :" << valeurGlobale << endl;
+                }
                 // solutionGlobal = solutionCourante;
                 // valeurGlobale = nouvelleValeur;
                 // cout << "change valeur Globale :" << valeurGlobale << endl;
@@ -270,7 +280,7 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
             compt += 1;
             histoVal.push_back({valeurCourante, valeurGlobale, nouvelleValeur, T});
         }
-        histoT.push_back(T);
+        // histoT.push_back(T);
         majT(acc);
     }
     auto stop = chrono::high_resolution_clock::now();
@@ -284,8 +294,10 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
     // cout << "Valeur global : " << vGlobal << endl;
     std::cout << "Valeur globale : " << valeurGlobale << endl;
 
-    TXTWrite writer("histoT.txt");
-    writer.write(histoT);
+    TXTWrite writer;
+    // writer.write(histoT);
+
+
     // cout << "Nom opérateur :" << operateur->getName() << endl ;
 
     // if (operateur->getName() == "Randomize") {
@@ -309,7 +321,8 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
         writer.write(histoVal, operateurs[0]->getName());
     }
     else {
-        writer.setFilename(operateurs[0]->getName() + "AND" + operateurs[1]->getName() + ".txt");
+        // writer.setFilename(operateurs[0]->getName() + "AND" + operateurs[1]->getName() + ".txt");
+        writer.setFilename("solution.txt");
         writer.write(histoVal, operateurs[0]->getName() + "AND" + operateurs[1]->getName());
     }
 

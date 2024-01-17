@@ -43,8 +43,8 @@ int main()
 
 
 
-    int nbToErase = static_cast<int>(vectParkings.size()*0.1) ;
-    vectParkings.erase(vectParkings.begin(),vectParkings.begin() + nbToErase);
+    // int nbToErase = static_cast<int>(vectParkings.size()*0.1) ;
+    // vectParkings.erase(vectParkings.begin(),vectParkings.begin() + nbToErase);
     // cout << "nbr de Parking supprimé: " << nbToErase << endl;
 
 
@@ -165,15 +165,17 @@ int main()
     // cout << endl;
 
     // int nbIter = 80000;
-    int nbIter = 50000;
-    int nbIterT = 3;
-    double T = 300;
+    int nbIter = 100000;
+    int nbIterT = 100;
+    double T = 10;
 
     int sizeOperations = vectOperations.size();
     vector<int> vect(sizeOperations);
     int sizeParkings = vectParkings.size();
-    cout << "SizeParkings : " << sizeParkings << endl;
-
+    cout << "Size Parkings : " << sizeParkings << endl;
+    int sizeStays = vectStays.size();
+    cout << "Size Stays :" << sizeStays << endl;
+    cout << "Size Operations :" << sizeOperations << endl;
     Solution solutionInit = Solution(vect);
     
     solutionInit.randomize(sizeParkings, vectOperations);

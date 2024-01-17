@@ -13,7 +13,9 @@ FIC_R = 'dataSolution/Randomize.txt'
 FIC_MMO = 'dataSolution/MutateMinusOne.txt'
 FIC_RS = 'dataSolution/RandomizeSubset.txt'
 FIC_SMS = 'dataSolution/SelectiveMutationSubset.txt'
-FIC = 'dataSolution/NonAllocAndContactANDRandomizeSubset.txt'
+# FIC = 'dataSolution/NonAllocAndContactANDRandomizeSubset.txt'
+FIC = 'dataSolution/solution.txt'
+
 
 
 def read_txt(fic) :
@@ -36,18 +38,19 @@ def plotOperator(fic) :
     abscisses = []
     operateur = f[0][0]
     for i in range(1,n) :
-        yValCourante.append(int(f[i][0]))
-        yValGlobale.append(int(f[i][1]))
-        yNewVal.append(int(f[i][2]))
-        yValT.append(int(f[i][3]))
+        yValCourante.append(float(f[i][0]))
+        yValGlobale.append(float(f[i][1]))
+        yNewVal.append(float(f[i][2]))
+        yValT.append(float(f[i][3]))
         abscisses.append(i)
-    plt.plot(abscisses, yValCourante, label = "Valeur Courante")
-    plt.plot(abscisses, yValGlobale, label = "Valeur Globale")
-    plt.plot(abscisses, yNewVal, label = "New Val")
+    plt.plot(abscisses, yValGlobale, label = "Valeur Globale", color="red")
+    plt.plot(abscisses, yNewVal, label = "New Val", color="blueviolet", alpha=0.5)
+    plt.plot(abscisses, yValCourante, label = "Valeur Courante", color="blue")
+    
     # plt.plot(abscisses, yValT, label = "T")
     plt.xlabel('Itération')
     plt.ylabel('Finesse')
-    plt.title(operateur)
+    # plt.title(operateur)
     plt.legend()
     # plt.show()
     

@@ -1,6 +1,6 @@
 #include "TXTWrite.h"
 
-TXTWrite::TXTWrite(const std::string& f) : filename(f) {}
+TXTWrite::TXTWrite(const std::string f) : filename(f) {}
 
 void TXTWrite::write(const std::vector<std::tuple<int, double>>& vectToWrite) {
     std::ofstream outputFile("../dataSolution/" + filename);
@@ -27,7 +27,7 @@ void TXTWrite::write(const std::vector<double>& vectToWrite) {
     outputFile.close();
 }
 
-void TXTWrite::write(const std::vector<std::tuple<int,int, int, int>>& vectToWrite, std::string titre) {
+void TXTWrite::write(const std::vector<std::tuple<double,double, double, double>>& vectToWrite, std::string titre) {
     std::ofstream outputFile("../dataSolution/" + filename);
     outputFile << titre << "\n";
     for (const auto& tuple : vectToWrite) {
