@@ -18,6 +18,10 @@ RecuitSimule::RecuitSimule(int &nbIter, int &nbIterT, Solution &solutionCourante
 
 Solution RecuitSimule::correctSolution(Solution solution, const vector<Parking> &vectParkings, const vector<Operation> &vectOperations)
 {
+    std::random_device rd;
+    std::default_random_engine generator(rd());
+    std::uniform_int_distribution<int> rdistribution(0, 1);
+  
     // cout << "Call correctSolution" << endl;
     vector<int> sol = solution.getSolution();
 
@@ -71,13 +75,29 @@ Solution RecuitSimule::correctSolution(Solution solution, const vector<Parking> 
 
                 if (startDate1 <= startDate2 && endDate1 + *p_buffer >= startDate2)
                 {
-                    sol[posStay2] = -1;
+                    int r = rdistribution(generator);
+                    if (r==1)
+                    {
+                        sol[posStay2] = -1;
+                    }
+                    else 
+                    {
+                        sol[posStay1] = -1;
+                    }
                     // cout << "Conflit1 startDate1 : " << startDate1 << " et endDate1 " << endDate1 << endl;
                     // cout << "Conflit1 startDate2 : " << startDate2 << " et endDate2 " << endDate2 << "\n"<< endl;
                 }
                 else if (startDate2 <= startDate1 && endDate2 + *p_buffer >= startDate1)
                 {
-                    sol[posStay2] = -1;
+                    int r = rdistribution(generator);
+                    if (r==1)
+                    {
+                        sol[posStay2] = -1;
+                    }
+                    else 
+                    {
+                        sol[posStay1] = -1;
+                    }
                     // cout << "Conflit2 startDate1 : " << startDate1 << " et endDate1 " << endDate1 << endl;
                     // cout << "Conflit2 startDate2 : " << startDate2 << " et endDate2 " << endDate2 << "\n"<< endl;
                 }
@@ -126,15 +146,6 @@ double RecuitSimule::fonctionObjectif(Solution solution, const vector<Parking> &
     return poids_allocation + poids_nature;
 }
 
-void RecuitSimule::majT(float &acc)
-{
-    // if (T < exp(-acc)) {
-    //     T += 300/acc  ;
-    //     acc += 1 ;
-    // }
-    T *= 0.99;
-
-}
 
 Solution RecuitSimule::generateSolution(Solution &solution, int compt)
 {
@@ -156,32 +167,33 @@ Solution RecuitSimule::generateSolution(Solution &solution, int compt)
     // Solution* sol;
     if (operateurs.size() >= 4)
     {
-        // if (compt % 1000 == 0)
-        // {
-            // operateurs[0]->setSolution(solution);
-            // solution = operateurs[0]->apply(T);
-        //     // cout << "cc0" << endl;
-        // }
+        if (compt % 50 == 0)
+        {
+            operateurs[0]->setSolution(solution);
+            solution = operateurs[0]->apply(T);
+            // cout << "cc0" << endl;
+        }
 
-        // else if (compt % 100 == 0)
-        // {
-        //     operateurs[1]->setSolution(solution);
-        //     solution = operateurs[1]->apply(T);
-        //     // // cout << "cc1" << endl;
-        // }
+        // if (compt % 100 == 0)
+        else
+        {
+            operateurs[1]->setSolution(solution);
+            solution = operateurs[1]->apply(T);
+            // // cout << "cc1" << endl;
+        }
 
-        // if (compt % 50 == 0)
+        // if (compt % 10 == 0)
         // {
-            // operateurs[2]->setSolution(solution);
-            // solution = (operateurs[2]->apply(T));
-            // sol = &sol2;
-            // cout << "cc2" << endl;
+        //     operateurs[2]->setSolution(solution);
+        //     solution = (operateurs[2]->apply(T));
+        //     // sol = &sol2;
+        //     // cout << "MMO" << endl;
         // }
         // else
         // {
-            operateurs[3]->setSolution(solution);
-            solution = operateurs[3]->apply(T);
-        //     // cout << "cc3" << endl;
+        //     operateurs[3]->setSolution(solution);
+        //     solution = operateurs[3]->apply(T);
+        //     // cout << "M" << endl;
         // }
 
 
@@ -197,6 +209,39 @@ Solution RecuitSimule::generateSolution(Solution &solution, int compt)
     return solution;
 }
 
+void RecuitSimule::heatUp(double valeurCourante, const vector<Parking> &vectParkings, const vector<Operation> &vectOperations)
+{
+    T = 0.5;
+    int cpt = 0;
+    double avg = 0;
+    while (cpt <= 1000)
+    {
+        Solution newSolution = generateSolution(solutionCourante, cpt);
+        newSolution = correctSolution(newSolution, vectParkings, vectOperations);
+        double nouvelleValeur = fonctionObjectif(newSolution, vectParkings, vectOperations);
+        double differenceValeur = nouvelleValeur - valeurCourante;
+        avg += differenceValeur;
+        cpt += 1;
+    }
+    avg = avg / cpt;
+    T = -avg / (log(0.8));
+}
+
+
+void RecuitSimule::majT(float &acc)
+{
+    // if (T < exp(-acc)) {
+    //     T += 17/acc  ;
+    //     acc += 1 ;
+    // }
+    // else
+    // {
+    //     T *= 0.97;
+    // }
+    T *= 0.98;
+
+}
+
 Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const vector<Operation> &vectOperations)
 {
     std::random_device rd;
@@ -206,7 +251,9 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
 
     solutionCourante = correctSolution(solutionCourante, vectParkings, vectOperations);
     double valeurCourante = fonctionObjectif(solutionCourante, vectParkings, vectOperations);
-
+    // cout << "Avant heatUp T : " << T << endl;
+    // heatUp(valeurCourante, vectParkings, vectOperations);
+    // cout << "Apres heatUp T : " << T << endl;
     std::cout << "\nValeur Initiale: " << valeurCourante << "\n\n";
     valeurGlobale = valeurCourante;
     int compt = 0;

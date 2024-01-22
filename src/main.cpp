@@ -25,6 +25,7 @@ using namespace std;
 
 string ParkingFile = "../Data/parkings.csv";
 string StaysFile = "../Data/stays_21_06_2016.csv";
+// string StaysFile = "../Data/stays_06_2016.csv";
 int TTMA = 30;
 int TTMD = 60;
 
@@ -63,7 +64,6 @@ int main()
     /**** Read Stays ****/
     cout << "Read stays" << endl;
     vector<Stay> vectStays = Read::readStays(StaysFile);
-
 
     /*******************************************************************/
     /*******************************************************************/
@@ -111,6 +111,30 @@ int main()
     //     }
     //     file.close();
     // }
+
+    /*******************************************************************/
+
+    // string filename = "../Data/stays_06_2016.csv";
+    // ofstream file(filename);
+    // if (!file.is_open())
+    //     throw std::runtime_error("Could not open file");
+    // file << "Stay;BodyType;AircraftType;NbTowings;Arr_Number;Arr_Date;Arr_Hour;Arr_CourrierCode;Dep_Number;Dep_Date;Dep_Hour;Dep_CourrierCode" << endl;
+        
+    // for (Stay &s : vectStays)
+    // {
+    //     file << s.getId() << ";";
+    //     file << s.getBodyType() << ";";
+    //     file << s.getAircraftType() << ";";
+    //     file << s.getAuthorizedTowing() << ";";
+    //     file << s.getArrNumber() << ";";
+    //     file << s.getArrDate() << ";";
+    //     file << s.getArrCourrierCode() << ";";
+    //     file << s.getDepNumber() << ";";
+    //     file << s.getDepDate() << ";";
+    //     file << s.getDepCourrierCode();
+    //     file << endl;
+    // }
+    // file.close();
 
     /*******************************************************************/
     /*******************************************************************/
@@ -165,9 +189,9 @@ int main()
     // cout << endl;
 
     // int nbIter = 80000;
-    int nbIter = 100000;
+    int nbIter = 70000;
     int nbIterT = 100;
-    double T = 10;
+    double T = 20;
 
     int sizeOperations = vectOperations.size();
     vector<int> vect(sizeOperations);

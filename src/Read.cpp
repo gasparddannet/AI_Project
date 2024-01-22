@@ -309,6 +309,7 @@ const vector<Stay> Read::readStays(string staysFile)
     {
         std::stringstream ss(line);
         vectStays.push_back(stringstreamToStay(ss));
+        // vectStays.push_back(stringstreamToStayOriginal(ss));
     }
     file.close();
 

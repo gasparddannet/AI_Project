@@ -19,7 +19,7 @@ public:
     void majT(float &acc);
 
     Solution recuitSimule(const vector<Parking> &vectParkings, const vector<Operation> &vectOperation);
-    void heatUp();
+    void heatUp(double valeurCourante, const vector<Parking> &vectParkings, const vector<Operation> &vectOperations);
     
 private:
     double T;
