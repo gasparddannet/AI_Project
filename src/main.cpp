@@ -149,6 +149,7 @@ int main()
         Date depDate = vectStays[i].getDepDate();
         string aircraftType = vectStays[i].getAircraftType();
         pair<vector<int>,vector<int>> compatibleParkings = Read::createCompatibleParking(aircraftType, vectParkings);
+        vector<int> emptyVec = {};
         int nbTowings = vectStays[i].getAuthorizedTowing();
         if (nbTowings == 0) {
             vectOperations.push_back(Operation(idStay, arrDate, depDate, compatibleParkings.first, compatibleParkings.second, 0));
@@ -159,7 +160,7 @@ int main()
         }
         else if (nbTowings == 2) {
             vectOperations.push_back(Operation(idStay, arrDate, arrDate+TTMA, compatibleParkings.first, compatibleParkings.second, 2));
-            vectOperations.push_back(Operation(idStay, arrDate+TTMA, depDate-TTMD, compatibleParkings.first, compatibleParkings.second, 3));  
+            vectOperations.push_back(Operation(idStay, arrDate+TTMA, depDate-TTMD, emptyVec, compatibleParkings.second, 3));  
             vectOperations.push_back(Operation(idStay, depDate-TTMD, depDate, compatibleParkings.first, compatibleParkings.second, 2));
         }
     }

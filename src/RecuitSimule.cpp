@@ -167,21 +167,35 @@ Solution RecuitSimule::generateSolution(Solution &solution, int compt)
     // Solution* sol;
     if (operateurs.size() >= 4)
     {
-        if (compt % 50 == 0)
+
+        if (compt < 2000)
         {
             operateurs[0]->setSolution(solution);
             solution = operateurs[0]->apply(T);
-            // cout << "cc0" << endl;
         }
 
-        // if (compt % 100 == 0)
-        else
+        // if (compt % 50 == 0)
+        // {
+        //     operateurs[0]->setSolution(solution);
+        //     solution = operateurs[0]->apply(T);
+        //     // cout << "cc0" << endl;
+        // }
+
+        // // if (compt % 100 == 0)
+        // else
+        // {
+        //     operateurs[1]->setSolution(solution);
+        //     solution = operateurs[1]->apply(T);
+        //     // // cout << "cc1" << endl;
+        // }
+        else if (compt == 2000)
         {
-            operateurs[1]->setSolution(solution);
-            solution = operateurs[1]->apply(T);
-            // // cout << "cc1" << endl;
+            cout << "2000" << endl;
+            T = 0.01;
+            solutionCourante = solutionGlobal;
+            operateurs[3]->setSolution(solution);
+            solution = operateurs[3]->apply(T);
         }
-
         // if (compt % 10 == 0)
         // {
         //     operateurs[2]->setSolution(solution);
@@ -189,12 +203,12 @@ Solution RecuitSimule::generateSolution(Solution &solution, int compt)
         //     // sol = &sol2;
         //     // cout << "MMO" << endl;
         // }
-        // else
-        // {
-        //     operateurs[3]->setSolution(solution);
-        //     solution = operateurs[3]->apply(T);
-        //     // cout << "M" << endl;
-        // }
+        else
+        {
+            operateurs[3]->setSolution(solution);
+            solution = operateurs[3]->apply(T);
+            // cout << "M" << endl;
+        }
 
 
     }
@@ -269,7 +283,7 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
 
             newSolution = correctSolution(newSolution, vectParkings, vectOperations);
             double nouvelleValeur = fonctionObjectif(newSolution, vectParkings, vectOperations);
-            // cout << "\nNouvelle Valeur : " << nouvelleValeur << endl;
+            // cout << "Nouvelle Valeur : " << nouvelleValeur << endl;
             double differenceValeur = nouvelleValeur - valeurCourante;
 
             if (nouvelleValeur == 0)
