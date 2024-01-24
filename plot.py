@@ -151,7 +151,7 @@ def plot(donnees):
 
         for h in range (int(xmin),int(xmax)) :
             if (h%24==0) :
-                ax.vlines(x=h,ymin=0,ymax=25, color='black', linestyle='-', linewidth=2)
+                ax.vlines(x=h, ymin=0,ymax=25, color='black', linestyle='--', linewidth=1, alpha=0.8)
                 ax.text(h, -2, f"{h//24}/06/16" , color='green', fontsize=12)
                 
 
@@ -198,9 +198,15 @@ def plot_nas(data) :
         for i,(fig,ax) in enumerate(figax) :
             ax.set_ylim(0, N_NON_ALLOCATED_STAYS_ON_SCREEN + 1)
             # ax.set_xlim(min(starts[i]),max(ends[i]))
+            xmin, xmax = min(starts),max(ends)
             
-            ax.set_xlim(min(starts),max(ends))
-            
+            ax.set_xlim(xmin,xmax)
+            for h in range (int(xmin),int(xmax)) :
+                if (h%24==0) :
+                    ax.vlines(x=h, ymin=0,ymax=25, color='black', linestyle='--', linewidth=1, alpha=0.8)
+                    ax.text(h, -2, f"{h//24}/06/16" , color='green', fontsize=12)
+                
+
             ax.set_xlabel('Heure')
             # ax.set_title("Non allocated stays  " + date)
             ax.set_title("Non allocated stays")

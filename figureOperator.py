@@ -58,9 +58,10 @@ def plotOperator(fic) :
     plt.legend()
     #plt.show()
     
-    #plt.plot(abscisses, yValT)
-    #plt.xlabel("Iteration")
-    #plt.ylabel("T")
+    # plt.figure()
+    # plt.plot(abscisses, yValT)
+    # plt.xlabel("Iteration")
+    # plt.ylabel("T")
     return abscisses, yValGlobale
 
 def main() :
@@ -72,12 +73,12 @@ def main() :
     a, y_NAAC_M = plotOperator(FIC_NAAC_M)
     a, y_NAAC_RS = plotOperator(FIC_NAAC_RS)
     a, y_NAAC_MMO = plotOperator(FIC_NAAC_MMO)
-    plt.figure()
     
+    plt.figure()
     plt.plot(a, y_NAAC, label = "NonAllocatedAndContact")
     plt.plot(a, y_MMO, label = "MutateMinusOne")
     plt.plot(a, y_M, label = "Mutate")
-    plt.plot(a, y_RS, label = "RandomizeSubset")
+    # plt.plot(a, y_RS, label = "RandomizeSubset")
     plt.plot(a, y_NAAC_M, label = "NAACandM")
     plt.plot(a, y_NAAC_MMO, label = "NAACandMMO")
     plt.plot(a, y_NAAC_RS, label = "NAACandRS")
