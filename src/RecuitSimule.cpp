@@ -124,18 +124,18 @@ double RecuitSimule::fonctionObjectif(Solution solution, const vector<Parking> &
         int posPark = vectPark[i];
         if (posPark == -1)
         {
-            poids_allocation += 3;
+            poids_allocation += 5;
         }
         else
         {
             // ParkNature parkNature = vectParkings[posPark].getNature();
-            if (op.getNbTowing() == 3)
-            {
-                switch (vectParkings[posPark].getNature())
-                case (ParkNature::Contact):
-                    poids_nature += 0.5;
-            }
-            else
+            // if (op.getNbTowing() == 3)
+            // {
+            //     switch (vectParkings[posPark].getNature())
+            //     case (ParkNature::Contact):
+            //         poids_nature += 0.5;
+            // }
+            if (op.getNbTowing() != 3)
             {
                 switch (vectParkings[posPark].getNature())
                 case (ParkNature::Large):
@@ -165,13 +165,14 @@ Solution RecuitSimule::generateSolution(Solution &solution, int compt)
     // solution.NonAllocAndContact(sizeParkings,vectOperations,vectParkings);
 
     // Solution* sol;
-    if (operateurs.size() >= 4)
+    Solution newsol(solution);
+    if (operateurs.size() >= 2)
     {
 
         if (compt < 2000)
         {
             operateurs[0]->setSolution(solution);
-            solution = operateurs[0]->apply(T);
+            newsol = operateurs[0]->apply(T);
         }
 
         // if (compt % 50 == 0)
@@ -191,10 +192,10 @@ Solution RecuitSimule::generateSolution(Solution &solution, int compt)
         else if (compt == 2000)
         {
             cout << "2000" << endl;
-            T = 0.01;
             solutionCourante = solutionGlobal;
-            operateurs[3]->setSolution(solution);
-            solution = operateurs[3]->apply(T);
+            solution = solutionGlobal;
+            operateurs[1]->setSolution(solution);
+            newsol = operateurs[1]->apply(T);
         }
         // if (compt % 10 == 0)
         // {
@@ -205,22 +206,20 @@ Solution RecuitSimule::generateSolution(Solution &solution, int compt)
         // }
         else
         {
-            operateurs[3]->setSolution(solution);
-            solution = operateurs[3]->apply(T);
+            operateurs[1]->setSolution(solution);
+            newsol = operateurs[1]->apply(T);
             // cout << "M" << endl;
         }
 
 
     }
-    // else {
-    //     operateurs[0]->setSolution(solution);
-    //     solution = operateurs[0]->apply(T);
-    // }
-    // solution.smartMutateMinusOne(sizeParkings);
+    else {
+        operateurs[0]->setSolution(solution);
+        newsol = operateurs[0]->apply(T);
+    }
     // cout << "generateSOlution done" << endl;
 
-    // return *sol;
-    return solution;
+    return newsol;
 }
 
 void RecuitSimule::heatUp(double valeurCourante, const vector<Parking> &vectParkings, const vector<Operation> &vectOperations)
@@ -279,6 +278,7 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
     {
         for (int i = 0; i < nbIterT; ++i)
         {
+
             Solution newSolution = generateSolution(solutionCourante, compt);
 
             newSolution = correctSolution(newSolution, vectParkings, vectOperations);
@@ -316,7 +316,7 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
                 valeurCourante = nouvelleValeur;
                 if (nouvelleValeur - valeurGlobale < 0)
                 {
-                    solutionGlobal = solutionCourante;
+                    solutionGlobal = newSolution;
                     valeurGlobale = nouvelleValeur;
                     std::cout << "change valeur Globale :" << valeurGlobale << endl;
                 }
@@ -382,8 +382,8 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
         writer.write(histoVal, operateurs[0]->getName());
     }
     else {
-        // writer.setFilename(operateurs[0]->getName() + "AND" + operateurs[1]->getName() + ".txt");
-        writer.setFilename("solution.txt");
+        writer.setFilename(operateurs[0]->getName() + "AND" + operateurs[1]->getName() + ".txt");
+        // writer.setFilename("solution.txt");
         writer.write(histoVal, operateurs[0]->getName() + "AND" + operateurs[1]->getName());
     }
 

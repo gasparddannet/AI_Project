@@ -148,18 +148,14 @@ def plot(donnees):
         ax.set_ylim(0, N_LABEL_PARK_ON_SCREEN + 1)
         xmin, xmax = min(starts[i]),max(ends[i])
         ax.set_xlim(xmin, xmax)
-        heures = np.arange(int(xmin),int(xmax))
-        jours = (heures // 24) + 1
-        if len(jours == 1) :
-            ax.set_title(f"{jours[0]}/06/16")
-        else :  
-            for jour in jours :
-                heure = (jour - 1) * 24
-                ax.vlines(x=heure, ymin=0, ymax=1, color='red', linestyle='-', linewidth=2)
-                ax.text(heure-1, -2, f"{jour}/06/16" , color='red', fontsize=12)
-        
 
-        ax.set_xlabel('Heure')
+        for h in range (int(xmin),int(xmax)) :
+            if (h%24==0) :
+                ax.vlines(x=h,ymin=0,ymax=25, color='black', linestyle='-', linewidth=2)
+                ax.text(h, -2, f"{h//24}/06/16" , color='green', fontsize=12)
+                
+
+        ax.set_xlabel('Heure',labelpad=12)
         ax.set_ylabel('Parking')
         # ax.set_title(date)
     # plt.show()
