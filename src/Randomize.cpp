@@ -10,7 +10,7 @@ class Randomize : public Operateur {
 private:
 public:
     Randomize(int &sizeParkings, Solution &solution, vector<Operation> &vectOperations, vector<Parking> &vectParkings):Operateur(sizeParkings,solution,vectOperations,vectParkings) {name = "Randomize";}
-    Solution* apply(double& T) override {
+    Solution* apply() override {
         // srand((int)time(0));
         std::random_device rd;
         std::default_random_engine generator(rd());

@@ -10,7 +10,7 @@ private:
 
 public:
     SelectiveMutationSubset(int &sizeParkings, Solution &solution, vector<Operation> &vectOperations, vector<Parking> &vectParkings) : Operateur(sizeParkings,solution,vectOperations,vectParkings) {name = "SelectiveMutationSubset";}
-    Solution* apply(double& T) override
+    Solution* apply() override
     {
         // int sizeSol = solution.getSize();
         std::random_device rd1;

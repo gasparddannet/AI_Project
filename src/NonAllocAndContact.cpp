@@ -11,7 +11,7 @@ private:
 
 public:
     NonAllocAndContact(int &sizeParkings, Solution &solution, vector<Operation> &vectOperations, vector<Parking> &vectParkings) : Operateur(sizeParkings,solution,vectOperations,vectParkings) {name="NonAllocAndContact";}
-    Solution* apply(double& T) override
+    Solution* apply() override
     {
         std::random_device rd;
         std::default_random_engine generator(rd());
@@ -47,37 +47,39 @@ public:
             if (posPark == -1)
             {
                 // solution.changeSolutionI(i, compParkings[distribution(generator)]);
-                if (vectOperations[i].getNbTowing() == 3)
-                {
-                    std::uniform_int_distribution<int> distribution(0, compParkingsLarge.size() - 1);
-                    solution.changeSolutionI(i, compParkingsLarge[distribution(generator)]);  
-                }
-                else 
-                {
-                    if (distribution2(generator) > exp(-T))
-                    {
-                        std::uniform_int_distribution<int> distribution(0, compParkingsLarge.size() - 1);
-                        solution.changeSolutionI(i, compParkingsLarge[distribution(generator)]);  
-                    }
-                    else
-                    {
-                        std::uniform_int_distribution<int> distribution(0, compParkings.size() - 1);
-                        solution.changeSolutionI(i, compParkings[distribution(generator)]); 
+                // if (vectOperations[i].getNbTowing() == 3)
+                // {
+                //     std::uniform_int_distribution<int> distribution(0, compParkingsLarge.size() - 1);
+                //     solution.changeSolutionI(i, compParkingsLarge[distribution(generator)]);  
+                // }
+                // else 
+                // {
+                //     if (distribution2(generator) > exp(-T))
+                //     {
+                //         std::uniform_int_distribution<int> distribution(0, compParkingsLarge.size() - 1);
+                //         solution.changeSolutionI(i, compParkingsLarge[distribution(generator)]);  
+                //     }
+                //     else
+                //     {
+                //         std::uniform_int_distribution<int> distribution(0, compParkings.size() - 1);
+                //         solution.changeSolutionI(i, compParkings[distribution(generator)]); 
 
-                    }
-                }
+                //     }
+                // }
+                std::uniform_int_distribution<int> distribution(0, compParkings.size() - 1);
+                solution.changeSolutionI(i, compParkings[distribution(generator)]); 
             }
 
             else 
             {
-                if (vectOperations[i].getNbTowing() == 3 &&
-                        ((vectParkings[posPark].getNature() == ParkNature::Contact))) // || (rdistribution(rgenerator) > exp(-T/50000)))) // p > rdistribution(rgenerator))) 
-                {
-                    std::uniform_int_distribution<int> distribution(0, compParkingsLarge.size() - 1);
-                    solution.changeSolutionI(i, compParkingsLarge[distribution(generator)]);
-                }
+                // if (vectOperations[i].getNbTowing() == 3 &&
+                //         ((vectParkings[posPark].getNature() == ParkNature::Contact))) // || (rdistribution(rgenerator) > exp(-T/50000)))) // p > rdistribution(rgenerator))) 
+                // {
+                //     std::uniform_int_distribution<int> distribution(0, compParkingsLarge.size() - 1);
+                //     solution.changeSolutionI(i, compParkingsLarge[distribution(generator)]);
+                // }
 
-                else if (vectOperations[i].getNbTowing() != 3 &&
+                if (vectOperations[i].getNbTowing() != 3 &&
                      ((vectParkings[posPark].getNature() == ParkNature::Large))) // || (rdistribution(rgenerator) > exp(-T/50000)))) //p > rdistribution(rgenerator))) 
                 {   
                     // if (distribution2(generator) > exp(-T/100))

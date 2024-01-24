@@ -169,10 +169,10 @@ Solution RecuitSimule::generateSolution(int compt)
     // vector<int>* test;
     if (operateurs.size() >= 2)
     {
-        if (compt < 2000)
+        if (compt < 10000)
         {
             operateurs[0]->setSolution(solutionCourante);
-            newSol = operateurs[0]->apply(T);
+            newSol = operateurs[0]->apply();
             // test = &(operateurs[0]->apply(T).getSolution());
         }
 
@@ -190,13 +190,14 @@ Solution RecuitSimule::generateSolution(int compt)
         //     solution = operateurs[1]->apply(T);
         //     // // cout << "cc1" << endl;
         // }
-        else if (compt == 2000)
+        else if (compt == 10000)
         {
-            cout << "2000" << endl;
+            cout << "10000" << endl;
+            T=0.1;
             solutionCourante = solutionGlobal;
             // solution = solutionGlobal;
             operateurs[1]->setSolution(solutionCourante);
-            newSol = operateurs[1]->apply(T);
+            newSol = operateurs[1]->apply();
         }
         // if (compt % 10 == 0)
         // {
@@ -208,13 +209,13 @@ Solution RecuitSimule::generateSolution(int compt)
         else
         {
             operateurs[1]->setSolution(solutionCourante);
-            newSol = operateurs[1]->apply(T);
+            newSol = operateurs[1]->apply();
             // cout << "M" << endl;
         }
     }
     else {
         operateurs[0]->setSolution(solutionCourante);
-        newSol = operateurs[0]->apply(T);
+        newSol = operateurs[0]->apply();
     }
     // cout << "generateSOlution done" << endl;
 

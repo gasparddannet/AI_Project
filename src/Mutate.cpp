@@ -8,7 +8,7 @@ class Mutate : public Operateur
 private:
 public:
     Mutate(int &sizeParkings, Solution &solution,vector<Operation> &vectOperations,vector<Parking> &vectParkings) : Operateur(sizeParkings,solution,vectOperations,vectParkings) {name = "Mutate";}
-    Solution* apply(double& T) override
+    Solution* apply() override
     {
         std::random_device rd;
         std::default_random_engine generator(rd());
