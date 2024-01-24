@@ -7,6 +7,7 @@
 #include <iostream>
 
 using namespace std;
+Solution::Solution() : solution({}) {}
 Solution::Solution(vector<int> solution) : solution(solution) {}
 
 Solution::Solution(const Solution &s)

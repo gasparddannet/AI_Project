@@ -14,6 +14,7 @@ class Solution
     vector<int> numberOnPark; //numberOnPark[i] = number of Stays that use Parking i
 
 public:
+    Solution();
     Solution(vector<int> solution);
     
     Solution(const Solution & s);

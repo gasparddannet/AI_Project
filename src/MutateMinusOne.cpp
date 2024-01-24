@@ -8,7 +8,7 @@ class MutateMinusOne : public Operateur
 private:
 public:
     MutateMinusOne(int &sizeParkings, Solution &solution,vector<Operation> &vectOperations,vector<Parking> &vectParkings) : Operateur(sizeParkings,solution,vectOperations,vectParkings) {name = "MutateMinusOne";}
-    Solution apply(double T) override
+    Solution* apply(double& T) override
     {
         // srand(time(NULL));
         // srand((int)time(0));
@@ -24,6 +24,6 @@ public:
                 solution.changeSolutionI(i, compParkings[distribution(generator)]);
             }
         }
-        return solution;
+        return &solution;
     }
 };

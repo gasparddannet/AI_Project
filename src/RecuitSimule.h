@@ -31,7 +31,7 @@ private:
     vector<Operateur*> operateurs;
 
     // Solution generateSolution(Solution solution, int sizeParkings);
-    Solution generateSolution(Solution &solution, int compt);
+    Solution generateSolution(int compt);
 };
 
 #endif // RECUITSIMULE_H

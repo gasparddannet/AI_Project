@@ -11,7 +11,7 @@ private:
 
 public:
     NonAllocAndContact(int &sizeParkings, Solution &solution, vector<Operation> &vectOperations, vector<Parking> &vectParkings) : Operateur(sizeParkings,solution,vectOperations,vectParkings) {name="NonAllocAndContact";}
-    Solution apply(double T) override
+    Solution* apply(double& T) override
     {
         std::random_device rd;
         std::default_random_engine generator(rd());
@@ -94,6 +94,6 @@ public:
                 }
             }
         }
-        return solution;
+        return &solution;
     }
 };

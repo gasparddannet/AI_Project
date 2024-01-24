@@ -10,7 +10,7 @@ private:
 
 public:
     RandomizeSubset(int &sizeParkings, Solution &solution, const vector<Operation> &vectOperations, const vector<Parking> &vectParkings) : Operateur(sizeParkings,solution,vectOperations,vectParkings) {name = "RandomizeSubset" ;}
-    Solution apply(double T) override
+    Solution* apply(double& T) override
     {
         std::random_device rd;
         std::default_random_engine generator(rd());
@@ -27,6 +27,6 @@ public:
             std::uniform_int_distribution<int> distribution3(0, compParkings.size() - 1);
             solution.changeSolutionI(k, compParkings[distribution3(generator)]);
         }
-        return solution;
+        return &solution;
     }
 };

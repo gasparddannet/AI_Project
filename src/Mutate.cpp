@@ -8,7 +8,7 @@ class Mutate : public Operateur
 private:
 public:
     Mutate(int &sizeParkings, Solution &solution,vector<Operation> &vectOperations,vector<Parking> &vectParkings) : Operateur(sizeParkings,solution,vectOperations,vectParkings) {name = "Mutate";}
-    Solution apply(double T) override
+    Solution* apply(double& T) override
     {
         std::random_device rd;
         std::default_random_engine generator(rd());
@@ -21,6 +21,6 @@ public:
         std::uniform_int_distribution<int> distribution2(0, compParkings.size() - 1);
         solution.changeSolutionI(i, compParkings[distribution2(generator)]);
 
-        return solution;
+        return &solution;
     }
 };

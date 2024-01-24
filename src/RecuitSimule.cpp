@@ -147,7 +147,7 @@ double RecuitSimule::fonctionObjectif(Solution solution, const vector<Parking> &
 }
 
 
-Solution RecuitSimule::generateSolution(Solution &solution, int compt)
+Solution RecuitSimule::generateSolution(int compt)
 {
     // if (operateur == "randomize" ) {
     //     solution.randomize(sizeParkings, vectOperations);
@@ -164,15 +164,16 @@ Solution RecuitSimule::generateSolution(Solution &solution, int compt)
 
     // solution.NonAllocAndContact(sizeParkings,vectOperations,vectParkings);
 
-    // Solution* sol;
-    Solution newsol(solution);
+    // const Solution* newSol;
+    Solution* newSol;
+    // vector<int>* test;
     if (operateurs.size() >= 2)
     {
-
         if (compt < 2000)
         {
-            operateurs[0]->setSolution(solution);
-            newsol = operateurs[0]->apply(T);
+            operateurs[0]->setSolution(solutionCourante);
+            newSol = operateurs[0]->apply(T);
+            // test = &(operateurs[0]->apply(T).getSolution());
         }
 
         // if (compt % 50 == 0)
@@ -193,9 +194,9 @@ Solution RecuitSimule::generateSolution(Solution &solution, int compt)
         {
             cout << "2000" << endl;
             solutionCourante = solutionGlobal;
-            solution = solutionGlobal;
-            operateurs[1]->setSolution(solution);
-            newsol = operateurs[1]->apply(T);
+            // solution = solutionGlobal;
+            operateurs[1]->setSolution(solutionCourante);
+            newSol = operateurs[1]->apply(T);
         }
         // if (compt % 10 == 0)
         // {
@@ -206,20 +207,18 @@ Solution RecuitSimule::generateSolution(Solution &solution, int compt)
         // }
         else
         {
-            operateurs[1]->setSolution(solution);
-            newsol = operateurs[1]->apply(T);
+            operateurs[1]->setSolution(solutionCourante);
+            newSol = operateurs[1]->apply(T);
             // cout << "M" << endl;
         }
-
-
     }
     else {
-        operateurs[0]->setSolution(solution);
-        newsol = operateurs[0]->apply(T);
+        operateurs[0]->setSolution(solutionCourante);
+        newSol = operateurs[0]->apply(T);
     }
     // cout << "generateSOlution done" << endl;
 
-    return newsol;
+    return *newSol;
 }
 
 void RecuitSimule::heatUp(double valeurCourante, const vector<Parking> &vectParkings, const vector<Operation> &vectOperations)
@@ -229,7 +228,7 @@ void RecuitSimule::heatUp(double valeurCourante, const vector<Parking> &vectPark
     double avg = 0;
     while (cpt <= 1000)
     {
-        Solution newSolution = generateSolution(solutionCourante, cpt);
+        Solution newSolution = generateSolution(cpt);
         newSolution = correctSolution(newSolution, vectParkings, vectOperations);
         double nouvelleValeur = fonctionObjectif(newSolution, vectParkings, vectOperations);
         double differenceValeur = nouvelleValeur - valeurCourante;
@@ -279,7 +278,7 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
         for (int i = 0; i < nbIterT; ++i)
         {
 
-            Solution newSolution = generateSolution(solutionCourante, compt);
+            Solution newSolution = generateSolution(compt);
 
             newSolution = correctSolution(newSolution, vectParkings, vectOperations);
             double nouvelleValeur = fonctionObjectif(newSolution, vectParkings, vectOperations);
