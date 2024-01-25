@@ -1,6 +1,10 @@
 I] Intro + Related Work
 
 
+
+detailler le plan dans la fin de l'intro
+
+
 II] Description, objectifs   ? Modelisation ?
 GAP,
 max allouée,
@@ -10,6 +14,7 @@ contrainte parkings, contraintes emploi du temps (chevauchement)
 
 + contrainte buffer (20 min) 
 + separation d'un stay en operations avec TTA, TTMA (remorquage)
+taxi way balek ?
 
 
 
