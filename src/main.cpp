@@ -17,6 +17,7 @@
 #include "Randomize.cpp"
 #include "MutateMinusOne.cpp"
 #include "Mutate.cpp"
+#include "Swap.cpp"
 
 using namespace std;
 
@@ -214,9 +215,11 @@ int main()
     RandomizeSubset opRS(sizeParkings,solutionInit,vectOperations,vectParkings);
     MutateMinusOne opMMO(sizeParkings,solutionInit,vectOperations,vectParkings);
     Mutate opM(sizeParkings,solutionInit,vectOperations,vectParkings);
+    Swap opS(sizeParkings,solutionInit,vectOperations,vectParkings);
 
     // vector<Operateur*> operateurs = {&opNAAC, &opRS};
-    vector<Operateur*> operateurs = {&opNAAC, &opM};
+    vector<Operateur*> operateurs = {&opS};
+
     RecuitSimule rs(nbIter, nbIterT, solutionInit, operateurs, T);
     Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations);
 

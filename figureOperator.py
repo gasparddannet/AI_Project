@@ -17,6 +17,7 @@ FIC_NAAC_RS = 'dataSolution/NonAllocAndContactANDRandomizeSubset.txt'
 FIC_NAAC_M = 'dataSolution/NonAllocAndContactANDMutate.txt'
 FIC_NAAC_MMO = 'dataSolution/NonAllocAndContactANDMutateMinusOne.txt'
 FIC_M_MMO = 'dataSolution/MutateANDMutateMinusOne.txt'
+FIC_S = 'dataSolution/Swap.txt'
 FIC = 'dataSolution/solution.txt'
 
 
@@ -68,6 +69,7 @@ def main() :
     a, y_NAAC = plotOperator(FIC_NAAC)
     a, y_MMO = plotOperator(FIC_MMO)
     a, y_RS = plotOperator(FIC_RS)
+    a, y_S = plotOperator(FIC_S)
 
     a, y_M = plotOperator(FIC_M)
     a, y_NAAC_M = plotOperator(FIC_NAAC_M)
@@ -79,9 +81,11 @@ def main() :
     plt.plot(a, y_MMO, label = "MutateMinusOne")
     plt.plot(a, y_M, label = "Mutate")
     # plt.plot(a, y_RS, label = "RandomizeSubset")
+    plt.plot(a, y_S, label="Swap")
     plt.plot(a, y_NAAC_M, label = "NAACandM")
     plt.plot(a, y_NAAC_MMO, label = "NAACandMMO")
     plt.plot(a, y_NAAC_RS, label = "NAACandRS")
+    
 
     plt.xlabel('Itération')
     plt.ylabel('Finesse')

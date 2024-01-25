@@ -1,0 +1,40 @@
+I] Intro + Related Work
+
+
+II] Description, objectifs   ? Modelisation ?
+GAP,
+max allouée,
+max contacts,
+
+contrainte parkings, contraintes emploi du temps (chevauchement) 
+
++ contrainte buffer (20 min) 
++ separation d'un stay en operations avec TTA, TTMA (remorquage)
+
+
+
+III] Resolution
+Simulated Annealing
+detailler operation, parking
+vecteur indice : operation, elmt : parkings
+
+- Operateurs
+
+
+IV] Resultats
+ - Operateur simple
+ - Combinaison opérateurs 
+	- simple combinaison (tous les 50,....)
+	- NAAC au debut 
+
+
+V] Conclusion
+bon resultats,
+NAAC bcp 
+mutate le OOAT, recherche locale 
+RS recherche bcp plus large (prend bcp lus de temps pour v=converger)
+
+
+ limite
+ autre modelisation
+(possibilité de contrainte d'ombrage,  )
