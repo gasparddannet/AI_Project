@@ -75,28 +75,54 @@ Solution RecuitSimule::correctSolution(Solution solution, const vector<Parking> 
 
                 if (startDate1 <= startDate2 && endDate1 + *p_buffer >= startDate2)
                 {
-                    int r = rdistribution(generator);
-                    if (r==1)
+                    int nbP1 = vectOperations[posStay1].getCompParkings().size();
+                    int nbP2 = vectOperations[posStay2].getCompParkings().size();
+                    if (nbP1 < nbP2)
                     {
                         sol[posStay2] = -1;
                     }
-                    else 
+                    else if (nbP1 > nbP2)
                     {
                         sol[posStay1] = -1;
+                    }
+                    else
+                    {
+                        int r = rdistribution(generator);
+                        if (r==1)
+                        {
+                            sol[posStay1] = -1;
+                        }
+                        else 
+                        {
+                            sol[posStay2] = -1;
+                        }
                     }
                     // cout << "Conflit1 startDate1 : " << startDate1 << " et endDate1 " << endDate1 << endl;
                     // cout << "Conflit1 startDate2 : " << startDate2 << " et endDate2 " << endDate2 << "\n"<< endl;
                 }
                 else if (startDate2 <= startDate1 && endDate2 + *p_buffer >= startDate1)
                 {
-                    int r = rdistribution(generator);
-                    if (r==1)
+                    int nbP1 = vectOperations[posStay1].getCompParkings().size();
+                    int nbP2 = vectOperations[posStay2].getCompParkings().size();
+                    if (nbP1 < nbP2)
                     {
                         sol[posStay2] = -1;
                     }
-                    else 
+                    else if (nbP1 > nbP2)
                     {
                         sol[posStay1] = -1;
+                    }
+                    else
+                    {
+                        int r = rdistribution(generator);
+                        if (r==1)
+                        {
+                            sol[posStay1] = -1;
+                        }
+                        else 
+                        {
+                            sol[posStay2] = -1;
+                        }
                     }
                     // cout << "Conflit2 startDate1 : " << startDate1 << " et endDate1 " << endDate1 << endl;
                     // cout << "Conflit2 startDate2 : " << startDate2 << " et endDate2 " << endDate2 << "\n"<< endl;
@@ -278,7 +304,6 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
     {
         for (int i = 0; i < nbIterT; ++i)
         {
-
             Solution newSolution = generateSolution(compt);
 
             newSolution = correctSolution(newSolution, vectParkings, vectOperations);
