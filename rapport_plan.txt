@@ -17,6 +17,8 @@ contrainte parkings, contraintes emploi du temps (chevauchement)
 taxi way balek ?
 
 
+detailler fonction objetfic ???
+
 
 III] Resolution
 Simulated Annealing
@@ -25,6 +27,8 @@ vecteur indice : operation, elmt : parkings
 
 - Operateurs
 
+
+NAAC déterministe
 
 IV] Resultats
  - Operateur simple
