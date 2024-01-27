@@ -17,4 +17,4 @@
 trash/
 .project
 .vs/
-# dataSolution/
+.~lock.*

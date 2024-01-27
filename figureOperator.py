@@ -16,9 +16,13 @@ FIC_SMS = 'dataSolution/SelectiveMutationSubset.txt'
 FIC_NAAC_RS = 'dataSolution/NonAllocAndContactANDRandomizeSubset.txt'
 FIC_NAAC_M = 'dataSolution/NonAllocAndContactANDMutate.txt'
 FIC_NAAC_MMO = 'dataSolution/NonAllocAndContactANDMutateMinusOne.txt'
+FIC_NAAC_S = 'dataSolution/NonAllocAndContactANDSwap.txt'
 FIC_M_MMO = 'dataSolution/MutateANDMutateMinusOne.txt'
+FIC_S = 'dataSolution/Swap.txt'
 FIC = 'dataSolution/solution.txt'
-
+FIC_S_M = 'dataSolution/SwapANDMutate.txt'
+FIC_S_RS = 'dataSolution/SwapANDRandomizeSubset.txt'
+FIC_S_MMO = 'dataSolution/SwapANDMutateMinusOne.txt'
 
 
 def read_txt(fic) :
@@ -65,23 +69,39 @@ def plotOperator(fic) :
     return abscisses, yValGlobale
 
 def main() :
+    # Operateur simple
     a, y_NAAC = plotOperator(FIC_NAAC)
     a, y_MMO = plotOperator(FIC_MMO)
     a_RS, y_RS = plotOperator(FIC_RS)
-
+    a, y_S = plotOperator(FIC_S)
     a, y_M = plotOperator(FIC_M)
+       
+    # Double opérateur
+    # NAAC 
     a, y_NAAC_M = plotOperator(FIC_NAAC_M)
     a, y_NAAC_RS = plotOperator(FIC_NAAC_RS)
     a, y_NAAC_MMO = plotOperator(FIC_NAAC_MMO)
+    a, y_NAAC_S = plotOperator(FIC_NAAC_S)
+    
+    #Swap
+    a, y_S_M = plotOperator(FIC_S_M)
+    a_S_RS,y_S_RS = plotOperator(FIC_S_RS)
+    a,y_S_MMO = plotOperator(FIC_S_MMO)
     
     plt.figure()
     plt.plot(a, y_NAAC, label = "NonAllocatedAndContact")
     plt.plot(a, y_MMO, label = "MutateMinusOne")
     plt.plot(a, y_M, label = "Mutate")
-    plt.plot(a_RS, y_RS, label = "RandomizeSubset")
+
+    # plt.plot(a, y_RS, label = "RandomizeSubset")
+    plt.plot(a, y_S, label="Swap")
     plt.plot(a, y_NAAC_M, label = "NAACandM")
     plt.plot(a, y_NAAC_MMO, label = "NAACandMMO")
     plt.plot(a, y_NAAC_RS, label = "NAACandRS")
+    plt.plot(a, y_NAAC_S, label = "NAACandS")
+    plt.plot(a, y_S_M, label = "SandM")
+    plt.plot(a_S_RS, y_S_RS, label = "SandRS")
+    plt.plot(a, y_S_MMO, label = "SandMMO")
 
     plt.xlabel('Itération')
     plt.ylabel('Finesse')

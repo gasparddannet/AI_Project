@@ -17,6 +17,7 @@
 #include "Randomize.cpp"
 #include "MutateMinusOne.cpp"
 #include "Mutate.cpp"
+#include "Swap.cpp"
 
 using namespace std;
 
@@ -214,61 +215,63 @@ int main()
     RandomizeSubset opRS(sizeParkings,solutionInit,vectOperations,vectParkings);
     MutateMinusOne opMMO(sizeParkings,solutionInit,vectOperations,vectParkings);
     Mutate opM(sizeParkings,solutionInit,vectOperations,vectParkings);
+    Swap opS(sizeParkings,solutionInit,vectOperations,vectParkings);
 
     // vector<Operateur*> operateurs = {&opNAAC, &opRS};
-    vector<Operateur*> operateurs = {&opNAAC, &opM};
+    vector<Operateur*> operateurs = {&opS,&opMMO};
+
     RecuitSimule rs(nbIter, nbIterT, solutionInit, operateurs, T);
     Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations);
 
     cout << "\n";
 
 
-    ofstream file("../dataSolution/test_file.csv");
-    if (!file.is_open())
-        throw std::runtime_error("Could not open file");
-    file << "Stay;BodyType;AircraftType;Towings;Arr_Number;Arr_Date;Arr_Hour;Dep_Number;Dep_Date;Dep_Hour;Parking 1;Contact 1;Zone 1;Start Date 1;Start Hour 1;End Date 1;End Hour 1" << endl;
+    // ofstream file("../dataSolution/test_file.csv");
+    // if (!file.is_open())
+    //     throw std::runtime_error("Could not open file");
+    // file << "Stay;BodyType;AircraftType;Towings;Arr_Number;Arr_Date;Arr_Hour;Dep_Number;Dep_Date;Dep_Hour;Parking 1;Contact 1;Zone 1;Start Date 1;Start Hour 1;End Date 1;End Hour 1" << endl;
     vector<int> vectSolGlobal = solGlobal.getSolution();
     // vector<int> vectSolGlobal = solutionInit.getSolution();
 
-    for (long unsigned int i = 0; i < vectSolGlobal.size(); i++)
-    {
-        int idStay = vectOperations[i].getIdStay();
-        vector<Stay>::iterator it;
-        int posStay;
-        // for (it=vectStays.begin(); it != vectStays.end(); it++) {
-        //     if (it->getId() == idStay) {
-        //         posStay = distance(vectStays.begin(), it);
-        //     }
-        // }
-        for (long unsigned int j=0; j<vectStays.size(); j++) {
-            if (vectStays[j].getId() == idStay) {
-                posStay = j;
-            }
-        }
+    // for (long unsigned int i = 0; i < vectSolGlobal.size(); i++)
+    // {
+    //     int idStay = vectOperations[i].getIdStay();
+    //     vector<Stay>::iterator it;
+    //     int posStay;
+    //     // for (it=vectStays.begin(); it != vectStays.end(); it++) {
+    //     //     if (it->getId() == idStay) {
+    //     //         posStay = distance(vectStays.begin(), it);
+    //     //     }
+    //     // }
+    //     for (long unsigned int j=0; j<vectStays.size(); j++) {
+    //         if (vectStays[j].getId() == idStay) {
+    //             posStay = j;
+    //         }
+    //     }
 
-        file << vectStays[posStay].getId() << ";";
-        file << vectStays[posStay].getBodyType() << ";";
-        file << vectStays[posStay].getAircraftType() << ";";
-        file << vectStays[posStay].getAuthorizedTowing() << ";";
-        file << vectStays[posStay].getArrNumber() << ";";
-        file << vectOperations[i].getArrDate() << ";";
-        file << vectStays[posStay].getDepNumber() << ";";
-        file << vectOperations[i].getDepDate() << ";";
-        if (vectSolGlobal[i] >= 0)
-        {
-            file << vectParkings[vectSolGlobal[i]].getName() << ";";
-            file << vectParkings[vectSolGlobal[i]].getNature() << ";";
-            file << vectParkings[vectSolGlobal[i]].getZone() << ";";
-            file << vectOperations[i].getArrDate() << ";";
-            file << vectOperations[i].getDepDate() << ";";
-        }
-        else {
-            cout << vectStays[posStay].getId() << " not allocated" << endl;
-        }
-        file << endl;
-    }
-    file.close();
-    // cout << "cc2" << endl;
+    //     file << vectStays[posStay].getId() << ";";
+    //     file << vectStays[posStay].getBodyType() << ";";
+    //     file << vectStays[posStay].getAircraftType() << ";";
+    //     file << vectStays[posStay].getAuthorizedTowing() << ";";
+    //     file << vectStays[posStay].getArrNumber() << ";";
+    //     file << vectOperations[i].getArrDate() << ";";
+    //     file << vectStays[posStay].getDepNumber() << ";";
+    //     file << vectOperations[i].getDepDate() << ";";
+    //     if (vectSolGlobal[i] >= 0)
+    //     {
+    //         file << vectParkings[vectSolGlobal[i]].getName() << ";";
+    //         file << vectParkings[vectSolGlobal[i]].getNature() << ";";
+    //         file << vectParkings[vectSolGlobal[i]].getZone() << ";";
+    //         file << vectOperations[i].getArrDate() << ";";
+    //         file << vectOperations[i].getDepDate() << ";";
+    //     }
+    //     else {
+    //         cout << vectStays[posStay].getId() << " not allocated" << endl;
+    //     }
+    //     file << endl;
+    // }
+    // file.close();
+    // // cout << "cc2" << endl;
 
     vector<vector<tuple<Date, Date, int>>> tempOccParking(sizeParkings); // tableau indexe par les parkings des tableaux des tuples startDate, startHour, endDate, endHour
     for (long unsigned int i = 0; i < vectSolGlobal.size(); i++)
