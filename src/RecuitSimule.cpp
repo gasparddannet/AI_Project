@@ -14,7 +14,7 @@ using namespace std;
 
 int _buffer = 20;
 
-RecuitSimule::RecuitSimule(int &nbIter, int &nbIterT, Solution &solutionCourante, vector<Operateur *> operateurs, double T = 200) : T(T), nbIter(nbIter), nbIterT(nbIterT), solutionCourante(solutionCourante), solutionGlobal(solutionCourante), operateurs(operateurs) {}
+RecuitSimule::RecuitSimule(int &nbIter, int &nbIterT, Solution &solutionCourante, vector<Operateur *> operateurs, double T = 200) : T(T),Tinit(T), nbIter(nbIter), nbIterT(nbIterT), solutionCourante(solutionCourante), solutionGlobal(solutionCourante), operateurs(operateurs) {}
 
 Solution RecuitSimule::correctSolution(Solution solution, const vector<Parking> &vectParkings, const vector<Operation> &vectOperations)
 {
@@ -262,7 +262,7 @@ void RecuitSimule::heatUp(double valeurCourante, const vector<Parking> &vectPark
     T = 0.5;
     int cpt = 0;
     double avg = 0;
-    while (cpt <= 1000)
+    while (cpt <= 10000)
     {
         Solution newSolution = generateSolution(cpt);
         newSolution = correctSolution(newSolution, vectParkings, vectOperations);
@@ -278,7 +278,7 @@ void RecuitSimule::heatUp(double valeurCourante, const vector<Parking> &vectPark
 void RecuitSimule::majT(float &acc)
 {
     // if (T < exp(-acc)) {
-    //     T += 17/acc  ;
+    //     T += Tinit/acc  ;
     //     acc += 1 ;
     // }
     // else
@@ -329,6 +329,18 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
                 std::cout << "T : " << T << " | compt : " << compt << endl;
                 std::cout << "Duration : " << time_span.count() << " seconds" << endl;
                 std::cout << "Valeur globale : " << valeurGlobale << endl;
+                TXTWrite writer;
+                if (operateurs.size() == 1)
+                {
+                    writer.setFilename(operateurs[0]->getName() + ".txt");
+                    writer.write(histoVal, operateurs[0]->getName());
+                }
+                else
+                {
+                    writer.setFilename(operateurs[0]->getName() + "AND" + operateurs[1]->getName() + ".txt");
+                    // writer.setFilename("solution.txt");
+                    writer.write(histoVal, operateurs[0]->getName() + "AND" + operateurs[1]->getName());
+                }
                 return solutionGlobal;
             }
 
@@ -381,32 +393,9 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
 
     std::cout << "T : " << T << " | compt : " << compt << endl;
     std::cout << "Duration : " << time_span.count() << " seconds" << endl;
-    // cout << "cc0" << endl;
-    // double vGlobal = fonctionObjectif(solutionGlobal, vectParkings, vectOperations);
-    // cout << "Valeur global : " << vGlobal << endl;
     std::cout << "Valeur globale : " << valeurGlobale << endl;
 
     TXTWrite writer;
-    // writer.write(histoT);
-
-    // cout << "Nom opérateur :" << operateur->getName() << endl ;
-
-    // if (operateur->getName() == "Randomize") {
-    //     writer.setFilename("histoValR.txt") ;
-    // }
-    // else if (operateur->getName() == "NonAllocAndContact") {
-    //     writer.setFilename("histoValNAAC.txt") ;
-    // }
-    // else if (operateur->getName() == "MutateMinusOne") {
-    //     writer.setFilename("histoValMMO.txt") ;
-    // }
-    // else if (operateur->getName() == "RandomizeSubset") {
-    //     writer.setFilename("histoValRS.txt") ;
-    // }
-    // else if (operateur->getName() == "SelectiveMutationSubset") {
-    //     writer.setFilename("histoValSMS.txt") ;
-    // }
-    // writer.write(histoVal, operateur->getName()) ;
     if (operateurs.size() == 1)
     {
         writer.setFilename(operateurs[0]->getName() + ".txt");

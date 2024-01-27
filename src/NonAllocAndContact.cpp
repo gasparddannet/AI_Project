@@ -94,6 +94,15 @@ public:
                     // }
 
                 }
+
+                // else 
+                // {
+                //     if (distribution2(generator) > exp(-T))
+                //     {
+                //         std::uniform_int_distribution<int> distribution(0, compParkingsLarge.size() - 1);
+                //         solution.changeSolutionI(i, compParkingsLarge[distribution(generator)]);  
+                //     }
+                // }
             }
         }
         return &solution;
