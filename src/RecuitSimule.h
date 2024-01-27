@@ -22,6 +22,7 @@ public:
     void heatUp(double valeurCourante, const vector<Parking> &vectParkings, const vector<Operation> &vectOperations);
     
 private:
+    double Tinit;
     double T;
     int nbIter; 
     int nbIterT;

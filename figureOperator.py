@@ -57,6 +57,7 @@ def plotOperator(fic) :
     plt.plot(abscisses, yNewVal, label = "New Val", color="blueviolet", alpha=0.5)
     plt.plot(abscisses, yValCourante, label = "Valeur Courante", color="blue")
     
+    
     # plt.plot(abscisses, yValT, label = "T")
     plt.xlabel('Itération')
     plt.ylabel('Finesse')
