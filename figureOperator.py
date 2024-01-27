@@ -67,7 +67,7 @@ def plotOperator(fic) :
 def main() :
     a, y_NAAC = plotOperator(FIC_NAAC)
     a, y_MMO = plotOperator(FIC_MMO)
-    a, y_RS = plotOperator(FIC_RS)
+    a_RS, y_RS = plotOperator(FIC_RS)
 
     a, y_M = plotOperator(FIC_M)
     a, y_NAAC_M = plotOperator(FIC_NAAC_M)
@@ -78,7 +78,7 @@ def main() :
     plt.plot(a, y_NAAC, label = "NonAllocatedAndContact")
     plt.plot(a, y_MMO, label = "MutateMinusOne")
     plt.plot(a, y_M, label = "Mutate")
-    # plt.plot(a, y_RS, label = "RandomizeSubset")
+    plt.plot(a_RS, y_RS, label = "RandomizeSubset")
     plt.plot(a, y_NAAC_M, label = "NAACandM")
     plt.plot(a, y_NAAC_MMO, label = "NAACandMMO")
     plt.plot(a, y_NAAC_RS, label = "NAACandRS")
