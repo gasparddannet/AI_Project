@@ -59,14 +59,14 @@ def plotOperator(fic) :
     # plt.plot(abscisses, yValT, label = "T")
     plt.xlabel('Itération')
     plt.ylabel('Finesse')
-    # plt.title(operateur)
+    plt.title(operateur)
     plt.legend()
     #plt.show()
     
-    plt.figure()
-    plt.plot(abscisses, yValT)
-    plt.xlabel("Iteration")
-    plt.ylabel("T")
+    # plt.figure()
+    # plt.plot(abscisses, yValT)
+    # plt.xlabel("Iteration")
+    # plt.ylabel("T")
     return abscisses, yValGlobale
 
 def main() :
