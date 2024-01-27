@@ -203,50 +203,50 @@ Solution RecuitSimule::generateSolution(int compt)
     // vector<int>* test;
     if (operateurs.size() >= 2)
     {
-        if (compt < 10000)
+        // if (compt < 10000)
+        // {
+        //     operateurs[0]->setSolution(solutionCourante);
+        //     newSol = operateurs[0]->apply();
+        //     // test = &(operateurs[0]->apply(T).getSolution());
+        // }
+        // else if (compt == 10000)
+        // {
+        //     cout << "10000" << endl;
+        //     T = 0.1;
+        //     solutionCourante = solutionGlobal;
+        //     // solution = solutionGlobal;
+        //     operateurs[1]->setSolution(solutionCourante);
+        //     newSol = operateurs[1]->apply();
+        // }
+
+        // else
+        // {
+        //     operateurs[1]->setSolution(solutionCourante);
+        //     newSol = operateurs[1]->apply();
+        //     // cout << "M" << endl;
+        // }
+
+        // On fait nbIterOp0 fois l'operateur 0 puis nbIterOp1 fois l'operateur 1, puis nbIterOp0 fois l'operateur 0...
+        int nbIterOp0 = 100;
+        int nbIterOp1 = 10;
+        if (compt % (nbIterOp1 + nbIterOp0) < nbIterOp0)
         {
             operateurs[0]->setSolution(solutionCourante);
             newSol = operateurs[0]->apply();
-            // test = &(operateurs[0]->apply(T).getSolution());
         }
-
+        else
+        {
+            operateurs[1]->setSolution(solutionCourante);
+            newSol = operateurs[1]->apply();
+        }
         // if (compt % 50 == 0)
         // {
         //     operateurs[0]->setSolution(solution);
         //     solution = operateurs[0]->apply(T);
         //     // cout << "cc0" << endl;
         // }
-
-        // // if (compt % 100 == 0)
-        // else
-        // {
-        //     operateurs[1]->setSolution(solution);
-        //     solution = operateurs[1]->apply(T);
-        //     // // cout << "cc1" << endl;
-        // }
-        else if (compt == 10000)
-        {
-            cout << "10000" << endl;
-            T = 0.1;
-            solutionCourante = solutionGlobal;
-            // solution = solutionGlobal;
-            operateurs[1]->setSolution(solutionCourante);
-            newSol = operateurs[1]->apply();
-        }
-        // if (compt % 10 == 0)
-        // {
-        //     operateurs[2]->setSolution(solution);
-        //     solution = (operateurs[2]->apply(T));
-        //     // sol = &sol2;
-        //     // cout << "MMO" << endl;
-        // }
-        else
-        {
-            operateurs[1]->setSolution(solutionCourante);
-            newSol = operateurs[1]->apply();
-            // cout << "M" << endl;
-        }
     }
+
     else
     {
         operateurs[0]->setSolution(solutionCourante);
