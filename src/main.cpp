@@ -25,8 +25,8 @@ using namespace std;
 // string StaysFile = "../Data/stays_9_08_2022.csv";
 
 string ParkingFile = "../Data/parkings.csv";
-string StaysFile = "../Data/stays_21_06_2016.csv";
-// string StaysFile = "../Data/stays_06_2016.csv";
+// string StaysFile = "../Data/stays_21_06_2016.csv";
+string StaysFile = "../Data/stays_06_2016.csv";
 int TTMA = 30;
 int TTMD = 60;
 
@@ -191,7 +191,7 @@ int main()
     // cout << endl;
 
     // int nbIter = 80000;
-    int nbIter = 70000;
+    int nbIter = 150000;
     int nbIterT = 100;
     double T = 20;
 
@@ -218,7 +218,7 @@ int main()
     Swap opS(sizeParkings,solutionInit,vectOperations,vectParkings);
 
     // vector<Operateur*> operateurs = {&opNAAC, &opRS};
-    vector<Operateur*> operateurs = {&opS,&opMMO};
+    vector<Operateur*> operateurs = {&opM, &opRS};
 
     RecuitSimule rs(nbIter, nbIterT, solutionInit, operateurs, T);
     Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations);

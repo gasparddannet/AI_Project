@@ -147,12 +147,18 @@ def plot(donnees):
         ax.set_yticklabels(label[i])
         ax.set_ylim(0, N_LABEL_PARK_ON_SCREEN + 1)
         xmin, xmax = min(starts[i]),max(ends[i])
+        nbJours = (xmax-xmin)//24
         ax.set_xlim(xmin, xmax)
 
         for h in range (int(xmin),int(xmax)) :
             if (h%24==0) :
                 ax.vlines(x=h, ymin=0,ymax=25, color='black', linestyle='--', linewidth=1, alpha=0.8)
-                ax.text(h, -2, f"{h//24}/06/16" , color='green', fontsize=12)
+                if nbJours > 9 :
+                    ax.text(h, -1.5, f"{h//24}/06/16" , color='green', fontsize=5)
+                elif nbJours < 5 :
+                    ax.text(h, -2, f"{h//24}/06/16" , color='green', fontsize=12)
+                else :
+                    ax.text(h, -1.5, f"{h//24}/06/16" , color='green', fontsize=8)
                 
 
         ax.set_xlabel('Heure',labelpad=12)
@@ -199,15 +205,20 @@ def plot_nas(data) :
             ax.set_ylim(0, N_NON_ALLOCATED_STAYS_ON_SCREEN + 1)
             # ax.set_xlim(min(starts[i]),max(ends[i]))
             xmin, xmax = min(starts),max(ends)
-            
+            nbJours = (xmax-xmin)//24
             ax.set_xlim(xmin,xmax)
             for h in range (int(xmin),int(xmax)) :
                 if (h%24==0) :
                     ax.vlines(x=h, ymin=0,ymax=25, color='black', linestyle='--', linewidth=1, alpha=0.8)
-                    ax.text(h, -2, f"{h//24}/06/16" , color='green', fontsize=12)
+                    if nbJours > 9 :
+                        ax.text(h, -2, f"{h//24}/06/16" , color='green', fontsize=5)
+                    elif nbJours < 5 :
+                        ax.text(h, -2.5, f"{h//24}/06/16" , color='green', fontsize=12)
+                    else :
+                        ax.text(h, -2.25, f"{h//24}/06/16" , color='green', fontsize=8)
                 
 
-            ax.set_xlabel('Heure')
+            ax.set_xlabel('Heure',labelpad=12)
             # ax.set_title("Non allocated stays  " + date)
             ax.set_title("Non allocated stays")
 

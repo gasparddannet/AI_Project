@@ -6,4 +6,4 @@ g++ TXTWrite.cpp Date.cpp Operation.cpp RecuitSimule.cpp Parking.cpp Stay.cpp Re
 
 cd ..
 
-python figureOperator.py
+
