@@ -191,7 +191,7 @@ int main()
     // cout << endl;
 
     // int nbIter = 80000;
-    int nbIter = 70000;
+    int nbIter = 150000;
     int nbIterT = 100;
     double T = 50;
 
@@ -218,7 +218,7 @@ int main()
     Swap opS(sizeParkings,solutionInit,vectOperations,vectParkings);
 
     // vector<Operateur*> operateurs = {&opNAAC, &opRS};
-    vector<Operateur*> operateurs = {&opMMO, &opM};
+    vector<Operateur*> operateurs = {&opM, &opRS};
 
     RecuitSimule rs(nbIter, nbIterT, solutionInit, operateurs, T);
     Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations);

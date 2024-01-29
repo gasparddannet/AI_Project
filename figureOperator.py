@@ -23,8 +23,9 @@ FIC = 'dataSolution/solution.txt'
 FIC_S_M = 'dataSolution/SwapANDMutate.txt'
 FIC_S_RS = 'dataSolution/SwapANDRandomizeSubset.txt'
 FIC_S_MMO = 'dataSolution/SwapANDMutateMinusOne.txt'
-FIC_RS_M = 'dataSolution/RandomizeSubsetANDMutate.txt'
-FIC_MMO_M = 'dataSolution/MutateMinusOneANDMutate.txt'
+FIC_RS_MMO = 'dataSolution/RandomizeSubsetANDMutateMinusOne.txt'
+FIC_M_RS = 'dataSolution/MutateANDRandomizeSubset.txt'
+
 
 def read_txt(fic) :
     with open(fic, "r") as file:
@@ -85,21 +86,30 @@ def main() :
     a, y_NAAC_MMO = plotOperator(FIC_NAAC_MMO)
     a, y_NAAC_S = plotOperator(FIC_NAAC_S)
     
-    #Swap
+    # Swap
     a, y_S_M = plotOperator(FIC_S_M)
     a_S_RS,y_S_RS = plotOperator(FIC_S_RS)
     a,y_S_MMO = plotOperator(FIC_S_MMO)
     
+    # MMO
+    a, y_RS_MMO = plotOperator(FIC_RS_MMO)
+    a, y_M_MMO = plotOperator(FIC_M_MMO)
     
-    a, y_RS_M = plotOperator(FIC_RS_M)
-    a, y_RS_M = plotOperator(FIC_MMO_M)
+    # M
+    a, y_M_RS = plotOperator(FIC_M_RS)
+    
     
     plt.figure()
+    
+    # Comparaison des opérateurs
+    
     plt.plot(a, y_NAAC, label = "NonAllocatedAndContact")
     plt.plot(a, y_MMO, label = "MutateMinusOne")
     plt.plot(a, y_M, label = "Mutate")
     plt.plot(a, y_RS, label = "RandomizeSubset")
     plt.plot(a, y_S, label="Swap")
+    
+    
     plt.plot(a, y_NAAC_M, label = "NAACandM")
     plt.plot(a, y_NAAC_MMO, label = "NAACandMMO")
     plt.plot(a, y_NAAC_RS, label = "NAACandRS")
@@ -107,6 +117,10 @@ def main() :
     plt.plot(a, y_S_M, label = "SandM")
     plt.plot(a_S_RS, y_S_RS, label = "SandRS")
     plt.plot(a, y_S_MMO, label = "SandMMO")
+    plt.plot(a, y_RS_MMO, label = "RSandMMO")
+    plt.plot(a, y_M_MMO, label = "MandMMO")
+    plt.plot(a, y_M_RS, label = "MandRS")
+
     plt.xlabel('Itération')
     plt.ylabel('Finesse')
     plt.legend()
