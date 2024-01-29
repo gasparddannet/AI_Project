@@ -7,7 +7,7 @@ using namespace std;
 
 class Date
 {
-    int jour,mois,annee;
+    int day,month,year;
     int hour, min;
     
     public:
@@ -17,9 +17,9 @@ class Date
         int comparer(const Date& d);
 
         virtual ~Date();
-        int getJour();
-        int getMois();
-        int getAnnee();
+        int getDay();
+        int getMonth();
+        int getYear();
         int getHour();
         int getMin();
         friend ostream & operator<<(ostream& o,const Date& d) ;

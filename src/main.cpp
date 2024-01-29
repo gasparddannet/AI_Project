@@ -25,8 +25,8 @@ using namespace std;
 // string StaysFile = "../Data/stays_9_08_2022.csv";
 
 string ParkingFile = "../Data/parkings.csv";
-string StaysFile = "../Data/stays_21_06_2016.csv";
-// string StaysFile = "../Data/stays_06_2016.csv";
+// string StaysFile = "../Data/stays_21_06_2016.csv";
+string StaysFile = "../Data/stays_06_2016.csv";
 int TTMA = 30;
 int TTMD = 60;
 
@@ -71,7 +71,7 @@ int main()
     /*******************************************************************/
     // vector<int> vectorDay;
     // for (Stay &s : vectStays) {
-    //     int day = s.getArrDate().getJour();
+    //     int day = s.getArrDate().getDay();
     //     if (!(std::find(vectorDay.begin(), vectorDay.end(), day) != vectorDay.end()))
     //     {
     //         vectorDay.push_back(day);
@@ -95,7 +95,7 @@ int main()
 
     //     for (Stay &s : vectStays)
     //     {
-    //         if (s.getArrDate().getJour() == d)
+    //         if (s.getArrDate().getDay() == d)
     //         {
     //             file << s.getId() << ";";
     //             file << s.getBodyType() << ";";
@@ -218,7 +218,7 @@ int main()
     Swap opS(sizeParkings,solutionInit,vectOperations,vectParkings);
 
     // vector<Operateur*> operateurs = {&opNAAC, &opRS};
-    vector<Operateur*> operateurs = {&opS,&opMMO};
+    vector<Operateur*> operateurs = {&opMMO, &opM};
 
     RecuitSimule rs(nbIter, nbIterT, solutionInit, operateurs, T);
     Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations);
@@ -263,20 +263,21 @@ int main()
     vector<tuple<int,int,int,int,int,int,int>> nonAllocatedStays;
     for (long unsigned int i = 0; i < vectSolGlobal.size(); i++) {
         if (vectSolGlobal[i] == -1) {
-            int idStay = vectOperations[i].getIdStay();
-            int posStay;
-            for (long unsigned int j=0; j<vectStays.size(); j++) {
-                if (vectStays[j].getId() == idStay)
-                {
-                    posStay = j;
-                }
-            }
+            // int idStay = vectOperations[i].getIdStay();
+            // int posStay;
+            // for (long unsigned int j=0; j<vectStays.size(); j++) {
+            //     if (vectStays[j].getId() == idStay)
+            //     {
+            //         posStay = j;
+            //     }
+            // }
             
-            Stay stay = vectStays[posStay];
+            // Stay stay = vectStays[posStay];
             Operation op = vectOperations[i];
             Date stayArrDate = op.getArrDate();
             Date stayDepDate = op.getDepDate();
-            nonAllocatedStays.push_back({stay.getId(),stayArrDate.getJour(), stayArrDate.getHour(),stayArrDate.getMin(),stayDepDate.getJour(),stayDepDate.getHour(),stayDepDate.getMin()});
+            nonAllocatedStays.push_back({op.getIdStay(),stayArrDate.getDay(), stayArrDate.getHour(),stayArrDate.getMin(),stayDepDate.getDay(),stayDepDate.getHour(),stayDepDate.getMin()});
+            cout << op.getIdStay() << " not allocated" << endl;
         }
     }
     TXTWrite writer("nonAllocatedStays.txt") ;

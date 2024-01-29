@@ -95,13 +95,10 @@ public:
 
                 }
 
-                // else 
+                // else if (rdistribution(generator) > 0.995)
                 // {
-                //     if (distribution2(generator) > exp(-T))
-                //     {
-                //         std::uniform_int_distribution<int> distribution(0, compParkingsLarge.size() - 1);
-                //         solution.changeSolutionI(i, compParkingsLarge[distribution(generator)]);  
-                //     }
+                //     std::uniform_int_distribution<int> distribution(0, compParkingsLarge.size() - 1);
+                //     solution.changeSolutionI(i, compParkingsLarge[distribution(generator)]);  
                 // }
             }
         }

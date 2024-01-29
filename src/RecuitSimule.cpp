@@ -227,8 +227,8 @@ Solution RecuitSimule::generateSolution(int compt)
         // }
 
         // On fait nbIterOp0 fois l'operateur 0 puis nbIterOp1 fois l'operateur 1, puis nbIterOp0 fois l'operateur 0...
-        int nbIterOp0 = 100;
-        int nbIterOp1 = 10;
+        int nbIterOp0 = 40;
+        int nbIterOp1 = 50;
         if (compt % (nbIterOp1 + nbIterOp0) < nbIterOp0)
         {
             operateurs[0]->setSolution(solutionCourante);

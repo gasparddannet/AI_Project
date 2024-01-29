@@ -2,7 +2,7 @@
 #include <iomanip>
 #include <iostream>
 
-Date::Date(int &j, int &m, int &a, int &h, int &min) : jour(j), mois(m), annee(a), hour(h), min(min)
+Date::Date(int &da, int &m, int &y, int &h, int &min) : day(da), month(m), year(y), hour(h), min(min)
 {
 }
 
@@ -13,17 +13,17 @@ Date::Date(int &j, int &m, int &a, int &h, int &min) : jour(j), mois(m), annee(a
 
 int Date::comparer(const Date &d)
 {
-    if (annee != d.annee)
+    if (year != d.year)
     {
-        if (annee < d.annee)
+        if (year < d.year)
             return -1;
         else
             return 1;
     }
-    else if (mois != d.mois)
-        return ((mois < d.mois) ? -1 : 1); // utilisation ici de l operateur ternaire
-    else if (jour != d.jour)
-        return ((jour < d.jour) ? -1 : 1);
+    else if (month != d.month)
+        return ((month < d.month) ? -1 : 1); // utilisation ici de l operateur ternaire
+    else if (day != d.day)
+        return ((day < d.day) ? -1 : 1);
     else if (hour != d.hour)
         return ((hour < d.hour) ? -1 : 1);
     else if (min != d.min)
@@ -38,20 +38,20 @@ Date::~Date()
     // affiche();
 }
 
-int Date::getJour() {return jour;}
-int Date::getMois() {return mois;}
-int Date::getAnnee() {return annee;}
+int Date::getDay() {return day;}
+int Date::getMonth() {return month;}
+int Date::getYear() {return year;}
 int Date::getHour() {return hour;}
 int Date::getMin() {return min;}
 
 
 ostream &operator<<(ostream &o, const Date &d)
 {
-    o << std::setw(2) << std::setfill('0') << d.jour;
+    o << std::setw(2) << std::setfill('0') << d.day;
     o << "/";
-    o << std::setw(2) << std::setfill('0') << d.mois;
+    o << std::setw(2) << std::setfill('0') << d.month;
     o << "/";
-    o << std::setw(4) << std::setfill('0') << d.annee;
+    o << std::setw(4) << std::setfill('0') << d.year;
     o << ";";
     o << std::setw(2) << std::setfill('0') << d.hour;
     o << ":";
@@ -66,7 +66,7 @@ ostream &operator<<(ostream &o, const Date &d)
 
 istream &operator>>(istream &i, Date &d)
 {
-    i >> d.jour >> d.mois >> d.annee >> d.hour >> d.min;
+    i >> d.day >> d.month >> d.year >> d.hour >> d.min;
     return i;
 }
 
@@ -127,12 +127,12 @@ int Date::ecart(const Date &d) // renvoie l'ecart (en minutes) entre deux dates
     if (this->operator>=(d))
     {
         int ecart;
-        if (jour == d.jour)
+        if (day == d.day)
         {
             ecart = hour * 60 + min - d.hour * 60 - d.min;
             return ecart;
         }
-        else if (mois == d.mois && annee == d.annee)
+        else if (month == d.month && year == d.year)
         {
             ecart = 24 * 60 - d.hour * 60 - d.min + hour * 60 + min;
             return ecart;
@@ -150,9 +150,9 @@ Date Date::operator+(const int &t)          // ajoute t minutes a la date
 {
     int hour2;
     int min2;
-    int jour2 = jour;   
+    int day2 = day;   
     if (hour*60+min + t >= 24*60) {
-        jour2 = jour-1;
+        day2 = day-1;
         int time = hour*60+min+t - 24*60;
         hour2 = time/60;
         min2 = time%60;
@@ -162,7 +162,7 @@ Date Date::operator+(const int &t)          // ajoute t minutes a la date
         hour2 = time/60;
         min2 = time % 60;
     }
-    return Date(jour2, mois, annee, hour2, min2);
+    return Date(day2, month, year, hour2, min2);
 }
 
 
@@ -170,9 +170,9 @@ Date Date::operator-(const int &t)          // enleve t minutes a la date
 {
     int hour2;
     int min2;
-    int jour2 = jour;
+    int day2 = day;
     if (hour*60+min - t <= 0) {
-        jour2 = jour-1;
+        day2 = day-1;
         int time = 24*60 - (hour*60+min-t);
         hour2 = time/60;
         min2 = time%60;
@@ -186,5 +186,5 @@ Date Date::operator-(const int &t)          // enleve t minutes a la date
         // cout << "hour : " << hour << std::endl;
         // cout << "min : " << min << std::endl;
     }
-    return Date(jour2, mois, annee, hour2, min2);
+    return Date(day2, month, year, hour2, min2);
 }
