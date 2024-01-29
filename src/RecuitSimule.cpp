@@ -203,39 +203,39 @@ Solution RecuitSimule::generateSolution(int compt)
     // vector<int>* test;
     if (operateurs.size() >= 2)
     {
-        if (compt < 10000)
-        {
-            operateurs[0]->setSolution(solutionCourante);
-            newSol = operateurs[0]->apply();
-        }
-        else if (compt == 10000)
-        {
-            cout << "10000" << endl;
-            T = 0.1;
-            solutionCourante = solutionGlobal;
-            operateurs[1]->setSolution(solutionCourante);
-            newSol = operateurs[1]->apply();
-        }
-
-        else
-        {
-            operateurs[1]->setSolution(solutionCourante);
-            newSol = operateurs[1]->apply();
-        }
-
-        // On fait nbIterOp0 fois l'operateur 0 puis nbIterOp1 fois l'operateur 1, puis nbIterOp0 fois l'operateur 0...
-        // int nbIterOp0 = 40;
-        // int nbIterOp1 = 50;
-        // if (compt % (nbIterOp1 + nbIterOp0) < nbIterOp0)
+        // if (compt < 10000)
         // {
         //     operateurs[0]->setSolution(solutionCourante);
         //     newSol = operateurs[0]->apply();
         // }
+        // else if (compt == 10000)
+        // {
+        //     cout << "10000" << endl;
+        //     T = 0.1;
+        //     solutionCourante = solutionGlobal;
+        //     operateurs[1]->setSolution(solutionCourante);
+        //     newSol = operateurs[1]->apply();
+        // }
+
         // else
         // {
         //     operateurs[1]->setSolution(solutionCourante);
         //     newSol = operateurs[1]->apply();
         // }
+
+        // On fait nbIterOp0 fois l'operateur 0 puis nbIterOp1 fois l'operateur 1, puis nbIterOp0 fois l'operateur 0...
+        int nbIterOp0 = 100;
+        int nbIterOp1 = 10;
+        if (compt % (nbIterOp1 + nbIterOp0) < nbIterOp0)
+        {
+            operateurs[0]->setSolution(solutionCourante);
+            newSol = operateurs[0]->apply();
+        }
+        else
+        {
+            operateurs[1]->setSolution(solutionCourante);
+            newSol = operateurs[1]->apply();
+        }
         // if (compt % 50 == 0)
         // {
         //     operateurs[0]->setSolution(solution);
