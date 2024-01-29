@@ -25,8 +25,8 @@ using namespace std;
 // string StaysFile = "../Data/stays_9_08_2022.csv";
 
 string ParkingFile = "../Data/parkings.csv";
-// string StaysFile = "../Data/stays_21_06_2016.csv";
-string StaysFile = "../Data/stays_06_2016.csv";
+string StaysFile = "../Data/stays_21_06_2016_bis.csv";
+// string StaysFile = "../Data/stays_06_2016.csv";
 int TTMA = 30;
 int TTMD = 60;
 
@@ -85,7 +85,7 @@ int main()
 
     // for (int& d:vectorDay)
     // {
-    //     string filename = "../Data/stays_" + to_string(d) + "_08_2022.csv";
+    //     string filename = "../Data/stays_" + to_string(d) + "_06_2016_bis.csv";
     //     cout << "filename : " << filename << endl;
     //     ofstream file(filename);
     //     if (!file.is_open())
@@ -95,7 +95,7 @@ int main()
 
     //     for (Stay &s : vectStays)
     //     {
-    //         if (s.getArrDate().getDay() == d)
+    //         if (s.getArrDate().getDay() <= d && s.getDepDate().getDay() >= d)
     //         {
     //             file << s.getId() << ";";
     //             file << s.getBodyType() << ";";
@@ -191,7 +191,7 @@ int main()
     // cout << endl;
 
     // int nbIter = 80000;
-    int nbIter = 150000;
+    int nbIter = 70000;
     int nbIterT = 100;
     double T = 50;
 
@@ -218,7 +218,7 @@ int main()
     Swap opS(sizeParkings,solutionInit,vectOperations,vectParkings);
 
     // vector<Operateur*> operateurs = {&opNAAC, &opRS};
-    vector<Operateur*> operateurs = {&opM, &opRS};
+    vector<Operateur*> operateurs = {&opNAAC};
 
     RecuitSimule rs(nbIter, nbIterT, solutionInit, operateurs, T);
     Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations);

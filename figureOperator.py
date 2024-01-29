@@ -100,16 +100,12 @@ def main() :
     
     
     plt.figure()
-    
     # Comparaison des opérateurs
-    
     plt.plot(a, y_NAAC, label = "NonAllocatedAndContact")
     plt.plot(a, y_MMO, label = "MutateMinusOne")
     plt.plot(a, y_M, label = "Mutate")
     plt.plot(a, y_RS, label = "RandomizeSubset")
     plt.plot(a, y_S, label="Swap")
-    
-    
     plt.plot(a, y_NAAC_M, label = "NAACandM")
     plt.plot(a, y_NAAC_MMO, label = "NAACandMMO")
     plt.plot(a, y_NAAC_RS, label = "NAACandRS")
