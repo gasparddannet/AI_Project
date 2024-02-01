@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import numpy as np
 
-FIC = 'dataSolution/test_file_parking_occ.csv'
+FIC = 'dataSolution/parking_occ.csv'
 # FIC_TEST_FILE = 'test_file.csv'
 # FIC_TEST_FILE = 'Data/stays_2F_090822.csv'
 FIC_TEST_FILE = 'Data/stays.csv'
@@ -147,8 +147,14 @@ def plot(donnees):
         ax.set_yticklabels(label[i])
         ax.set_ylim(0, N_LABEL_PARK_ON_SCREEN + 1)
         xmin, xmax = min(starts[i]),max(ends[i])
+        # print(xmin)
+        # print(xmax)
+        xmin = int(xmin)
+        xmax = int(xmax)
+        # print(np.arange(xmin, xmax, step = 6))
         nbJours = (xmax-xmin)//24
-        ax.set_xlim(xmin, xmax)
+        # ax.set_xlim(xmin, xmax)
+        ax.set_xticks(np.arange(xmin, xmax+2, step=8), labels=['{0:02}'.format(i%24) for i in np.arange(xmin, xmax+2, step=8)])   #str(i%24)
 
         for h in range (int(xmin),int(xmax)) :
             if (h%24==0) :
