@@ -218,8 +218,8 @@ int main()
     Mutate opM(sizeParkings,solutionInit,vectOperations,vectParkings);
     Swap opS(sizeParkings,solutionInit,vectOperations,vectParkings);
 
-    // vector<Operateur*> operateurs = {&opNAAC, &opM, &opNAAC};
-    vector<Operateur*> operateurs = {&opNAAC, &opMMO, &opM};
+    // vector<Operateur*> operateurs = {&opNAAC, &opRS};
+    vector<Operateur*> operateurs = {&opNAAC,&opM};
 
     RecuitSimule rs(nbIter, nbIterT, solutionInit, operateurs, T);
 
@@ -281,11 +281,9 @@ int main()
             Date stayDepDate = op.getDepDate();
             nonAllocatedStays.push_back({op.getIdStay(),stayArrDate.getDay(), stayArrDate.getHour(),stayArrDate.getMin(),stayDepDate.getDay(),stayDepDate.getHour(),stayDepDate.getMin()});
             cout << op.getIdStay() << " not allocated - " << op.getAircraftType() << endl;
-            // cptNonAlloc++;
         }
     }
-    // cout << "Nb non alloc : " << cptNonAlloc << endl;
-    cout << "Nb non alloc : " << nonAllocatedStays.size() << endl;
+    cout << "Nb non alloc :" << nonAllocatedStays.size() << endl ;
     TXTWrite writer("nonAllocatedStays.txt") ;
     writer.write(nonAllocatedStays);
 

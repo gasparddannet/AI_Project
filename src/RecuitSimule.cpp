@@ -216,26 +216,50 @@ Solution RecuitSimule::generateSolution(int compt)
             operateurs[1]->setSolution(solutionCourante);
             newSol = operateurs[1]->apply();
         }
-
         // /********************************************/
-        else if (compt < 20000)
-        {
-            operateurs[1]->setSolution(solutionCourante);
-            newSol = operateurs[1]->apply();
-        }
-        else if (compt == 20000)
-        {
-            cout << "20000" << endl;
-            solutionCourante = solutionGlobal;
-            operateurs[2]->setSolution(solutionCourante);
-            newSol = operateurs[2]->apply();
-        }
-        else 
-        {
-            operateurs[2]->setSolution(solutionCourante);
-            newSol = operateurs[2]->apply();
-        }
+        // else if (compt < 20000)
+        // {
+        //     operateurs[1]->setSolution(solutionCourante);
+        //     newSol = operateurs[1]->apply();
+        // }
+        // else if (compt == 20000)
+        // {
+        //     cout << "20000" << endl;
+        //     solutionCourante = solutionGlobal;
+        //     operateurs[2]->setSolution(solutionCourante);
+        //     newSol = operateurs[2]->apply();
+        // }
+        // else 
+        // {
+        //     operateurs[2]->setSolution(solutionCourante);
+        //     newSol = operateurs[2]->apply();
+        // }
         /*********************************************/
+        else
+        {
+            if (operateurs.size() == 3)
+            {
+                if (compt < 20000) {
+                    operateurs[1]->setSolution(solutionCourante);
+                    newSol = operateurs[1]->apply();
+                }
+                else  if (compt==20000) {
+                    cout << "20000" << endl;
+                    operateurs[2]->setSolution(solutionCourante);
+                    newSol = operateurs[2]->apply();
+                }
+                else {
+                    operateurs[2]->setSolution(solutionCourante);
+                    newSol = operateurs[2]->apply();
+                }
+            }
+            else 
+            {
+                operateurs[1]->setSolution(solutionCourante);
+                newSol = operateurs[1]->apply();
+            }
+        }
+        
 
         // else
         // {
@@ -282,18 +306,45 @@ Solution RecuitSimule::generateSolution(int compt)
         //     newSol = operateurs[2]->apply();
         // }
         /************************************/
-        // int nbIterOp0 = 100;
-        // int nbIterOp1 = 10;
+        // int nbIterOp0 = 50;
+        // int nbIterOp1 = 4;
         // int mod = compt % (nbIterOp0 + nbIterOp1);
         // if (mod < nbIterOp0)
         // {
         //     operateurs[0]->setSolution(solutionCourante);
         //     newSol = operateurs[0]->apply();
         // }
-        // else
+        // else if (compt == 10000)
         // {
+        //     cout << "10000" << endl;
+        //     T = 0.5;
+        //     solutionCourante = solutionGlobal;
         //     operateurs[1]->setSolution(solutionCourante);
         //     newSol = operateurs[1]->apply();
+        // }
+
+        // else
+        // {
+        //     if (operateurs.size() == 3)
+        //     {
+        //         int nbIterOp0 = 100;
+        //         int nbIterOp1 = 10;
+        //         if (compt % (nbIterOp1 + nbIterOp0) < nbIterOp0)
+        //         {
+        //             operateurs[1]->setSolution(solutionCourante);
+        //             newSol = operateurs[1]->apply();
+        //         }
+        //         else
+        //         {
+        //             operateurs[2]->setSolution(solutionCourante);
+        //             newSol = operateurs[2]->apply();
+        //         }
+        //     }
+        //     else 
+        //     {
+        //         operateurs[1]->setSolution(solutionCourante);
+        //         newSol = operateurs[1]->apply();
+        //     }
         // }
     }
 
