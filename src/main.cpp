@@ -24,9 +24,10 @@ using namespace std;
 // string ParkingFile = "../Data/parking_2F_2DLarge.csv";
 // string StaysFile = "../Data/stays_9_08_2022.csv";
 
-string ParkingFile = "../Data/parkings.csv";
-string StaysFile = "../Data/stays_26_06_2016_bis.csv";
-// string StaysFile = "../Data/stays_06_2016.csv";
+// string ParkingFile = "../Data/parkings.csv";
+string ParkingFile = "../Data/parkings_bis.csv";
+// string StaysFile = "../Data/stays_26_06_2016_bis.csv";
+string StaysFile = "../Data/stays_06_2016.csv";
 int TTMA = 30;
 int TTMD = 60;
 
@@ -46,6 +47,7 @@ int main()
 
 
     // int nbToErase = static_cast<int>(vectParkings.size()*0.1) ;
+    // nbToErase = 2;
     // vectParkings.erase(vectParkings.begin(),vectParkings.begin() + nbToErase);
     // cout << "nbr de Parking supprimé: " << nbToErase << endl;
 
@@ -141,7 +143,6 @@ int main()
     /*******************************************************************/
     /*******************************************************************/
 
-
     // From a Stay Vect to an Operation Vect
     vector<Operation> vectOperations;
     for (long unsigned int i=0; i<vectStays.size(); i++) {
@@ -153,16 +154,16 @@ int main()
         vector<int> emptyVec = {};
         int nbTowings = vectStays[i].getAuthorizedTowing();
         if (nbTowings == 0) {
-            vectOperations.push_back(Operation(idStay, arrDate, depDate, compatibleParkings.first, compatibleParkings.second, 0));
+            vectOperations.push_back(Operation(idStay, arrDate, depDate, compatibleParkings.first, compatibleParkings.second, 0, aircraftType));
         }
         else if (nbTowings == 1) {
-            vectOperations.push_back(Operation(idStay, arrDate, arrDate+TTMA, compatibleParkings.first, compatibleParkings.second, 1));
-            vectOperations.push_back(Operation(idStay, arrDate+TTMA, depDate, compatibleParkings.first, compatibleParkings.second, 1));
+            vectOperations.push_back(Operation(idStay, arrDate, arrDate+TTMA, compatibleParkings.first, compatibleParkings.second, 1, aircraftType));
+            vectOperations.push_back(Operation(idStay, arrDate+TTMA, depDate, compatibleParkings.first, compatibleParkings.second, 1, aircraftType));
         }
         else if (nbTowings == 2) {
-            vectOperations.push_back(Operation(idStay, arrDate, arrDate+TTMA, compatibleParkings.first, compatibleParkings.second, 2));
-            vectOperations.push_back(Operation(idStay, arrDate+TTMA, depDate-TTMD, emptyVec, compatibleParkings.second, 3));  
-            vectOperations.push_back(Operation(idStay, depDate-TTMD, depDate, compatibleParkings.first, compatibleParkings.second, 2));
+            vectOperations.push_back(Operation(idStay, arrDate, arrDate+TTMA, compatibleParkings.first, compatibleParkings.second, 2, aircraftType));
+            vectOperations.push_back(Operation(idStay, arrDate+TTMA, depDate-TTMD, emptyVec, compatibleParkings.second, 3, aircraftType));  
+            vectOperations.push_back(Operation(idStay, depDate-TTMD, depDate, compatibleParkings.first, compatibleParkings.second, 2, aircraftType));
         }
     }
 
@@ -191,7 +192,7 @@ int main()
     // cout << endl;
 
     // int nbIter = 80000;
-    int nbIter = 70000;
+    int nbIter = 100000;
     int nbIterT = 100;
     double T = 50;
 
@@ -217,10 +218,11 @@ int main()
     Mutate opM(sizeParkings,solutionInit,vectOperations,vectParkings);
     Swap opS(sizeParkings,solutionInit,vectOperations,vectParkings);
 
-    // vector<Operateur*> operateurs = {&opNAAC, &opRS};
-    vector<Operateur*> operateurs = {&opM, &opRS};
+    // vector<Operateur*> operateurs = {&opNAAC, &opM, &opNAAC};
+    vector<Operateur*> operateurs = {&opNAAC, &opMMO, &opM};
 
     RecuitSimule rs(nbIter, nbIterT, solutionInit, operateurs, T);
+
     Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations);
 
 
@@ -236,7 +238,7 @@ int main()
         if (posPark >= 0)
             tempOccParking[posPark].push_back({operation.getArrDate(), operation.getDepDate(), i});
     }
-    ofstream fileOccPark("../dataSolution/test_file_parking_occ.csv");
+    ofstream fileOccPark("../dataSolution/parking_occ.csv");
     if (!fileOccPark.is_open())
         throw std::runtime_error("Could not open file");
     fileOccPark << "Parking;Stay1;Start Date 1 ;Start Hour 1 ;End Date 1 ;End Hour 1;Stay2;Start Date 2 ;Start Hour 2 ;End Date 2 ;End Hour 2;Stay3;Start Date 3 ;Start Hour 3 ;End Date 3 ;End Hour 3;Stay4;Start Date 4 ;Start Hour 4 ;End Date 4 ;End Hour 4" << endl;
@@ -259,10 +261,11 @@ int main()
     fileOccPark.close();
 
 
-
+    // int cptNonAlloc = 0;
     vector<tuple<int,int,int,int,int,int,int>> nonAllocatedStays;
     for (long unsigned int i = 0; i < vectSolGlobal.size(); i++) {
-        if (vectSolGlobal[i] == -1) {
+        if (vectSolGlobal[i] == -1) 
+        {
             // int idStay = vectOperations[i].getIdStay();
             // int posStay;
             // for (long unsigned int j=0; j<vectStays.size(); j++) {
@@ -277,9 +280,12 @@ int main()
             Date stayArrDate = op.getArrDate();
             Date stayDepDate = op.getDepDate();
             nonAllocatedStays.push_back({op.getIdStay(),stayArrDate.getDay(), stayArrDate.getHour(),stayArrDate.getMin(),stayDepDate.getDay(),stayDepDate.getHour(),stayDepDate.getMin()});
-            cout << op.getIdStay() << " not allocated" << endl;
+            cout << op.getIdStay() << " not allocated - " << op.getAircraftType() << endl;
+            // cptNonAlloc++;
         }
     }
+    // cout << "Nb non alloc : " << cptNonAlloc << endl;
+    cout << "Nb non alloc : " << nonAllocatedStays.size() << endl;
     TXTWrite writer("nonAllocatedStays.txt") ;
     writer.write(nonAllocatedStays);
 

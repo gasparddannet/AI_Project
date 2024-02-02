@@ -217,29 +217,49 @@ Solution RecuitSimule::generateSolution(int compt)
             newSol = operateurs[1]->apply();
         }
 
-        else
+        // /********************************************/
+        else if (compt < 20000)
         {
-            if (operateurs.size() == 3)
-            {
-                int nbIterOp0 = 100;
-                int nbIterOp1 = 10;
-                if (compt % (nbIterOp1 + nbIterOp0) < nbIterOp0)
-                {
-                    operateurs[1]->setSolution(solutionCourante);
-                    newSol = operateurs[1]->apply();
-                }
-                else
-                {
-                    operateurs[2]->setSolution(solutionCourante);
-                    newSol = operateurs[2]->apply();
-                }
-            }
-            else 
-            {
-                operateurs[1]->setSolution(solutionCourante);
-                newSol = operateurs[1]->apply();
-            }
+            operateurs[1]->setSolution(solutionCourante);
+            newSol = operateurs[1]->apply();
         }
+        else if (compt == 20000)
+        {
+            cout << "20000" << endl;
+            solutionCourante = solutionGlobal;
+            operateurs[2]->setSolution(solutionCourante);
+            newSol = operateurs[2]->apply();
+        }
+        else 
+        {
+            operateurs[2]->setSolution(solutionCourante);
+            newSol = operateurs[2]->apply();
+        }
+        /*********************************************/
+
+        // else
+        // {
+        //     if (operateurs.size() == 3)
+        //     {
+        //         int nbIterOp0 = 100;
+        //         int nbIterOp1 = 10;
+        //         if (compt % (nbIterOp1 + nbIterOp0) < nbIterOp0)
+        //         {
+        //             operateurs[1]->setSolution(solutionCourante);
+        //             newSol = operateurs[1]->apply();
+        //         }
+        //         else
+        //         {
+        //             operateurs[2]->setSolution(solutionCourante);
+        //             newSol = operateurs[2]->apply();
+        //         }
+        //     }
+        //     else 
+        //     {
+        //         operateurs[1]->setSolution(solutionCourante);
+        //         newSol = operateurs[1]->apply();
+        //     }
+        // }
 
         // On fait nbIterOp0 fois l'operateur 0 puis nbIterOp1 fois l'operateur 1, puis nbIterOp0 fois l'operateur 0...
         // int nbIterOp0 = 100;
@@ -262,8 +282,8 @@ Solution RecuitSimule::generateSolution(int compt)
         //     newSol = operateurs[2]->apply();
         // }
         /************************************/
-        // int nbIterOp0 = 50;
-        // int nbIterOp1 = 50;
+        // int nbIterOp0 = 100;
+        // int nbIterOp1 = 10;
         // int mod = compt % (nbIterOp0 + nbIterOp1);
         // if (mod < nbIterOp0)
         // {

@@ -1,8 +1,8 @@
 #include "Operation.h"
 
         
-Operation::Operation(const int& idS, const Date& arrDate, const Date& depDate, const vector<int> compParkingsContact, const vector<int> compParkingsLarge, const int nbTowing):
-    idStay(idS), arrDate(arrDate), depDate(depDate), compatibleParkingsContact(compParkingsContact), compatibleParkingsLarge(compParkingsLarge), nbTowing(nbTowing) {}
+Operation::Operation(const int& idS, const Date& arrDate, const Date& depDate, const vector<int> compParkingsContact, const vector<int> compParkingsLarge, const int nbTowing, const string& aircraftType):
+    idStay(idS), arrDate(arrDate), depDate(depDate), compatibleParkingsContact(compParkingsContact), compatibleParkingsLarge(compParkingsLarge), nbTowing(nbTowing), aircraftType(aircraftType) {}
 
 Operation::~Operation() 
 {
@@ -44,4 +44,8 @@ const vector<int> Operation::getCompParkingsLarge() const {
 }
 const int Operation::getNbTowing() const {
     return nbTowing;
+}
+
+const string Operation::getAircraftType() const {
+    return aircraftType;
 }

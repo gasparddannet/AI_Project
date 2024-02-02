@@ -25,6 +25,13 @@ FIC_S_RS = 'dataSolution/SwapANDRandomizeSubset.txt'
 FIC_S_MMO = 'dataSolution/SwapANDMutateMinusOne.txt'
 FIC_RS_MMO = 'dataSolution/RandomizeSubsetANDMutateMinusOne.txt'
 FIC_M_RS = 'dataSolution/MutateANDRandomizeSubset.txt'
+FIC_NAAC_M_RS = 'dataSolution/NonAllocAndContactANDMutateANDRandomizeSubset.txt'
+FIC_NAAC_M_NAAC = 'dataSolution/NonAllocAndContactANDMutateANDNonAllocAndContact.txt'
+FIC_MMO_M = 'dataSolution/MutateMinusOneANDMutate.txt'
+FIC_MMO_M_MMO = 'dataSolution/MutateMinusOneANDMutateANDMutateMinusOne.txt'
+FIC_MMO_M_RS = 'dataSolution/MutateMinusOneANDMutateANDRandomizeSubset.txt'
+FIC_M_RS_MMO = 'dataSolution/MutateANDRandomizeSubsetANDMutateMinusOne.txt'
+FIC_NAAC_MMO_M = "dataSolution/NonAllocAndContactANDMutateMinusOneANDMutate.txt"
 
 
 def read_txt(fic) :
@@ -73,51 +80,64 @@ def plotOperator(fic) :
 
 def main() :
     # Operateur simple
-    a, y_NAAC = plotOperator(FIC_NAAC)
-    a, y_MMO = plotOperator(FIC_MMO)
-    a_RS, y_RS = plotOperator(FIC_RS)
-    a, y_S = plotOperator(FIC_S)
-    a, y_M = plotOperator(FIC_M)
+    a_NAAC, y_NAAC = plotOperator(FIC_NAAC)
+    a_MMO, y_MMO = plotOperator(FIC_MMO)
+    # a_RS, y_RS = plotOperator(FIC_RS)
+    # a, y_S = plotOperator(FIC_S)
+    a_M, y_M = plotOperator(FIC_M)
        
-    # Double opérateur
-    # NAAC 
+    # # Double opérateur
+    # # NAAC 
     a, y_NAAC_M = plotOperator(FIC_NAAC_M)
-    a, y_NAAC_RS = plotOperator(FIC_NAAC_RS)
+    # a, y_NAAC_RS = plotOperator(FIC_NAAC_RS)
     a, y_NAAC_MMO = plotOperator(FIC_NAAC_MMO)
-    a, y_NAAC_S = plotOperator(FIC_NAAC_S)
+    # a, y_NAAC_S = plotOperator(FIC_NAAC_S)
+    a_NAAC_MMO_M, y_NAAC_MMO_M = plotOperator(FIC_NAAC_MMO_M)
     
-    # Swap
-    a, y_S_M = plotOperator(FIC_S_M)
-    a_S_RS,y_S_RS = plotOperator(FIC_S_RS)
-    a,y_S_MMO = plotOperator(FIC_S_MMO)
+    # # Swap
+    # a, y_S_M = plotOperator(FIC_S_M)
+    # a_S_RS,y_S_RS = plotOperator(FIC_S_RS)
+    # a,y_S_MMO = plotOperator(FIC_S_MMO)
     
-    # MMO
-    a, y_RS_MMO = plotOperator(FIC_RS_MMO)
-    a, y_M_MMO = plotOperator(FIC_M_MMO)
+    # # MMO
+    # a, y_RS_MMO = plotOperator(FIC_RS_MMO)
+    # a, y_M_MMO = plotOperator(FIC_M_MMO)
+    a_MMO_M, y_MMO_M = plotOperator(FIC_MMO_M)
     
-    # M
+    # # M
     a, y_M_RS = plotOperator(FIC_M_RS)
     
+    # a, y_NAAC_M_RS = plotOperator(FIC_NAAC_M_RS)
+    # a, y_NAAC_M_NAAC = plotOperator(FIC_NAAC_M_NAAC)
+    
+    a, y_MMO_M_MMO = plotOperator(FIC_MMO_M_MMO)
+    a, y_MMO_M_RS = plotOperator(FIC_MMO_M_RS)
+    a_M_RS_MMO, y_M_RS_MMO = plotOperator(FIC_M_RS_MMO)
     
     plt.figure()
     # Comparaison des opérateurs
     plt.plot(a, y_NAAC, label = "NonAllocatedAndContact")
     plt.plot(a, y_MMO, label = "MutateMinusOne")
-    plt.plot(a, y_M, label = "Mutate")
-    plt.plot(a, y_RS, label = "RandomizeSubset")
-    plt.plot(a, y_S, label="Swap")
+    plt.plot(a_M, y_M, label = "Mutate")
+    # plt.plot(a, y_RS, label = "RandomizeSubset")
+    # plt.plot(a, y_S, label="Swap")
     plt.plot(a, y_NAAC_M, label = "NAACandM")
     plt.plot(a, y_NAAC_MMO, label = "NAACandMMO")
-    plt.plot(a, y_NAAC_RS, label = "NAACandRS")
-    plt.plot(a, y_NAAC_S, label = "NAACandS")
-    plt.plot(a, y_S_M, label = "SandM")
-    plt.plot(a_S_RS, y_S_RS, label = "SandRS")
-    plt.plot(a, y_S_MMO, label = "SandMMO")
-    plt.plot(a, y_RS_MMO, label = "RSandMMO")
-    plt.plot(a, y_M_MMO, label = "MandMMO")
+    # plt.plot(a, y_NAAC_RS, label = "NAACandRS")
+    # plt.plot(a, y_NAAC_S, label = "NAACandS")
+    # plt.plot(a, y_S_M, label = "SandM")
+    # plt.plot(a_S_RS, y_S_RS, label = "SandRS")
+    # plt.plot(a, y_S_MMO, label = "SandMMO")
+    # plt.plot(a, y_RS_MMO, label = "RSandMMO")
+    # plt.plot(a, y_M_MMO, label = "MandMMO")
     plt.plot(a, y_M_RS, label = "MandRS")
+    plt.plot(a_MMO_M, y_MMO_M, label = "MutateMinusOneANDMutate")
+    plt.plot(a, y_MMO_M_MMO, label = "MMOANDMutateANDMMO")
+    plt.plot(a, y_MMO_M_RS, label="MMOANDMutateANDRS")
+    plt.plot(a_M_RS_MMO, y_M_RS_MMO, label="MANDRSANDMMO")
+    plt.plot(a_NAAC_MMO_M, y_NAAC_MMO_M, label="NAACANDMMOANDM")
 
-    plt.xlabel('Itération')
+    plt.xlabel('Itération') 
     plt.ylabel('Finesse')
     plt.legend()
     
