@@ -25,8 +25,8 @@ using namespace std;
 // string StaysFile = "../Data/stays_9_08_2022.csv";
 
 string ParkingFile = "../Data/parkings.csv";
-string StaysFile = "../Data/stays_21_06_2016_bis.csv";
-// string StaysFile = "../Data/stays_06_2016.csv";
+// string StaysFile = "../Data/stays_26_06_2016_bis.csv";
+string StaysFile = "../Data/stays_06_2016.csv";
 int TTMA = 30;
 int TTMD = 60;
 
@@ -191,7 +191,7 @@ int main()
     // cout << endl;
 
     // int nbIter = 80000;
-    int nbIter = 70000;
+    int nbIter = 100000;
     int nbIterT = 100;
     double T = 50;
 
@@ -218,7 +218,7 @@ int main()
     Swap opS(sizeParkings,solutionInit,vectOperations,vectParkings);
 
     // vector<Operateur*> operateurs = {&opNAAC, &opRS};
-    vector<Operateur*> operateurs = {&opNAAC};
+    vector<Operateur*> operateurs = {&opM};
 
     RecuitSimule rs(nbIter, nbIterT, solutionInit, operateurs, T);
     Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations);
@@ -277,9 +277,10 @@ int main()
             Date stayArrDate = op.getArrDate();
             Date stayDepDate = op.getDepDate();
             nonAllocatedStays.push_back({op.getIdStay(),stayArrDate.getDay(), stayArrDate.getHour(),stayArrDate.getMin(),stayDepDate.getDay(),stayDepDate.getHour(),stayDepDate.getMin()});
-            cout << op.getIdStay() << " not allocated" << endl;
+            // cout << op.getIdStay() << " not allocated" << endl;
         }
     }
+    cout << "Nb non alloc :" << nonAllocatedStays.size() << endl ;
     TXTWrite writer("nonAllocatedStays.txt") ;
     writer.write(nonAllocatedStays);
 

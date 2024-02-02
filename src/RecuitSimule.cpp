@@ -203,45 +203,103 @@ Solution RecuitSimule::generateSolution(int compt)
     // vector<int>* test;
     if (operateurs.size() >= 2)
     {
-        if (compt < 10000)
+        // if (compt < 10000)
+        // {
+        //     operateurs[0]->setSolution(solutionCourante);
+        //     newSol = operateurs[0]->apply();
+        // }
+        // else if (compt == 10000)
+        // {
+        //     cout << "10000" << endl;
+        //     T = 0.5;
+        //     solutionCourante = solutionGlobal;
+        //     operateurs[1]->setSolution(solutionCourante);
+        //     newSol = operateurs[1]->apply();
+        // }
+        // else
+        // {
+        //     if (operateurs.size() == 3)
+        //     {
+        //         if (compt < 20000) {
+        //             operateurs[1]->setSolution(solutionCourante);
+        //             newSol = operateurs[1]->apply();
+        //         }
+        //         else  if (compt==20000) {
+        //             cout << "20000" << endl;
+        //             operateurs[2]->setSolution(solutionCourante);
+        //             newSol = operateurs[2]->apply();
+        //         }
+        //         else {
+        //             operateurs[2]->setSolution(solutionCourante);
+        //             newSol = operateurs[2]->apply();
+        //         }
+        //     }
+        //     else 
+        //     {
+        //         operateurs[1]->setSolution(solutionCourante);
+        //         newSol = operateurs[1]->apply();
+        //     }
+        // }
+        
+
+        // else
+        // {
+        //     if (operateurs.size() == 3)
+        //     {
+        //         int nbIterOp0 = 100;
+        //         int nbIterOp1 = 10;
+        //         if (compt % (nbIterOp1 + nbIterOp0) < nbIterOp0)
+        //         {
+        //             operateurs[1]->setSolution(solutionCourante);
+        //             newSol = operateurs[1]->apply();
+        //         }
+        //         else
+        //         {
+        //             operateurs[2]->setSolution(solutionCourante);
+        //             newSol = operateurs[2]->apply();
+        //         }
+        //     }
+        //     else 
+        //     {
+        //         operateurs[1]->setSolution(solutionCourante);
+        //         newSol = operateurs[1]->apply();
+        //     }
+        // }
+
+        // On fait nbIterOp0 fois l'operateur 0 puis nbIterOp1 fois l'operateur 1, puis nbIterOp0 fois l'operateur 0...
+        // int nbIterOp0 = 100;
+        // int nbIterOp1 = 10;
+        // int nbIterOp2 = 1;
+        // int mod = compt % (nbIterOp0 + nbIterOp1 + nbIterOp2);
+        // if (mod < nbIterOp0)
+        // {
+        //     operateurs[0]->setSolution(solutionCourante);
+        //     newSol = operateurs[0]->apply();
+        // }
+        // else if (mod < nbIterOp1)
+        // {
+        //     operateurs[1]->setSolution(solutionCourante);
+        //     newSol = operateurs[1]->apply();
+        // }
+        // else
+        // {
+        //     operateurs[2]->setSolution(solutionCourante);
+        //     newSol = operateurs[2]->apply();
+        // }
+        /************************************/
+        int nbIterOp0 = 50;
+        int nbIterOp1 = 4;
+        int mod = compt % (nbIterOp0 + nbIterOp1);
+        if (mod < nbIterOp0)
         {
             operateurs[0]->setSolution(solutionCourante);
             newSol = operateurs[0]->apply();
         }
-        else if (compt == 10000)
-        {
-            cout << "10000" << endl;
-            T = 0.1;
-            solutionCourante = solutionGlobal;
-            operateurs[1]->setSolution(solutionCourante);
-            newSol = operateurs[1]->apply();
-        }
-
         else
         {
             operateurs[1]->setSolution(solutionCourante);
             newSol = operateurs[1]->apply();
         }
-
-        // On fait nbIterOp0 fois l'operateur 0 puis nbIterOp1 fois l'operateur 1, puis nbIterOp0 fois l'operateur 0...
-        // int nbIterOp0 = 40;
-        // int nbIterOp1 = 50;
-        // if (compt % (nbIterOp1 + nbIterOp0) < nbIterOp0)
-        // {
-        //     operateurs[0]->setSolution(solutionCourante);
-        //     newSol = operateurs[0]->apply();
-        // }
-        // else
-        // {
-        //     operateurs[1]->setSolution(solutionCourante);
-        //     newSol = operateurs[1]->apply();
-        // }
-        // if (compt % 50 == 0)
-        // {
-        //     operateurs[0]->setSolution(solution);
-        //     solution = operateurs[0]->apply(T);
-        //     // cout << "cc0" << endl;
-        // }
     }
 
     else
@@ -304,6 +362,8 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
     vector<double> histoT;
     vector<tuple<double, double, double, double>> histoVal;
     // while (T > 0.05 && compt < nbIter)
+    histoVal.push_back({valeurCourante, valeurGlobale, valeurCourante, T});
+
     while (compt < nbIter)
     {
         for (int i = 0; i < nbIterT; ++i)
@@ -397,6 +457,12 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
     {
         writer.setFilename(operateurs[0]->getName() + ".txt");
         writer.write(histoVal, operateurs[0]->getName());
+    }
+    else if (operateurs.size() == 3)
+    {
+        writer.setFilename(operateurs[0]->getName() + "AND" + operateurs[1]->getName() + "AND" + operateurs[2]->getName() + ".txt");
+        // writer.setFilename("solution.txt");
+        writer.write(histoVal, operateurs[0]->getName() + "AND" + operateurs[1]->getName() + "AND" + operateurs[2]->getName());
     }
     else
     {
