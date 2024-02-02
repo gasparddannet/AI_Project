@@ -135,10 +135,10 @@ def plot(donnees):
             width = N_LABEL_PARK_ON_SCREEN/40
             # rectangle = patches.Rectangle((start, y[k]-width), end - start, 0.5, edgecolor=couleurs[int(j/5)], facecolor=couleurs[int(j/5)])
             color = colorsTypeAircraft[dictStayAircraftType[stay]]
-            rectangle = patches.Rectangle((start, y[k]-width), end - start, 0.5, edgecolor=color, facecolor=color)
+            rectangle = patches.Rectangle((start, y[k]-0.5/2), end - start, 0.5, edgecolor=color, facecolor=color, alpha=0.75)
             fig,ax = figax[num_fig]
             ax.add_patch(rectangle)
-            ax.text((start + end) / 2, y[k] + 0.4, stay,
+            ax.text((start + end) / 2, y[k], stay,
                     ha='center', va='center', color='black', size=8)
     
     
@@ -158,7 +158,7 @@ def plot(donnees):
 
         for h in range (int(xmin),int(xmax)) :
             if (h%24==0) :
-                ax.vlines(x=h, ymin=0,ymax=25, color='black', linestyle='--', linewidth=1, alpha=0.8)
+                ax.vlines(x=h, ymin=0,ymax=50, color='black', linestyle='--', linewidth=1, alpha=0.8)
                 if nbJours > 9 :
                     ax.text(h, -1.5, f"{h//24}/06/16" , color='green', fontsize=5)
                 elif nbJours < 5 :
@@ -202,10 +202,10 @@ def plot_nas(data) :
             ends.append(end)
             
             width = N_NON_ALLOCATED_STAYS_ON_SCREEN/40
-            rectangle = patches.Rectangle((start, y_bis[k]-width), end - start, 0.5, edgecolor='r', facecolor='r')
+            rectangle = patches.Rectangle((start, y_bis[k]-0.5/2), end - start, 0.5, edgecolor='r', facecolor='r')
             fig,ax = figax[num_fig]
             ax.add_patch(rectangle)
-            ax.text((start + end) / 2, y_bis[k]-0.1, id_stay,
+            ax.text((start + end) / 2, y_bis[k], id_stay,
                     ha='center', va='center', color='black', size=7)
         for i,(fig,ax) in enumerate(figax) :
             ax.set_ylim(0, N_NON_ALLOCATED_STAYS_ON_SCREEN + 1)
@@ -219,7 +219,7 @@ def plot_nas(data) :
             ax.set_xlim(xmin,xmax)
             for h in range (int(xmin),int(xmax)) :
                 if (h%24==0) :
-                    ax.vlines(x=h, ymin=0,ymax=25, color='black', linestyle='--', linewidth=1, alpha=0.8)
+                    ax.vlines(x=h, ymin=0,ymax=50, color='black', linestyle='--', linewidth=1, alpha=0.8)
                     if nbJours > 9 :
                         ax.text(h, -2, f"{h//24}/06/16" , color='green', fontsize=5)
                     elif nbJours < 5 :
