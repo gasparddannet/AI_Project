@@ -154,7 +154,7 @@ def plot(donnees):
         # print(np.arange(xmin, xmax, step = 6))
         nbJours = (xmax-xmin)//24
         # ax.set_xlim(xmin, xmax)
-        ax.set_xticks(np.arange(xmin, xmax+2, step=8), labels=['{0:02}'.format(i%24) for i in np.arange(xmin, xmax+2, step=8)])   #str(i%24)
+        ax.set_xticks(np.arange(xmin, xmax+2, step=8), labels=['{0:02}:00'.format(i%24) for i in np.arange(xmin, xmax+2, step=8)])   #str(i%24)
 
         for h in range (int(xmin),int(xmax)) :
             if (h%24==0) :
@@ -210,7 +210,11 @@ def plot_nas(data) :
         for i,(fig,ax) in enumerate(figax) :
             ax.set_ylim(0, N_NON_ALLOCATED_STAYS_ON_SCREEN + 1)
             # ax.set_xlim(min(starts[i]),max(ends[i]))
-            xmin, xmax = min(starts),max(ends)
+            xmin, xmax = int(min(starts)), int(max(ends))
+            
+            
+            ax.set_xticks(np.arange(xmin, xmax+2, step=8), labels=['{0:02}:00'.format(i%24) for i in np.arange(xmin, xmax+2, step=8)]) 
+            
             nbJours = (xmax-xmin)//24
             ax.set_xlim(xmin,xmax)
             for h in range (int(xmin),int(xmax)) :
