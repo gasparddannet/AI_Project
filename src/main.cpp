@@ -25,8 +25,8 @@ using namespace std;
 // string StaysFile = "../Data/stays_9_08_2022.csv";
 
 string ParkingFile = "../Data/parkings.csv";
-// string StaysFile = "../Data/stays_26_06_2016_bis.csv";
-string StaysFile = "../Data/stays_06_2016.csv";
+string StaysFile = "../Data/stays_26_06_2016_bis.csv";
+// string StaysFile = "../Data/stays_06_2016.csv";
 int TTMA = 30;
 int TTMD = 60;
 
@@ -218,7 +218,7 @@ int main()
     Swap opS(sizeParkings,solutionInit,vectOperations,vectParkings);
 
     // vector<Operateur*> operateurs = {&opNAAC, &opRS};
-    vector<Operateur*> operateurs = {&opM};
+    vector<Operateur*> operateurs = {&opNAAC,&opM};
 
     RecuitSimule rs(nbIter, nbIterT, solutionInit, operateurs, T);
     Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations);
@@ -236,7 +236,7 @@ int main()
         if (posPark >= 0)
             tempOccParking[posPark].push_back({operation.getArrDate(), operation.getDepDate(), i});
     }
-    ofstream fileOccPark("../dataSolution/test_file_parking_occ.csv");
+    ofstream fileOccPark("../dataSolution/parking_occ.csv");
     if (!fileOccPark.is_open())
         throw std::runtime_error("Could not open file");
     fileOccPark << "Parking;Stay1;Start Date 1 ;Start Hour 1 ;End Date 1 ;End Hour 1;Stay2;Start Date 2 ;Start Hour 2 ;End Date 2 ;End Hour 2;Stay3;Start Date 3 ;Start Hour 3 ;End Date 3 ;End Hour 3;Stay4;Start Date 4 ;Start Hour 4 ;End Date 4 ;End Hour 4" << endl;
