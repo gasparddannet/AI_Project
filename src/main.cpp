@@ -24,9 +24,10 @@ using namespace std;
 // string ParkingFile = "../Data/parking_2F_2DLarge.csv";
 // string StaysFile = "../Data/stays_9_08_2022.csv";
 
-string ParkingFile = "../Data/parkings.csv";
-string StaysFile = "../Data/stays_26_06_2016_bis.csv";
-// string StaysFile = "../Data/stays_06_2016.csv";
+// string ParkingFile = "../Data/parkings.csv";
+string ParkingFile = "../Data/parkings_bis.csv";
+// string StaysFile = "../Data/stays_26_06_2016_bis.csv";
+string StaysFile = "../Data/stays_06_2016.csv";
 int TTMA = 30;
 int TTMD = 60;
 
@@ -46,6 +47,7 @@ int main()
 
 
     // int nbToErase = static_cast<int>(vectParkings.size()*0.1) ;
+    // nbToErase = 2;
     // vectParkings.erase(vectParkings.begin(),vectParkings.begin() + nbToErase);
     // cout << "nbr de Parking supprimé: " << nbToErase << endl;
 
@@ -141,7 +143,6 @@ int main()
     /*******************************************************************/
     /*******************************************************************/
 
-
     // From a Stay Vect to an Operation Vect
     vector<Operation> vectOperations;
     for (long unsigned int i=0; i<vectStays.size(); i++) {
@@ -153,16 +154,16 @@ int main()
         vector<int> emptyVec = {};
         int nbTowings = vectStays[i].getAuthorizedTowing();
         if (nbTowings == 0) {
-            vectOperations.push_back(Operation(idStay, arrDate, depDate, compatibleParkings.first, compatibleParkings.second, 0));
+            vectOperations.push_back(Operation(idStay, arrDate, depDate, compatibleParkings.first, compatibleParkings.second, 0, aircraftType));
         }
         else if (nbTowings == 1) {
-            vectOperations.push_back(Operation(idStay, arrDate, arrDate+TTMA, compatibleParkings.first, compatibleParkings.second, 1));
-            vectOperations.push_back(Operation(idStay, arrDate+TTMA, depDate, compatibleParkings.first, compatibleParkings.second, 1));
+            vectOperations.push_back(Operation(idStay, arrDate, arrDate+TTMA, compatibleParkings.first, compatibleParkings.second, 1, aircraftType));
+            vectOperations.push_back(Operation(idStay, arrDate+TTMA, depDate, compatibleParkings.first, compatibleParkings.second, 1, aircraftType));
         }
         else if (nbTowings == 2) {
-            vectOperations.push_back(Operation(idStay, arrDate, arrDate+TTMA, compatibleParkings.first, compatibleParkings.second, 2));
-            vectOperations.push_back(Operation(idStay, arrDate+TTMA, depDate-TTMD, emptyVec, compatibleParkings.second, 3));  
-            vectOperations.push_back(Operation(idStay, depDate-TTMD, depDate, compatibleParkings.first, compatibleParkings.second, 2));
+            vectOperations.push_back(Operation(idStay, arrDate, arrDate+TTMA, compatibleParkings.first, compatibleParkings.second, 2, aircraftType));
+            vectOperations.push_back(Operation(idStay, arrDate+TTMA, depDate-TTMD, emptyVec, compatibleParkings.second, 3, aircraftType));  
+            vectOperations.push_back(Operation(idStay, depDate-TTMD, depDate, compatibleParkings.first, compatibleParkings.second, 2, aircraftType));
         }
     }
 
@@ -221,6 +222,7 @@ int main()
     vector<Operateur*> operateurs = {&opNAAC,&opM};
 
     RecuitSimule rs(nbIter, nbIterT, solutionInit, operateurs, T);
+
     Solution solGlobal = rs.recuitSimule(vectParkings, vectOperations);
 
 
@@ -259,10 +261,11 @@ int main()
     fileOccPark.close();
 
 
-
+    // int cptNonAlloc = 0;
     vector<tuple<int,int,int,int,int,int,int>> nonAllocatedStays;
     for (long unsigned int i = 0; i < vectSolGlobal.size(); i++) {
-        if (vectSolGlobal[i] == -1) {
+        if (vectSolGlobal[i] == -1) 
+        {
             // int idStay = vectOperations[i].getIdStay();
             // int posStay;
             // for (long unsigned int j=0; j<vectStays.size(); j++) {
@@ -277,7 +280,7 @@ int main()
             Date stayArrDate = op.getArrDate();
             Date stayDepDate = op.getDepDate();
             nonAllocatedStays.push_back({op.getIdStay(),stayArrDate.getDay(), stayArrDate.getHour(),stayArrDate.getMin(),stayDepDate.getDay(),stayDepDate.getHour(),stayDepDate.getMin()});
-            // cout << op.getIdStay() << " not allocated" << endl;
+            cout << op.getIdStay() << " not allocated - " << op.getAircraftType() << endl;
         }
     }
     cout << "Nb non alloc :" << nonAllocatedStays.size() << endl ;

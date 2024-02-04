@@ -14,12 +14,13 @@ class Operation
     const Date depDate;
     int idParking;
     int nbTowing;
+    const string aircraftType;
 
     const vector<int> compatibleParkingsContact;
     const vector<int> compatibleParkingsLarge;
 
     public:
-        Operation(const int& idStays, const Date& arrDate, const Date& depDate, const vector<int> compParkingsContact, const vector<int> compParkingsLarge, const int nbTowing);
+        Operation(const int& idStays, const Date& arrDate, const Date& depDate, const vector<int> compParkingsContact, const vector<int> compParkingsLarge, const int nbTowing, const string& aircraftType);
         ~Operation();
         void setIdParkind(int idP);
         int getIdParking() const;
@@ -30,8 +31,7 @@ class Operation
         const vector<int> getCompParkingsContact() const;
         const vector<int> getCompParkingsLarge() const;
         const int getNbTowing() const;
-
-
+        const string getAircraftType() const;
 };
 
 #endif

@@ -216,6 +216,25 @@ Solution RecuitSimule::generateSolution(int compt)
             operateurs[1]->setSolution(solutionCourante);
             newSol = operateurs[1]->apply();
         }
+        // /********************************************/
+        // else if (compt < 20000)
+        // {
+        //     operateurs[1]->setSolution(solutionCourante);
+        //     newSol = operateurs[1]->apply();
+        // }
+        // else if (compt == 20000)
+        // {
+        //     cout << "20000" << endl;
+        //     solutionCourante = solutionGlobal;
+        //     operateurs[2]->setSolution(solutionCourante);
+        //     newSol = operateurs[2]->apply();
+        // }
+        // else 
+        // {
+        //     operateurs[2]->setSolution(solutionCourante);
+        //     newSol = operateurs[2]->apply();
+        // }
+        /*********************************************/
         else
         {
             if (operateurs.size() == 3)
