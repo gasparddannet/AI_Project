@@ -5,8 +5,6 @@
 
 using namespace std;
 
-// string ParkingFile = "Data/parking_2F_2DLarge.csv";
-
 Parking::Parking(string n,string z, string t, ParkNature na, vector<string> tA):
     name(n), zone(z), terminal(t), nature(na), typeAvion(tA) {}
 
@@ -35,41 +33,6 @@ Parking &Parking::operator=(const Parking &p)
     return *this;
 }
 
-// static const vector<Parking> readParking() {
-//     vector<Parking> vectParking;
-
-//     ifstream file(ParkingFile);
-
-//     // Make sure the file is open
-//     if(!file.is_open()) throw std::runtime_error("Could not open file");
-
-//     string line, colname;
-//     int val;
-//     getline(file, line); 
-//     while (getline(file, line)) {
-//         cout << line << endl;
-//     }   
-//         // used for breaking words 
-//     // stringstream s(line); 
-//     file.close();
-
-//     return vectParking;
-// }
-
-
-// std::ostream& operator<<(std::ostream& o, const ParkNature& value){
-//     switch (value)
-//     {
-//     case (ParkNature::Contact):
-//         o << "Contact" << endl;
-//         break;
-    
-//     case (ParkNature::Large):
-//         o << "Large" << endl;
-//         break;
-//     }
-//     return o;
-// }
 
 
 ostream & operator<<(ostream& o,const Parking& p) {

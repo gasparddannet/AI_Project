@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <vector>
-//#include <variant>
 #include "ParkNature.h"
 
 using namespace std;
@@ -15,7 +14,6 @@ class Parking
     string zone;
     string terminal;
     ParkNature nature;
-    // variant<const string, const vector<int>> typeAvion;
     vector<string> typeAvion;
 
 
@@ -31,9 +29,6 @@ class Parking
         ParkNature getNature() const;
         vector<string> getTypeAvion() const;
         string getName() const;
-        
-        // static const vector<Parking> readParking();
-
 };
 
 #endif // PARKING_H

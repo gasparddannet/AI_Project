@@ -17,13 +17,9 @@ public:
         
         int i = distribution(generator);
         int j = distribution(generator);
-        // cout << "i: " << i << endl;
-        // cout << "j: " << j << endl;
         int si = sol[i];
         int sj = sol[j];
 
-        // cout << "s[i] : " << si << endl;
-        // cout << "s[j] : " << sj << endl << endl;
 
         if (si == -1)
         {

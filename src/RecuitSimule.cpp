@@ -1,7 +1,6 @@
 #include "RecuitSimule.h"
 #include "Solution.h"
 #include "Date.h"
-// #include "Stay.h"
 #include "Operation.h"
 #include "Parking.h"
 #include "TXTWrite.h"
@@ -21,14 +20,9 @@ Solution RecuitSimule::correctSolution(Solution solution, const vector<Parking> 
     std::random_device rd;
     std::default_random_engine generator(rd());
     std::uniform_int_distribution<int> rdistribution(0, 1);
-
-    // cout << "Call correctSolution" << endl;
     vector<int> sol = solution.getSolution();
 
-    // cout << "Avant : " << endl;
-    // for (int i = 0; i<vectStays.size()-1; i++) {
-    //     cout << vectPark[i] << "|";
-    // }
+
 
     int sizeParkings = vectParkings.size();
 
@@ -68,12 +62,10 @@ Solution RecuitSimule::correctSolution(Solution solution, const vector<Parking> 
 
                 int b = _buffer;
                 p_buffer = &b;
-                // cout << "*p_buffer " << *p_buffer << endl;
                 if (vectOperations[posStay1].getIdStay() == vectOperations[posStay2].getIdStay())
                 {
                     int b = 0;
                     p_buffer = &b;
-                    // cout << "*p_buffer " << *p_buffer << endl;
                 }
 
                 if (startDate1 <= startDate2 && endDate1 + *p_buffer >= startDate2)
@@ -100,8 +92,6 @@ Solution RecuitSimule::correctSolution(Solution solution, const vector<Parking> 
                             sol[posStay2] = -1;
                         }
                     }
-                    // cout << "Conflit1 startDate1 : " << startDate1 << " et endDate1 " << endDate1 << endl;
-                    // cout << "Conflit1 startDate2 : " << startDate2 << " et endDate2 " << endDate2 << "\n"<< endl;
                 }
                 else if (startDate2 <= startDate1 && endDate2 + *p_buffer >= startDate1)
                 {
@@ -127,23 +117,11 @@ Solution RecuitSimule::correctSolution(Solution solution, const vector<Parking> 
                             sol[posStay2] = -1;
                         }
                     }
-                    // cout << "Conflit2 startDate1 : " << startDate1 << " et endDate1 " << endDate1 << endl;
-                    // cout << "Conflit2 startDate2 : " << startDate2 << " et endDate2 " << endDate2 << "\n"<< endl;
                 }
             }
         }
     }
-
-    // for (int i = 0; i < sol.size(); i++)
-    // {
-    //     cout << "s[" << i << "]: " << sol[i] << endl;
-    // }
-    // cout << endl;
     Solution newSolution2 = Solution(sol);
-    // cout << "\nApres fonctionObj: " << endl;
-    // for (int i = 0; i<vectOperations.size()-1; i++) {
-    //     cout << newSolution2.getSolution()[i] << "|";
-    // }
     return newSolution2;
 }
 
@@ -163,13 +141,6 @@ double RecuitSimule::fonctionObjectif(Solution solution, const vector<Parking> &
         }
         else
         {
-            // ParkNature parkNature = vectParkings[posPark].getNature();
-            // if (op.getNbTowing() == 3)
-            // {
-            //     switch (vectParkings[posPark].getNature())
-            //     case (ParkNature::Contact):
-            //         poids_nature += 0.5;
-            // }
             if (op.getNbTowing() != 3)
             {
                 switch (vectParkings[posPark].getNature())
@@ -183,24 +154,7 @@ double RecuitSimule::fonctionObjectif(Solution solution, const vector<Parking> &
 
 Solution RecuitSimule::generateSolution(int compt)
 {
-    // if (operateur == "randomize" ) {
-    //     solution.randomize(sizeParkings, vectOperations);
-    // }
-    // else if (operateur == "NonAllocAndContact" ) {
-    //     solution.NonAllocAndContact(sizeParkings, vectOperations, vectParkings);
-    // }
-    // else if (operateur == "mutateMinusOne" ) {
-    //     solution.mutateMinusOne(sizeParkings, vectOperations);
-    // }
-    // solutionCourante.randomizeSubset(0,solutionCourante.getSolution().size(),sizeParkings);
-    // solution.randomize(sizeParkings, vectOperations);
-    // solution.mutateMinusOne(sizeParkings, vectOperations);
-
-    // solution.NonAllocAndContact(sizeParkings,vectOperations,vectParkings);
-
-    // const Solution* newSol;
     Solution *newSol;
-    // vector<int>* test;
     if (operateurs.size() >= 2)
     {
         if (compt < 10000)
@@ -353,7 +307,6 @@ Solution RecuitSimule::generateSolution(int compt)
         operateurs[0]->setSolution(solutionCourante);
         newSol = operateurs[0]->apply();
     }
-    // cout << "generateSOlution done" << endl;
 
     return *newSol;
 }
@@ -398,18 +351,14 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
 
     solutionCourante = correctSolution(solutionCourante, vectParkings, vectOperations);
     double valeurCourante = fonctionObjectif(solutionCourante, vectParkings, vectOperations);
-    // cout << "Avant heatUp T : " << T << endl;
-    // heatUp(valeurCourante, vectParkings, vectOperations);
-    // cout << "Apres heatUp T : " << T << endl;
     std::cout << "\nValeur Initiale: " << valeurCourante << "\n\n";
     valeurGlobale = valeurCourante;
     int compt = 0;
     float acc = 1;
     vector<double> histoT;
     vector<tuple<double, double, double, double>> histoVal;
-    // while (T > 0.05 && compt < nbIter)
     histoVal.push_back({valeurCourante, valeurGlobale, valeurCourante, T});
-
+    // while (T > 0.05 && compt < nbIter)
     while (compt < nbIter)
     {
         for (int i = 0; i < nbIterT; ++i)
@@ -418,7 +367,6 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
 
             newSolution = correctSolution(newSolution, vectParkings, vectOperations);
             double nouvelleValeur = fonctionObjectif(newSolution, vectParkings, vectOperations);
-            // cout << "Nouvelle Valeur : " << nouvelleValeur << endl;
             double differenceValeur = nouvelleValeur - valeurCourante;
 
             if (nouvelleValeur == 0)
@@ -441,20 +389,10 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
                 else
                 {
                     writer.setFilename(operateurs[0]->getName() + "AND" + operateurs[1]->getName() + ".txt");
-                    // writer.setFilename("solution.txt");
                     writer.write(histoVal, operateurs[0]->getName() + "AND" + operateurs[1]->getName());
                 }
                 return solutionGlobal;
             }
-
-            // else if (nouvelleValeur - valeurGlobale < 0)
-            // {
-            //     solutionCourante = newSolution;
-            //     valeurCourante = nouvelleValeur;
-            //     solutionGlobal = solutionCourante;
-            //     valeurGlobale = nouvelleValeur;
-            //     std::cout << "change valeur Globale :" << valeurGlobale << endl;
-            // }
 
             else if (differenceValeur < 0)
             {
@@ -466,20 +404,12 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
                     valeurGlobale = nouvelleValeur;
                     std::cout << "change valeur Globale :" << valeurGlobale << endl;
                 }
-                // solutionGlobal = solutionCourante;
-                // valeurGlobale = nouvelleValeur;
-                // cout << "change valeur Globale :" << valeurGlobale << endl;
             }
             else
             {
                 std::uniform_real_distribution<float> distribution(0.0, 1.0);
-
-                // cout << "difV : " << differenceValeur << endl;
-                // cout << "rand : " << rand() / static_cast<double>(RAND_MAX) << " | exp : " << exp(-differenceValeur / T) << endl;
-                // if (rand() / static_cast<double>(RAND_MAX) < exp(-differenceValeur / T))
                 if (distribution(generator) < exp(-differenceValeur / T))
                 {
-                    // cout << "passe" << endl;
                     solutionCourante = newSolution;
                     valeurCourante = nouvelleValeur;
                 }
@@ -487,7 +417,6 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
             compt += 1;
             histoVal.push_back({valeurCourante, valeurGlobale, nouvelleValeur, T});
         }
-        // histoT.push_back(T);
         majT(acc);
     }
     auto stop = chrono::high_resolution_clock::now();
@@ -507,13 +436,11 @@ Solution RecuitSimule::recuitSimule(const vector<Parking> &vectParkings, const v
     else if (operateurs.size() == 3)
     {
         writer.setFilename(operateurs[0]->getName() + "AND" + operateurs[1]->getName() + "AND" + operateurs[2]->getName() + ".txt");
-        // writer.setFilename("solution.txt");
         writer.write(histoVal, operateurs[0]->getName() + "AND" + operateurs[1]->getName() + "AND" + operateurs[2]->getName());
     }
     else
     {
         writer.setFilename(operateurs[0]->getName() + "AND" + operateurs[1]->getName() + ".txt");
-        // writer.setFilename("solution.txt");
         writer.write(histoVal, operateurs[0]->getName() + "AND" + operateurs[1]->getName());
     }
 
