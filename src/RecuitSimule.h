@@ -6,7 +6,6 @@
 #include <cstdlib>
 #include "Solution.h"
 #include "Parking.h"
-// #include "Stay.h"
 #include "Operation.h"
 #include "Operateur.h"
 
@@ -31,7 +30,6 @@ private:
     double valeurGlobale;
     vector<Operateur*> operateurs;
 
-    // Solution generateSolution(Solution solution, int sizeParkings);
     Solution generateSolution(int compt);
 };
 

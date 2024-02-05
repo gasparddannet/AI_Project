@@ -10,25 +10,6 @@ Stay::Stay(const int id, const BodyType bT, const string aT, const int auT, cons
         depNumber(dN), depDate(dD), depCourrierCode(dCC) {};
 
 
-// std::ostream& operator<<(std::ostream& o, const BodyType& value){
-//     switch (value)
-//     {
-//     case (BodyType::MP):
-//         o << "MP" << endl;
-//         break;
-//     }
-//     return o;
-// };
-
-// std::ostream& operator<<(std::ostream& o, const CourrierCode& value){
-//     switch (value)
-//     {
-//     case (CourrierCode::MC):
-//         o << "MC" << endl;
-//         break;
-//     }
-//     return o;
-// };
 
 ostream & operator<<(ostream& o,const Stay& s) {
 	o << "id : " << s.id << endl;
@@ -58,17 +39,10 @@ Date Stay::getArrDate() const{
     return arrDate;
 }
 
-// Time Stay::getArrHour() const{
-//     return arrHour;
-// }
-
 Date Stay::getDepDate() const{
     return depDate;
 }
 
-// Time Stay::getDepHour() const{
-//     return depHour;
-// }
 
 int Stay::getAuthorizedTowing() const{
     return authorizedTowing;

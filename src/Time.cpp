@@ -43,9 +43,7 @@ bool Time::operator==(const Time &t)
 
 Time Time::operator-(const Time &t) {
     if (this->comparer(t) > 0) {
-        // return Time(t.hour-hour, t.min-min);
         int time = hour * 60 + min - t.hour*60 - t.min;
-        // cout << time << endl;
         return Time(time/60, time%60);
     }
     throw invalid_argument("The second time is greater than the first");
@@ -66,7 +64,3 @@ bool Time::operator<=(const Time &t) {
     else
         return false;
 }
-
-// string Time::intoString() {
-//     return 
-// }

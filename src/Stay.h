@@ -16,20 +16,12 @@ class Stay
     const BodyType bodyType;
     const string aircraftType;
     const int authorizedTowing;
-    // const string arrOwnerCie;
-    // const string arrExploitingCie;
     const int arrNumber;
     const Date arrDate;
-    // const Time arrHour;
     const CourrierCode arrCourrierCode;
-    // const string arrStop;
-    // const string depOwnerCie;
-    // const string depExploitingCie;
     const int depNumber;
     const Date depDate;
-    // const Time depHour;
     const CourrierCode depCourrierCode;
-    // const string depStop;
 
     public:
         Stay(const int id, const BodyType bT, const string aT, const int auT, 
@@ -38,9 +30,7 @@ class Stay
         friend ostream & operator<<(ostream& o,const Stay& p) ;
 
         Date getArrDate() const;
-        // Time getArrHour() const;
         Date getDepDate() const;
-        // Time getDepHour() const;
         int getAuthorizedTowing() const;
         string getAircraftType() const;
         int getId() const;

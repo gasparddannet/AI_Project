@@ -6,9 +6,6 @@ Date::Date(int &da, int &m, int &y, int &h, int &min) : day(da), month(m), year(
 {
 }
 
-// Date::Date(int j, int m, int a, int h, int min) : jour(j), mois(m), annee(a), hour(h), min(min)
-// {
-// }
 
 
 int Date::comparer(const Date &d)
@@ -59,11 +56,6 @@ ostream &operator<<(ostream &o, const Date &d)
     return o;
 }
 
-// ostream & operator<<(ostream& o,const Date* d) {
-//     o << d->jour << "/" << d->mois << "/" << d->annee;
-//     return o;
-// }
-
 istream &operator>>(istream &i, Date &d)
 {
     i >> d.day >> d.month >> d.year >> d.hour >> d.min;
@@ -97,11 +89,6 @@ bool Date::operator==(const Date &d)
         return false;
 }
 
-// Date& Date::operator++ () {
-//     jour++;
-//     return *this;
-// }
-
 bool Date::operator!=(const Date &d)
 {
     int res = this->comparer(d);
@@ -110,17 +97,6 @@ bool Date::operator!=(const Date &d)
     else
         return false;
 }
-
-// Date& Date::operator-(const Date &t) {
-//     // if (this->comparer(t) > 0) {
-//     if (this->operator>(t)) {
-//         // return Time(t.hour-hour, t.min-min);
-//         int time = hour * 60 + min - t.hour*60 - t.min;
-//         // cout << time << endl;
-//         return Time(time/60, time%60);
-//     }
-//     throw invalid_argument("The second time is greater than the first");
-// }
 
 int Date::ecart(const Date &d) // renvoie l'ecart (en minutes) entre deux dates
 {
@@ -176,15 +152,11 @@ Date Date::operator-(const int &t)          // enleve t minutes a la date
         int time = 24*60 - (hour*60+min-t);
         hour2 = time/60;
         min2 = time%60;
-        // cout << "hour : " << hour << std::endl;
-        // cout << "min : " << min << std::endl;
     }
     else {
         int time = hour*60+min-t;
         hour2 = time/60;
         min2 = time % 60;
-        // cout << "hour : " << hour << std::endl;
-        // cout << "min : " << min << std::endl;
     }
     return Date(day2, month, year, hour2, min2);
 }

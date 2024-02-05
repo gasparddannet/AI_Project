@@ -17,10 +17,8 @@ public:
 
     virtual Solution* apply() = 0;
     string getName() {return name;}
-    // void setSizeParkings(int sp) {sizeParkings=sp;}
     void setSolution(Solution &sol) {solution=sol;}
-    // void setVecOperations(const vector<Operation> &vecOp) {vectOperations=vecOp;} const;
-    // void setVecParkings(const vector<Parking> &vecPark) {vectParkings=vecPark;}
+
 };
 
 #endif
