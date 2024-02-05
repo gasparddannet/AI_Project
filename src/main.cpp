@@ -26,8 +26,8 @@ using namespace std;
 
 // string ParkingFile = "../Data/parkings.csv";
 string ParkingFile = "../Data/parkings_bis.csv";
-// string StaysFile = "../Data/stays_26_06_2016_bis.csv";
-string StaysFile = "../Data/stays_06_2016.csv";
+string StaysFile = "../Data/stays_26_06_2016_bis.csv";
+// string StaysFile = "../Data/stays_06_2016.csv";
 int TTMA = 30;
 int TTMD = 60;
 
@@ -192,7 +192,7 @@ int main()
     // cout << endl;
 
     // int nbIter = 80000;
-    int nbIter = 100000;
+    int nbIter = 10000;
     int nbIterT = 100;
     double T = 50;
 

@@ -1,0 +1,59 @@
+<mxfile host="app.diagrams.net" modified="2024-02-05T09:21:46.832Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36" etag="DFXzWlLaBOPPh6eNs_1M" version="23.1.1" type="device">
+  <diagram name="Page-1" id="Kgsb3ZlwibSx5bl5WLq5">
+    <mxGraphModel dx="1500" dy="876" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="1" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="sdI-7a46IitbAM1OTfmX-14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="sdI-7a46IitbAM1OTfmX-5" target="sdI-7a46IitbAM1OTfmX-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sdI-7a46IitbAM1OTfmX-5" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;Solution initiale \(S\) de coût \(C(S)\)&lt;br&gt;Température initiale \(T\)&lt;/font&gt;" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="170" y="100" width="320" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="sdI-7a46IitbAM1OTfmX-16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="sdI-7a46IitbAM1OTfmX-13" target="sdI-7a46IitbAM1OTfmX-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sdI-7a46IitbAM1OTfmX-13" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;Perturbation de la solution pour trouver une nouvelle solution&amp;nbsp; \(S&#39;\) dans le voisinage de \(S\)&lt;/font&gt;" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="117.5" y="270" width="425" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="sdI-7a46IitbAM1OTfmX-21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="sdI-7a46IitbAM1OTfmX-15" target="sdI-7a46IitbAM1OTfmX-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sdI-7a46IitbAM1OTfmX-15" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;Si \(C = C(S&#39;) - C(S) &amp;lt; 0\)&lt;br&gt;Alors la solution \(S&#39;\) est acceptée, \(S = S&#39;\)&lt;br&gt;&lt;br&gt;Si \(C &amp;gt; 0\), solution acceptée avec la probabilité \(\exp(\frac{-C}{T}\))&lt;/font&gt;" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="93.75" y="440" width="472.5" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="sdI-7a46IitbAM1OTfmX-25" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="sdI-7a46IitbAM1OTfmX-20" target="sdI-7a46IitbAM1OTfmX-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sdI-7a46IitbAM1OTfmX-30" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="sdI-7a46IitbAM1OTfmX-20" target="sdI-7a46IitbAM1OTfmX-29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sdI-7a46IitbAM1OTfmX-20" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;\(T &amp;gt; T_{min}\)&lt;/font&gt;" style="rhombus;whiteSpace=wrap;html=1;rounded=0;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="265" y="661.25" width="130" height="128.75" as="geometry" />
+        </mxCell>
+        <mxCell id="sdI-7a46IitbAM1OTfmX-24" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;STOP&lt;/font&gt;" style="whiteSpace=wrap;html=1;rounded=0;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="275" y="834" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sdI-7a46IitbAM1OTfmX-29" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;Diminuer \(T\)&lt;/font&gt;" style="whiteSpace=wrap;html=1;rounded=0;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="560" y="690.9300000000001" width="127.5" height="69.38" as="geometry" />
+        </mxCell>
+        <mxCell id="sdI-7a46IitbAM1OTfmX-35" value="" style="edgeStyle=segmentEdgeStyle;endArrow=classic;html=1;curved=0;rounded=0;endSize=8;startSize=8;exitX=0.5;exitY=0;exitDx=0;exitDy=0;strokeWidth=2;" edge="1" parent="1" source="sdI-7a46IitbAM1OTfmX-29">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="585" y="658.75" as="sourcePoint" />
+            <mxPoint x="330" y="250" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="575" y="250" />
+              <mxPoint x="330" y="250" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sdI-7a46IitbAM1OTfmX-37" value="&lt;font style=&quot;font-size: 17px;&quot;&gt;Oui&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="379" y="690" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sdI-7a46IitbAM1OTfmX-38" value="&lt;font style=&quot;font-size: 17px;&quot;&gt;Non&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="269" y="776" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
