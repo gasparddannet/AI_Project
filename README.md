@@ -1,6 +1,8 @@
 # AI_Project
 ## Gate Allocation Problem
 
+Implementation of a simulated annealing algorithm in C++ for optimizing the allocation of aircraft parking points.
+
 A Makefile is available 
 
 You just need to execute the command `make` to compile all the files.
