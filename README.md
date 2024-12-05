@@ -1,5 +1,5 @@
-# AI_Project
-## Gate Allocation Problem
+# Gate Allocation Problem
+## A Simulated annealing in C++ for Gate Allocation Problem
 
 Implementation of a simulated annealing algorithm in C++ for optimizing the allocation of aircraft parking points.
 
